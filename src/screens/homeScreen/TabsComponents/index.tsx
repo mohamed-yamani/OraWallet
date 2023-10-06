@@ -7,6 +7,7 @@ import InvoiceListComponent from './invoiceListComponent';
 import UserListComponent from './userListComponent';
 import ShoppingCartComponent from './shoppingCartComponent';
 import Colors from '../../../constants/Colors';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 // import FacturesIcon from '../../../../assets/images/svgs/factures.svg';
 // import PaniersIcon from '../../../../assets/images/svgs/paniers.svg';
 // import PersonnesIcon from '../../../../assets/images/svgs/personnes.svg';
@@ -62,7 +63,7 @@ export function MainTabComponent() {
             marginRight: 15, // margin at the end of each tab
           },
 
-          tabBarPressColor: 'transparent',
+          tabBarPressColor: '#F2F2F7',
           tabBarActiveTintColor: 'white',
           tabBarInactiveTintColor: 'rgba(0, 0, 0, 1)',
         }}>
@@ -71,50 +72,54 @@ export function MainTabComponent() {
             <Tab.Screen
               name="Personnes"
               component={UserListComponent}
-              // options={
-              //   getTabOptions(
-              //     {
-              //       label: 'personnes',
-              //       iconComponent: (
-              //         <PersonnesIcon width={12} height={14} fill={'black'} />
-              //       ),
-              //       t,
-              //     },
-              //     isRTL,
-              //   ) as any
-              // }
+              options={
+                getTabOptions(
+                  {
+                    label: 'personnes',
+                    iconComponent: (
+                      // <PersonnesIcon width={12} height={14} fill={'black'} />
+                      <Ionicons name="add" size={18} color={Colors.primary} />
+                    ),
+                  },
+                  isRTL,
+                ) as any
+              }
             />
             <Tab.Screen
               name="Paniers"
               component={ShoppingCartComponent}
-              // options={
-              //   getTabOptions(
-              //     {
-              //       label: 'paniers',
-              //       iconComponent: (
-              //         <PaniersIcon width={16} height={14} fill={'black'} />
-              //       ),
-              //       t,
-              //     },
-              //     isRTL,
-              //   ) as any
-              // }
+              options={
+                getTabOptions(
+                  {
+                    label: 'paniers',
+                    iconComponent: (
+                      // <PaniersIcon width={16} height={14} fill={'black'} />
+                      <Ionicons name="cart" size={18} color={Colors.primary} />
+                    ),
+                  },
+                  isRTL,
+                ) as any
+              }
             />
             <Tab.Screen
               name="Factures"
               component={InvoiceListComponent}
-              // options={
-              //   getTabOptions(
-              //     {
-              //       label: 'factures',
-              //       iconComponent: (
-              //         <FacturesIcon width={10} height={14} fill={'black'} />
-              //       ),
-              //       t,
-              //     },
-              //     isRTL,
-              //   ) as any
-              // }
+              options={
+                getTabOptions(
+                  {
+                    label: 'factures',
+                    iconComponent: (
+                      // <FacturesIcon width={10} height={14} fill={'black'} />
+                      <Ionicons
+                        name="receipt"
+                        size={18}
+                        color={Colors.primary}
+                      />
+                    ),
+                  },
+                  isRTL,
+                ) as any
+              }
             />
           </>
         ) : (
@@ -122,50 +127,54 @@ export function MainTabComponent() {
             <Tab.Screen
               name="Factures"
               component={InvoiceListComponent}
-              // options={
-              //   getTabOptions(
-              //     {
-              //       label: 'factures',
-              //       iconComponent: (
-              //         <FacturesIcon width={10} height={14} fill={'black'} />
-              //       ),
-              //       t,
-              //     },
-              //     isRTL,
-              //   ) as any
-              // }
+              options={
+                getTabOptions(
+                  {
+                    label: 'factures',
+                    iconComponent: (
+                      // <FacturesIcon width={10} height={14} fill={'black'} />
+                      <Ionicons
+                        name="receipt"
+                        size={18}
+                        color={Colors.primary}
+                      />
+                    ),
+                  },
+                  isRTL,
+                ) as any
+              }
             />
             <Tab.Screen
               name="Paniers"
               component={ShoppingCartComponent}
-              // options={
-              //   getTabOptions(
-              //     {
-              //       label: 'paniers',
-              //       iconComponent: (
-              //         <PaniersIcon width={16} height={14} fill={'black'} />
-              //       ),
-              //       t,
-              //     },
-              //     isRTL,
-              //   ) as any
-              // }
+              options={
+                getTabOptions(
+                  {
+                    label: 'paniers',
+                    iconComponent: (
+                      // <PaniersIcon width={16} height={14} fill={'black'} />
+                      <Ionicons name="cart" size={18} color={Colors.primary} />
+                    ),
+                  },
+                  isRTL,
+                ) as any
+              }
             />
             <Tab.Screen
               name="Personnes"
               component={UserListComponent}
-              // options={
-              //   getTabOptions(
-              //     {
-              //       label: 'personnes',
-              //       iconComponent: (
-              //         <PersonnesIcon width={12} height={14} fill={'black'} />
-              //       ),
-              //       t,
-              //     },
-              //     isRTL,
-              //   ) as any
-              // }
+              options={
+                getTabOptions(
+                  {
+                    label: 'personnes',
+                    iconComponent: (
+                      // <PersonnesIcon width={12} height={14} fill={'black'} />
+                      <Ionicons name="add" size={18} color={Colors.primary} />
+                    ),
+                  },
+                  isRTL,
+                ) as any
+              }
             />
           </>
         )}
@@ -175,7 +184,7 @@ export function MainTabComponent() {
 }
 
 const getTabOptions = (
-  {label, iconComponent, t}: {label: string; iconComponent: any; t: any},
+  {label, iconComponent}: {label: string; iconComponent: any},
   isRTL: boolean,
 ) => ({
   tabBarLabel: label,
@@ -198,7 +207,7 @@ const getTabOptions = (
           textAlign: 'center',
           fontFamily: 'Nunito-Black',
         }}>
-        {t(label.toLowerCase())}
+        {label.toLowerCase()}
       </Text>
     </View>
   ),

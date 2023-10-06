@@ -6,8 +6,7 @@ import {MainTabComponent} from './TabsComponents';
 const HomeScreen = () => {
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: Colors.white}}>
-      <Text style={{color: 'red', fontWeight: 'bold'}}>Home Screen</Text>
-      {/* <MainTabComponent /> */}
+      <MainTabComponent />
     </SafeAreaView>
   );
 };

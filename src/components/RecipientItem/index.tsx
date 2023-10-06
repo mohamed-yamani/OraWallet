@@ -86,9 +86,7 @@ const RecipientItem = ({
           {name}
         </Text>
         <View style={{height: 3}} />
-        <Text style={{color: 'black', fontSize: 12, fontWeight: 'regular'}}>
-          {description}
-        </Text>
+        <Text style={{color: 'black', fontSize: 12}}>{description}</Text>
       </View>
       <View style={{flex: 1, alignItems: isRTL ? 'flex-start' : 'flex-end'}}>
         <DirectionalChevron />
