@@ -316,7 +316,7 @@ function CollapsibleItemBox({
             style={{
               flexDirection: 'column',
               justifyContent: 'flex-start',
-              alignItems: isRTL ? 'space-between' : 'flex-start',
+              // alignItems: isRTL ? 'space-between' : 'flex-start',
               flex: 10,
             }}>
             <Text style={styles.factureTitle}>{title}</Text>
@@ -324,7 +324,6 @@ function CollapsibleItemBox({
               style={{
                 color: 'black',
                 fontSize: 12,
-                fontWeight: 'regular',
                 fontFamily: 'Nunito-Regular',
                 textAlign: isRTL ? 'right' : 'left',
               }}>

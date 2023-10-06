@@ -110,7 +110,15 @@ const Carousel: React.FC<CarouselProps> = ({data}) => {
                 console.log('Is Amount Visible:', isAmountVisible);
               }}>
               <View style={styles.eyeIconContainer}>
-                <Icon name={'menu' as any} size={24} color="gray" />
+                {isAmountVisible ? (
+                  <Icon name={'visibility' as any} size={16} color="white" />
+                ) : (
+                  <Icon
+                    name={'visibility-off' as any}
+                    size={16}
+                    color="white"
+                  />
+                )}
               </View>
             </TouchableOpacity>
           </View>

@@ -16,14 +16,27 @@ function MyDrawer() {
   return (
     <Drawer.Navigator
       screenOptions={{
-        headerShown: true,
-        headerBackground: () => (
-          <View style={{height: 50, backgroundColor: Colors.white}} />
-        ),
-        drawerContentContainerStyle: {
+        drawerStyle: {
           backgroundColor: 'white',
-          flex: 1,
+          width: 340,
         },
+
+        drawerType: 'front',
+        headerStyle: {
+          backgroundColor: '#fff',
+          shadowColor: 'transparent',
+        },
+        headerTitleStyle: {
+          fontWeight: 'bold',
+          fontFamily: 'Nunito-Bold',
+          color: Colors.midnightGray,
+          fontSize: 22,
+        },
+        drawerLabelStyle: {
+          fontWeight: 'bold',
+        },
+
+        // headerLeft:  <HeaderLeft />,
       }}
       initialRouteName="Home">
       <Drawer.Screen
