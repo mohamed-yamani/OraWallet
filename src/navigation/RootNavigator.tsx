@@ -9,6 +9,7 @@ import CreateWalletScreen from '../screens/createWalletScreen';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import CustomHeader from './NavigableHeader';
 import WalletDashboard from '../screens/walletDashboard';
+import {PayWalletStackGroup} from './PayWalletStackNavigation';
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
@@ -70,16 +71,9 @@ function MyDrawer() {
       />
       <Drawer.Screen
         name="Pay Wallet"
-        component={WalletDashboard}
-        options={({navigation}) => ({
-          header: () => (
-            <CustomHeader
-              title={'Settings'}
-              navigation={navigation}
-              showCarousel={true}
-              showCloseButton={false}
-            />
-          ),
+        component={PayWalletStackGroup}
+        options={() => ({
+          headerShown: false,
         })}
       />
     </Drawer.Navigator>
@@ -92,7 +86,11 @@ const RootNavigator = () => {
       <SafeAreaView style={{flex: 1}}>
         <View style={{height: '100%', backgroundColor: 'yellow'}}>
           <Stack.Navigator initialRouteName="Login">
-            <Stack.Screen name="Login" component={CreateWalletScreen} />
+            <Stack.Screen
+              name="Login"
+              component={CreateWalletScreen}
+              options={{headerShown: false}}
+            />
             <Stack.Screen
               name="MainApp"
               component={MyDrawer}
