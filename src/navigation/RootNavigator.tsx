@@ -4,10 +4,11 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import SettingsScreen from '../screens/SettingsScreen';
-import HomeScreen from '../screens/homeScreen';
+import MainTabbedScreen from '../screens/mainTabbedScreen';
 import CreateWalletScreen from '../screens/createWalletScreen';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import CustomHeader from './NavigableHeader';
+import WalletDashboard from '../screens/walletDashboard';
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
@@ -41,7 +42,7 @@ function MyDrawer() {
       initialRouteName="Home">
       <Drawer.Screen
         name="Home"
-        component={HomeScreen}
+        component={MainTabbedScreen}
         options={({navigation}) => ({
           header: () => (
             <CustomHeader
@@ -56,6 +57,20 @@ function MyDrawer() {
       <Drawer.Screen
         name="Settings"
         component={SettingsScreen}
+        options={({navigation}) => ({
+          header: () => (
+            <CustomHeader
+              title={'Settings'}
+              navigation={navigation}
+              showCarousel={true}
+              showCloseButton={false}
+            />
+          ),
+        })}
+      />
+      <Drawer.Screen
+        name="Pay Wallet"
+        component={WalletDashboard}
         options={({navigation}) => ({
           header: () => (
             <CustomHeader

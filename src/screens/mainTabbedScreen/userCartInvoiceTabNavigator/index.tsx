@@ -14,7 +14,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const Tab = createMaterialTopTabNavigator();
 
-export function MainTabComponent() {
+export function UserCartInvoiceTabNavigator() {
   // const {t} = useTranslation();
   const screenWidth = Dimensions.get('window').width;
   const isRTL = false;
