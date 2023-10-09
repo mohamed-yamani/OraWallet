@@ -5,9 +5,11 @@ import Button from '../../components/common/button';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {getResponsivePaddingHorizontal} from '../../utils/responsiveDesign';
 import {IconTextEnhancedInput} from '../../components/common/IconTextEnhancedInput';
+import {useTranslation} from 'react-i18next';
 
 const Retrait = () => {
   const isRTL = false;
+  const {t} = useTranslation();
 
   return (
     <View
@@ -18,11 +20,11 @@ const Retrait = () => {
         backgroundColor: '#fff',
         padding: getResponsivePaddingHorizontal(),
       }}>
-      <Text>{'accountNumber'}</Text>
+      <Text>{t('accountNumber')}</Text>
       <IconTextEnhancedInput placeholder={'000 000 00000000 00 000'} />
 
       <View style={{height: 40}} />
-      <Text>{'amount'}</Text>
+      <Text>{t('amount')}</Text>
       <IconTextEnhancedInput
         placeholder="850.00"
         // rightText='DH'
@@ -31,7 +33,7 @@ const Retrait = () => {
       />
 
       <View style={{height: 40}} />
-      <Text>{'reason'}</Text>
+      <Text>{t('reason')}</Text>
       <IconTextEnhancedInput placeholder="Lorem ipsum dolor sit amet" />
 
       <View style={{height: 40}} />
@@ -45,7 +47,7 @@ const Retrait = () => {
       />
 
       <Button
-        label={'initiateTransferOrInvoice'}
+        label={t('initiateTransferOrInvoice')}
         onPress={() => {}}
         style={{backgroundColor: Colors.primary, marginTop: 20}}
         textStyle={{color: Colors.white}}

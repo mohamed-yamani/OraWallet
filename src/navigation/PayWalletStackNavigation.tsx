@@ -12,12 +12,14 @@ import PayTelephone from '../screens/PayTelephone';
 import PayWater from '../screens/PayWater';
 import PayElectricity from '../screens/PayElectricity';
 import PayInternet from '../screens/PayInternet';
+import {useTranslation} from 'react-i18next';
 
 // Stack Navigation for PayWallet
 const PayWalletStack = createNativeStackNavigator();
 
 export function PayWalletStackGroup() {
   const isRTL = false;
+  const {t} = useTranslation();
 
   return (
     <>
@@ -32,7 +34,7 @@ export function PayWalletStackGroup() {
           options={({navigation}) => ({
             header: () => (
               <CustomHeader
-                title={'payWallet'}
+                title={t('payWallet')}
                 navigation={navigation}
                 showCarousel={true}
                 showCloseButton={false}
@@ -49,7 +51,7 @@ export function PayWalletStackGroup() {
 
             header: () => (
               <CustomHeader
-                title={'historique'}
+                title={t('historique')}
                 navigation={navigation}
                 showCarousel={false}
                 showCloseButton={true}
@@ -66,7 +68,7 @@ export function PayWalletStackGroup() {
 
             header: () => (
               <CustomHeader
-                title={'paimentEnvoi'}
+                title={t('paimentEnvoi')}
                 navigation={navigation}
                 showCarousel={true}
                 showCloseButton={true}
@@ -83,7 +85,7 @@ export function PayWalletStackGroup() {
 
             header: () => (
               <CustomHeader
-                title={'retrait'}
+                title={t('retrait')}
                 navigation={navigation}
                 showCarousel={true}
                 showCloseButton={true}
@@ -100,7 +102,7 @@ export function PayWalletStackGroup() {
 
             header: () => (
               <CustomHeader
-                title={'transfert'}
+                title={t('transfert')}
                 navigation={navigation}
                 showCarousel={true}
                 showCloseButton={true}
@@ -118,7 +120,7 @@ export function PayWalletStackGroup() {
 
             header: () => (
               <CustomHeader
-                title={'refil'}
+                title={t('refil')}
                 navigation={navigation}
                 showCarousel={true}
                 showCloseButton={true}
@@ -135,7 +137,7 @@ export function PayWalletStackGroup() {
 
             header: () => (
               <CustomHeader
-                title={'payTelephone'}
+                title={t('payTelephone')}
                 navigation={navigation}
                 showCarousel={true}
                 showCloseButton={true}
@@ -152,7 +154,7 @@ export function PayWalletStackGroup() {
             animation: 'fade',
             header: () => (
               <CustomHeader
-                title={'payWater'}
+                title={t('payWater')}
                 navigation={navigation}
                 showCarousel={true}
                 showCloseButton={true}
@@ -169,7 +171,7 @@ export function PayWalletStackGroup() {
             animation: 'fade',
             header: () => (
               <CustomHeader
-                title={'payElectricity'}
+                title={t('payElectricity')}
                 navigation={navigation}
                 showCarousel={true}
                 showCloseButton={true}
@@ -186,7 +188,7 @@ export function PayWalletStackGroup() {
             animation: 'fade',
             header: () => (
               <CustomHeader
-                title={'payTelephone'}
+                title={t('payTelephone')}
                 navigation={navigation}
                 showCarousel={true}
                 showCloseButton={true}

@@ -5,11 +5,13 @@ import CustomHeader from './NavigableHeader';
 import Destinataires from '../components/Destinataires';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Refil from '../screens/Refil';
+import {useTranslation} from 'react-i18next';
 
 const RefilStack = createNativeStackNavigator();
 
 export const RefilStackGroup = () => {
   const isRTL = false;
+  const {t} = useTranslation();
 
   return (
     <RefilStack.Navigator>
@@ -20,7 +22,7 @@ export const RefilStackGroup = () => {
           animation: 'fade',
           header: () => (
             <CustomHeader
-              title={'refil'}
+              title={t('refil')}
               navigation={navigation}
               showCarousel={true}
               showCloseButton={true}
@@ -35,7 +37,7 @@ export const RefilStackGroup = () => {
           animation: 'fade',
           header: () => (
             <CustomHeader
-              title={'destinataires'}
+              title={t('destinataires')}
               navigation={navigation}
               showCloseButton={true}
               showCarousel={false}

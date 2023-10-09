@@ -4,7 +4,7 @@ import React, {useState} from 'react';
 import Colors from '../../constants/Colors';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 // import CountryPicker from 'react-native-country-picker-modal';
-// import {useTranslation} from 'react-i18next';
+import {useTranslation} from 'react-i18next';
 // import {useLayout} from '../../contexts/LayoutContext';
 import {getResponsivePaddingHorizontal} from '../../utils/responsiveDesign';
 // import ErrorModal from '../../../components/modals/ErrorModal';
@@ -26,6 +26,7 @@ const CreateWalletScreen = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const isRTL = false;
   const navigation = useNavigation();
+  const {t} = useTranslation();
 
   return (
     <View
@@ -58,11 +59,11 @@ const CreateWalletScreen = () => {
           styles.title,
           {textAlign: isRTL ? 'right' : 'left', marginTop: 0},
         ]}>
-        {'createWallet'}
+        {t('createWallet')}
       </Text>
 
       <Text style={[styles.headerText, {textAlign: isRTL ? 'right' : 'left'}]}>
-        {'createWalletSubtitle'}
+        {t('createWalletSubtitle')}
       </Text>
 
       <View
@@ -71,12 +72,12 @@ const CreateWalletScreen = () => {
           {paddingHorizontal: getResponsivePaddingHorizontal()},
         ]}>
         {/* Nom complet */}
-        <IconTextEnhancedInput icon="person" placeholder={'fullName'} />
+        <IconTextEnhancedInput icon="person" placeholder={t('fullName')} />
 
         {/* Adresse email */}
         <IconTextEnhancedInput
           icon="email"
-          placeholder={'emailAddress'}
+          placeholder={t('emailAddress')}
           keyboardType="email-address"
         />
 
@@ -119,7 +120,7 @@ const CreateWalletScreen = () => {
         {/* Mot de passe */}
         <IconTextEnhancedInput
           icon="lock"
-          placeholder={'password'}
+          placeholder={t('password')}
           secureTextEntry={!showPassword}
           rightIcon={showPassword ? 'eye-off' : 'eye'}
           onRightIconPress={() => setShowPassword(!showPassword)}
@@ -128,7 +129,7 @@ const CreateWalletScreen = () => {
         {/* Confirmer mot de passe */}
         <IconTextEnhancedInput
           icon="lock"
-          placeholder={'confirmPassword'}
+          placeholder={t('confirmPassword')}
           secureTextEntry={!showConfirmPassword}
           rightIcon={showConfirmPassword ? 'eye-off' : 'eye'}
           onRightIconPress={() => setShowConfirmPassword(!showConfirmPassword)}
@@ -144,7 +145,7 @@ const CreateWalletScreen = () => {
         />
 
         <Button
-          label={'continue'}
+          label={t('continue')}
           // onPress={() => setModalVisible(true)}
           onPress={() => navigation.navigate('MainApp' as never)}
           style={{backgroundColor: Colors.primary}}

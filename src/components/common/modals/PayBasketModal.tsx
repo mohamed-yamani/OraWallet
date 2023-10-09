@@ -23,6 +23,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import {IconTextEnhancedInput} from '../IconTextEnhancedInput';
 import Colors from '../../../constants/Colors';
 import Button from '../button';
+import {useTranslation} from 'react-i18next';
 
 export default function PayBasketModal({
   visible,
@@ -34,6 +35,7 @@ export default function PayBasketModal({
   onPay: () => void;
 }) {
   const isRTL = false;
+  const {t} = useTranslation();
 
   return (
     <Modal visible={visible} transparent={true} animationType="fade">
@@ -46,13 +48,13 @@ export default function PayBasketModal({
           <TouchableOpacity style={styles.closeIconContainer} onPress={onClose}>
             <AntDesign name="close" size={24} color="black" />
           </TouchableOpacity>
-          <Text style={styles.titleText}>{'payBasket'}</Text>
-          <Text style={styles.subtitleText}>{'payOngoingBasket'}</Text>
-          <SectionTitle title={'debitWallet'} />
+          <Text style={styles.titleText}>{t('payBasket')}</Text>
+          <Text style={styles.subtitleText}>{t('payOngoingBasket')}</Text>
+          <SectionTitle title={t('debitWallet')} />
           <MoneyTransferItem
             imageSource={require('../../../assets/images/img4.jpg')}
             title="John Doe"
-            description={'wallet'}
+            description={t('wallet')}
             isProfilePicture={true}
           />
           <SectionTitle title="Basket Details" />
@@ -60,17 +62,17 @@ export default function PayBasketModal({
           {/* Basket Details */}
           <CollapsibleItemBox />
 
-          <SectionTitle title={'amount'} />
+          <SectionTitle title={t('amount')} />
           <IconTextEnhancedInput
             placeholder="850.00"
             rightText={isRTL ? '' : 'DH'}
             leftText={isRTL ? 'DH' : ''}
             inputType="numeric"
           />
-          <SectionTitle title={'reason'} />
-          <IconTextEnhancedInput placeholder={'indicateTheReason'} />
+          <SectionTitle title={t('reason')} />
+          <IconTextEnhancedInput placeholder={t('indicateTheReason')} />
           <Button
-            label={'pay'}
+            label={t('pay')}
             onPress={onPay}
             style={{backgroundColor: Colors.primary, marginTop: 20}}
             leftIcon={
@@ -282,6 +284,7 @@ const styles = StyleSheet.create({
 });
 
 function CollapsibleItemBox({}: {}) {
+  const {t} = useTranslation();
   const animatedHeight = useRef(new Animated.Value(80)).current;
   const rotateValue = useRef(new Animated.Value(0)).current; // For arrow rotation
 
@@ -351,7 +354,7 @@ function CollapsibleItemBox({}: {}) {
               alignItems: isRTL ? 'flex-end' : 'flex-start',
               flex: 10,
             }}>
-            <Text style={styles.factureTitle}>{'compte'} : ********85</Text>
+            <Text style={styles.factureTitle}>{t('compte')} : ********85</Text>
             <View style={{flexDirection: 'row', alignItems: 'flex-start'}}>
               <Text style={styles.factureDescription}>2.995</Text>
               <Text

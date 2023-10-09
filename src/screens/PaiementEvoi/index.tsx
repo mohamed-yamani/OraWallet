@@ -13,6 +13,7 @@ import PayBasketModal from '../../components/common/modals/PayBasketModal';
 import PayBillModal from '../../components/common/modals/PayBillModal';
 import ConfirmationCodeInputModal from '../../components/common/modals/confirmationCodeInputModal';
 import ConfirmationModal from '../../components/common/modals/ConfirmationModal';
+import {useTranslation} from 'react-i18next';
 
 // import ConfirmationCodeInputModal from '../../components/ConfirmationCodeInputModal';
 // import ConfirmationModal from '../../../components/modals/ConfirmationModal';
@@ -31,6 +32,8 @@ const PaimentEnvoi = () => {
     setconfirmPaymentConfirmationModalVisible,
   ] = useState(false);
 
+  const {t} = useTranslation();
+
   const [basketModalVisible, setBasketModalVisible] = useState(false);
 
   //  PayBillModal
@@ -39,7 +42,7 @@ const PaimentEnvoi = () => {
   return (
     <View style={styles.mainContainer}>
       <View style={styles.spacer} />
-      <Text style={styles.descriptionText}>{'paymentTypePrompt'}</Text>
+      <Text style={styles.descriptionText}>{t('paymentTypePrompt')}</Text>
       <View style={styles.divider} />
 
       <MoneyTransferModal
@@ -90,14 +93,14 @@ const PaimentEnvoi = () => {
       <OptionCard
         // icon={<PersonnesIcon width={16} height={16} fill={colors.silverGray} />}
         icon={<Ionicons name="person" size={24} color="#AEAEB2" />}
-        text={'sendMoneyOrPayPerson'}
+        text={t('sendMoneyOrPayPerson')}
         onPress={() => {
           console.log('sendMoneyOrPayPerson');
           setModalVisible(true);
         }}
       />
       <OptionCard
-        text={'payCurrentBasket'}
+        text={t('payCurrentBasket')}
         onPress={() => {
           console.log('payCurrentBasket');
           setBasketModalVisible(true);
@@ -106,7 +109,7 @@ const PaimentEnvoi = () => {
         icon={<Ionicons name="person" size={24} color="#AEAEB2" />}
       />
       <OptionCard
-        text={'payBill'}
+        text={t('payBill')}
         onPress={() => {
           console.log('payBill');
           setPayBillModalVisible(true);

@@ -20,6 +20,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import Entypo from 'react-native-vector-icons/Entypo';
 import {IconTextEnhancedInput} from '../IconTextEnhancedInput';
 import Colors from '../../../constants/Colors';
+import {useTranslation} from 'react-i18next';
 export default function MoneyTransferModal({
   visible,
   onClose,
@@ -30,6 +31,7 @@ export default function MoneyTransferModal({
   onContinue: () => void;
 }) {
   const isRTL = false;
+  const {t} = useTranslation();
 
   return (
     <Modal visible={visible} transparent={true} animationType="fade">
@@ -42,13 +44,13 @@ export default function MoneyTransferModal({
           <TouchableOpacity style={styles.closeIconContainer} onPress={onClose}>
             <AntDesign name="close" size={24} color="black" />
           </TouchableOpacity>
-          <Text style={styles.titleText}>{'moneyTransfer'}</Text>
-          <Text style={styles.subtitleText}>{'sendMoneySafely'}</Text>
-          <SectionTitle title={'debitWallet'} />
+          <Text style={styles.titleText}>{t('moneyTransfer')}</Text>
+          <Text style={styles.subtitleText}>{t('sendMoneySafely')}</Text>
+          <SectionTitle title={t('debitWallet')} />
           <MoneyTransferItem
             imageSource={require('../../../assets/images/img4.jpg')}
             title="John Doe"
-            description={'wallet'}
+            description={t('wallet')}
             isProfilePicture={true}
           />
           <SectionTitle title="destinataire" />
@@ -57,17 +59,17 @@ export default function MoneyTransferModal({
 
           <CollapsibleItemBox />
 
-          <SectionTitle title={'somme'} />
+          <SectionTitle title={t('somme')} />
           <IconTextEnhancedInput
             placeholder="850.00"
             rightText={isRTL ? '' : 'DH'}
             leftText={isRTL ? 'DH' : ''}
             inputType="numeric"
           />
-          <SectionTitle title={'raison'} />
-          <IconTextEnhancedInput placeholder={'indicateTheReason'} />
+          <SectionTitle title={t('raison')} />
+          <IconTextEnhancedInput placeholder={t('indicateTheReason')} />
           <Button
-            label={'continue'}
+            label={t('continue')}
             onPress={onContinue}
             style={{backgroundColor: Colors.primary, marginTop: 20}}
             leftIcon={
@@ -87,6 +89,7 @@ export default function MoneyTransferModal({
 function CollapsibleItemBox({}: {}) {
   const animatedHeight = useRef(new Animated.Value(80)).current;
   const rotateValue = useRef(new Animated.Value(0)).current; // For arrow rotation
+  const {t} = useTranslation();
 
   const [isExpanded, setExpanded] = useState(false);
   const isRTL = false;
@@ -153,7 +156,7 @@ function CollapsibleItemBox({}: {}) {
               alignItems: isRTL ? 'flex-end' : 'flex-start',
               flex: 10,
             }}>
-            <Text style={styles.factureTitle}>{'compte'} : ********85</Text>
+            <Text style={styles.factureTitle}>{t('compte')} : ********85</Text>
             <View style={{flexDirection: 'row', alignItems: 'flex-start'}}>
               <Text style={styles.factureDescription}>2.995</Text>
               <Text
@@ -200,6 +203,8 @@ function CollapsibleItemBox({}: {}) {
 const SectionTitle = ({title}: {title: string}) => {
   const {width} = Dimensions.get('window');
   const isRTL = false;
+  const {t} = useTranslation();
+
   return (
     <View
       style={{
@@ -208,7 +213,7 @@ const SectionTitle = ({title}: {title: string}) => {
         height: 30,
         width: width - 80,
       }}>
-      <Text style={styles.sectionTitleStyle}>{'title'}</Text>
+      <Text style={styles.sectionTitleStyle}>{t('title')}</Text>
     </View>
   );
 };

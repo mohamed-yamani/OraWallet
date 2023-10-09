@@ -3,9 +3,11 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import styles from './styles';
 import React from 'react';
 import Colors from '../../../constants/Colors';
+import {useTranslation} from 'react-i18next';
 
 function InvoiceListComponent() {
   const isRTL = false;
+  const {t} = useTranslation();
 
   return (
     <View style={styles.facturesScreenContainer}>
@@ -19,7 +21,7 @@ function InvoiceListComponent() {
             paddingHorizontal: 16,
           },
         ]}>
-        {'chooseInvoice'}
+        {t('chooseInvoice')}
       </Text>
       <View style={{height: 2}} />
 

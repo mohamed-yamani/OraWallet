@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 // import { MaterialIcons, Ionicons } from '@expo/vector-icons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 // import colors from '../../themes/colors';
@@ -19,19 +13,20 @@ import {getResponsivePaddingHorizontal} from '../../utils/responsiveDesign';
 import {IconTextEnhancedInput} from '../../components/common/IconTextEnhancedInput';
 import Button from '../../components/common/button';
 import Colors from '../../constants/Colors';
+import {useTranslation} from 'react-i18next';
 
 const PayInternet = () => {
-  // const {t} = useTranslation();
+  const {t} = useTranslation();
   const isRTL = false;
 
   return (
     <View style={styles.container}>
-      <Text>{'internetAccountNumber'}</Text>
-      <IconTextEnhancedInput placeholder={'INT-0000-0000'} />
+      <Text>{t('internetAccountNumber')}</Text>
+      <IconTextEnhancedInput placeholder={'000-0000-0000'} />
 
       {/* <Spacer height={40} /> */}
       <View style={{height: 40}} />
-      <Text>{'internetBillAmount'}</Text>
+      <Text>{t('internetBillAmount')}</Text>
       <IconTextEnhancedInput
         placeholder="600.00"
         rightText={isRTL ? '' : 'DH'}
@@ -40,12 +35,12 @@ const PayInternet = () => {
 
       {/* <Spacer height={40} /> */}
       <View style={{height: 40}} />
-      <Text>{'paymentMethod'}</Text>
-      <IconTextEnhancedInput placeholder={'creditCard'} />
+      <Text>{t('paymentMethod')}</Text>
+      <IconTextEnhancedInput placeholder={t('creditCard')} />
 
       <View style={{flex: 1}} />
       <Button
-        label={'initiateInternetPayment'}
+        label={t('initiateInternetPayment')}
         onPress={() => {}}
         style={styles.buttonStyle}
         textStyle={styles.buttonTextStyle}

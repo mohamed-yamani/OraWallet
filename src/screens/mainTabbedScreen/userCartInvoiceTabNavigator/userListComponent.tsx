@@ -5,8 +5,10 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import RecipientItem from '../../../components/RecipientItem';
 import React from 'react';
 import Colors from '../../../constants/Colors';
+import {useTranslation} from 'react-i18next';
 
 const UserListComponent = () => {
+  const {t} = useTranslation();
   const isRTL = false;
 
   return (
@@ -21,7 +23,7 @@ const UserListComponent = () => {
             paddingHorizontal: 16,
           },
         ]}>
-        {'chooseRecipient'}
+        {t('chooseRecipient')}
       </Text>
       <View style={styles.divider} />
       <Text
@@ -29,7 +31,7 @@ const UserListComponent = () => {
           styles.factureTitle,
           {textAlign: 'left', width: '100%', paddingHorizontal: 16},
         ]}>
-        {'destinataires'}
+        {t('destinataires')}
       </Text>
 
       <View
@@ -61,7 +63,7 @@ const UserListComponent = () => {
               fontSize: 16,
               fontFamily: 'Nunito-Bold',
             }}>
-            {'addRecipient'}
+            {t('addRecipient')}
           </Text>
         </View>
 

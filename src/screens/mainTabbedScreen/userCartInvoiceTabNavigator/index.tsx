@@ -8,14 +8,15 @@ import UserListComponent from './userListComponent';
 import ShoppingCartComponent from './shoppingCartComponent';
 import Colors from '../../../constants/Colors';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-// import FacturesIcon from '../../../../assets/images/svgs/factures.svg';
-// import PaniersIcon from '../../../../assets/images/svgs/paniers.svg';
-// import PersonnesIcon from '../../../../assets/images/svgs/personnes.svg';
+import {useTranslation} from 'react-i18next';
+import FacturesIcon from '../../../assets/images/svgs/factures.svg';
+import PaniersIcon from '../../../assets/images/svgs/paniers.svg';
+import PersonnesIcon from '../../../assets/images/svgs/personnes.svg';
 
 const Tab = createMaterialTopTabNavigator();
 
 export function UserCartInvoiceTabNavigator() {
-  // const {t} = useTranslation();
+  const {t} = useTranslation();
   const screenWidth = Dimensions.get('window').width;
   const isRTL = false;
 
@@ -75,10 +76,9 @@ export function UserCartInvoiceTabNavigator() {
               options={
                 getTabOptions(
                   {
-                    label: 'personnes',
+                    label: t('personnes'),
                     iconComponent: (
-                      // <PersonnesIcon width={12} height={14} fill={'black'} />
-                      <Ionicons name="add" size={18} color={Colors.primary} />
+                      <PersonnesIcon width={12} height={14} fill={'black'} />
                     ),
                   },
                   isRTL,
@@ -91,10 +91,9 @@ export function UserCartInvoiceTabNavigator() {
               options={
                 getTabOptions(
                   {
-                    label: 'paniers',
+                    label: t('paniers'),
                     iconComponent: (
-                      // <PaniersIcon width={16} height={14} fill={'black'} />
-                      <Ionicons name="cart" size={18} color={Colors.primary} />
+                      <PaniersIcon width={16} height={14} fill={'black'} />
                     ),
                   },
                   isRTL,
@@ -107,14 +106,9 @@ export function UserCartInvoiceTabNavigator() {
               options={
                 getTabOptions(
                   {
-                    label: 'factures',
+                    label: t('factures'),
                     iconComponent: (
-                      // <FacturesIcon width={10} height={14} fill={'black'} />
-                      <Ionicons
-                        name="receipt"
-                        size={18}
-                        color={Colors.primary}
-                      />
+                      <FacturesIcon width={10} height={14} fill={'black'} />
                     ),
                   },
                   isRTL,
@@ -130,9 +124,8 @@ export function UserCartInvoiceTabNavigator() {
               options={
                 getTabOptions(
                   {
-                    label: 'factures',
+                    label: t('factures'),
                     iconComponent: (
-                      // <FacturesIcon width={10} height={14} fill={'black'} />
                       <Ionicons
                         name="receipt"
                         size={18}
@@ -150,9 +143,8 @@ export function UserCartInvoiceTabNavigator() {
               options={
                 getTabOptions(
                   {
-                    label: 'paniers',
+                    label: t('paniers'),
                     iconComponent: (
-                      // <PaniersIcon width={16} height={14} fill={'black'} />
                       <Ionicons name="cart" size={18} color={Colors.primary} />
                     ),
                   },
@@ -166,9 +158,8 @@ export function UserCartInvoiceTabNavigator() {
               options={
                 getTabOptions(
                   {
-                    label: 'personnes',
+                    label: t('personnes'),
                     iconComponent: (
-                      // <PersonnesIcon width={12} height={14} fill={'black'} />
                       <Ionicons name="add" size={18} color={Colors.primary} />
                     ),
                   },

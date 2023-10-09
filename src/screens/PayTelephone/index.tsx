@@ -18,17 +18,19 @@ import {getResponsivePaddingHorizontal} from '../../utils/responsiveDesign';
 import {IconTextEnhancedInput} from '../../components/common/IconTextEnhancedInput';
 import Button from '../../components/common/button';
 import Colors from '../../constants/Colors';
+import {useTranslation} from 'react-i18next';
 
 const PayTelephone = () => {
   const isRTL = false;
+  const {t} = useTranslation();
 
   return (
     <View style={styles.container}>
-      <Text>{'telephoneNumber'}</Text>
+      <Text>{t('telephoneNumber')}</Text>
       <IconTextEnhancedInput placeholder={'000-000-0000'} />
 
       <View style={{height: 40}} />
-      <Text>{'billAmount'}</Text>
+      <Text>{t('billAmount')}</Text>
       <IconTextEnhancedInput
         placeholder="500.00"
         rightText={isRTL ? '' : 'DH'}
@@ -36,12 +38,12 @@ const PayTelephone = () => {
       />
 
       <View style={{height: 40}} />
-      <Text>{'paymentMethod'}</Text>
-      <IconTextEnhancedInput placeholder={'creditCard'} />
+      <Text>{t('paymentMethod')}</Text>
+      <IconTextEnhancedInput placeholder={t('creditCard')} />
 
       <View style={{flex: 1}} />
       <Button
-        label={'initiatePayment'}
+        label={t('initiatePayment')}
         onPress={() => {}}
         style={styles.buttonStyle}
         textStyle={styles.buttonTextStyle}

@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {View, TextInput, StyleSheet, TouchableOpacity} from 'react-native';
 // import { Feather, FontAwesome } from '@expo/vector-icons';
 import Feather from 'react-native-vector-icons/Feather';
@@ -8,6 +9,7 @@ import {Colors} from 'react-native/Libraries/NewAppScreen';
 const SearchComponent = () => {
   const [searchText, setSearchText] = useState('');
   const isRTL = false;
+  const {t} = useTranslation();
 
   return (
     <View style={styles.container}>
@@ -21,7 +23,7 @@ const SearchComponent = () => {
         style={[styles.input, {textAlign: isRTL ? 'right' : 'left'}]}
         onChangeText={text => setSearchText(text)}
         value={searchText}
-        placeholder={'search' + '...'}
+        placeholder={t('search') + '...'}
       />
       <TouchableOpacity
         onPress={() => {

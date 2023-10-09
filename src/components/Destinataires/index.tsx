@@ -2,13 +2,14 @@ import {StyleSheet, Text, View, Image} from 'react-native';
 import React from 'react';
 // import { Ionicons } from '@expo/vector-icons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-// import { useTranslation } from 'react-i18next';
+import {useTranslation} from 'react-i18next';
 // import colors from '../../themes/colors';
 import RecipientItem from '../RecipientItem';
 import {ScrollView} from 'react-native-gesture-handler';
 import Colors from '../../constants/Colors';
 
 const Destinataires = () => {
+  const {t} = useTranslation();
   return (
     <View style={styles.container}>
       <View style={styles.factureContainer}>
@@ -30,11 +31,11 @@ const Destinataires = () => {
             fontSize: 16,
             fontFamily: 'Nunito-Bold',
           }}>
-          {'addRecipient'}
+          {t('addRecipient')}
         </Text>
       </View>
 
-      <Text style={styles.lastDestinatairesTitle}>{'recentRecipients'}</Text>
+      <Text style={styles.lastDestinatairesTitle}>{t('recentRecipients')}</Text>
       <ScrollView>
         <RecipientItem
           name="Peer name"

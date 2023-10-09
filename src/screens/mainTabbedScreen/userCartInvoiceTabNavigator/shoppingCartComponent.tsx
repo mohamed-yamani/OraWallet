@@ -12,6 +12,7 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import Feather from 'react-native-vector-icons/Feather';
 import styles from './styles';
 import Colors from '../../../constants/Colors';
+import {useTranslation} from 'react-i18next';
 
 type LayoutChangeEvent = {
   nativeEvent: {
@@ -110,6 +111,7 @@ function ShoppingCartComponent() {
   const rotateValue = useRef(new Animated.Value(0)).current; // For arrow rotation
   const scrollViewRef = useRef<ScrollView | null>(null);
   const buttonPositions = useRef<any>({}).current;
+  const {t} = useTranslation();
   const isRTL = false;
 
   const getButtonLayoutHandler = useCallback(
@@ -151,7 +153,7 @@ function ShoppingCartComponent() {
             paddingHorizontal: 16,
           },
         ]}>
-        {'chooseBasket'}
+        {t('chooseBasket')}
       </Text>
       <View style={styles.spacer} />
       <ScrollView
@@ -162,7 +164,7 @@ function ShoppingCartComponent() {
 
         <CollapsibleItemBox
           buttonId="button1"
-          title={'telephonyAndInternet'}
+          title={t('telephonyAndInternet')}
           icons={['smartphone', 'wifi']}
           scrollAnimation={toggleExpansion}
           getButtonLayoutHandler={getButtonLayoutHandler}
@@ -177,7 +179,7 @@ function ShoppingCartComponent() {
 
         <CollapsibleItemBox
           buttonId="button2"
-          title={'waterAndElectricity'}
+          title={t('waterAndElectricity')}
           icons={['user', 'user']}
           scrollAnimation={toggleExpansion}
           getButtonLayoutHandler={getButtonLayoutHandler}
@@ -191,7 +193,7 @@ function ShoppingCartComponent() {
 
         <CollapsibleItemBox
           buttonId="button3"
-          title={'taxesAndAdministrations'}
+          title={t('taxesAndAdministrations')}
           icons={['book']}
           scrollAnimation={toggleExpansion}
           getButtonLayoutHandler={getButtonLayoutHandler}
@@ -230,6 +232,7 @@ function CollapsibleItemBox({
     inputRange: [0, 1],
     outputRange: ['0deg', '180deg'],
   });
+  const {t} = useTranslation();
 
   // const {isRTL} = useLayout();
   const isRTL = false;
@@ -327,7 +330,7 @@ function CollapsibleItemBox({
                 fontFamily: 'Nunito-Regular',
                 textAlign: isRTL ? 'right' : 'left',
               }}>
-              {serviceList.map(item => item.name).join(', ')}
+              {serviceList.map(item => t(item.name)).join(', ')}
             </Text>
           </View>
           <View style={{flex: 1, alignItems: 'flex-end'}}>
@@ -373,7 +376,7 @@ function CollapsibleItemBox({
                       resizeMode="contain"
                     />
                   </View>
-                  <Text style={styles.buttonText}>{internetItem.name}</Text>
+                  <Text style={styles.buttonText}>{t(internetItem.name)}</Text>
                 </TouchableOpacity>
               </Animated.View>
             ))}

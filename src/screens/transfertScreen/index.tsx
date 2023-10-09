@@ -1,52 +1,40 @@
 import React from 'react';
-import {
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from 'react-native';
-// import { MaterialIcons, Ionicons } from '@expo/vector-icons';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-
-// import AntDesign from '@expo/vector-icons/AntDesign';
+import {StyleSheet, Text, View} from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-
 import {getResponsivePaddingHorizontal} from '../../utils/responsiveDesign';
 import {IconTextEnhancedInput} from '../../components/common/IconTextEnhancedInput';
 import Button from '../../components/common/button';
 import Colors from '../../constants/Colors';
+import {useTranslation} from 'react-i18next';
 
 const Transfert = () => {
-  // const {t} = useTranslation();
+  const {t} = useTranslation();
   const isRTL = false;
 
   return (
     <View style={styles.container}>
-      <Text>{'fromAccount'}</Text>
+      <Text>{t('fromAccount')}</Text>
       <IconTextEnhancedInput placeholder={'000 000 00000000 00 000'} />
 
       <View style={{height: 40}} />
-      <Text>{'toAccount'}</Text>
+      <Text>{t('toAccount')}</Text>
       <IconTextEnhancedInput placeholder={'000 000 00000000 00 000'} />
 
       <View style={{height: 40}} />
-      <Text>{'transferAmount'}</Text>
+      <Text>{t('transferAmount')}</Text>
       <IconTextEnhancedInput
         placeholder="850.00"
         rightText={isRTL ? '' : 'DH'}
         leftText={isRTL ? 'DH' : ''}
       />
 
-      {/* <Spacer height={40} /> */}
       <View style={{height: 40}} />
-      <Text>{'transferReason'}</Text>
+      <Text>{t('transferReason')}</Text>
       <IconTextEnhancedInput placeholder="For monthly expenses" />
 
       <View style={{flex: 1}} />
       <Button
-        label={'initiateTransfer'}
+        label={t('initiateTransfer')}
         onPress={() => {}}
         style={styles.buttonStyle}
         textStyle={styles.buttonTextStyle}

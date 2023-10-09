@@ -1,13 +1,5 @@
 import React from 'react';
-import {
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from 'react-native';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import {StyleSheet, Text, View} from 'react-native';
 // import AntDesign from '@expo/vector-icons/AntDesign';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {getResponsivePaddingHorizontal} from '../../utils/responsiveDesign';
@@ -15,16 +7,18 @@ import {IconTextEnhancedInput} from '../../components/common/IconTextEnhancedInp
 import RecipientScrollList from '../../components/RecipientScrollList';
 import Button from '../../components/common/button';
 import Colors from '../../constants/Colors';
+import {useTranslation} from 'react-i18next';
 
 const Refil = () => {
   const isRTL = false;
+  const {t} = useTranslation();
 
   return (
     <View style={styles.container}>
       <RecipientScrollList />
 
       {/* <Spacer height={40} /> */}
-      <Text>{'somme'}</Text>
+      <Text>{t('somme')}</Text>
       <IconTextEnhancedInput
         placeholder="1000.00"
         rightText={isRTL ? '' : 'DH'}
@@ -33,13 +27,13 @@ const Refil = () => {
 
       {/* <Spacer height={40} /> */}
       <View style={{height: 40}} />
-      <Text>{'raison'}</Text>
-      <IconTextEnhancedInput placeholder={'raison'} />
+      <Text>{t('raison')}</Text>
+      <IconTextEnhancedInput placeholder={t('raison')} />
 
       <View style={{flex: 1}} />
 
       <Button
-        label={'initiateRefil'}
+        label={t('initiateRefil')}
         onPress={() => {}}
         style={styles.buttonStyle}
         textStyle={styles.buttonTextStyle}
