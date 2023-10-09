@@ -8,7 +8,12 @@ import DirectionalChevron from '../../components/DirectionalChevron';
 import {useState} from 'react';
 import React from 'react';
 import Colors from '../../constants/Colors';
-// import MoneyTransferModal from '../../../components/modals/MoneyTransferModal';
+import MoneyTransferModal from '../../components/common/modals/MoneyTransferModal';
+import PayBasketModal from '../../components/common/modals/PayBasketModal';
+import PayBillModal from '../../components/common/modals/PayBillModal';
+import ConfirmationCodeInputModal from '../../components/common/modals/confirmationCodeInputModal';
+import ConfirmationModal from '../../components/common/modals/ConfirmationModal';
+
 // import ConfirmationCodeInputModal from '../../components/ConfirmationCodeInputModal';
 // import ConfirmationModal from '../../../components/modals/ConfirmationModal';
 // import PayBasketModal from '../../../components/modals/PayBasketModal';
@@ -37,7 +42,7 @@ const PaimentEnvoi = () => {
       <Text style={styles.descriptionText}>{'paymentTypePrompt'}</Text>
       <View style={styles.divider} />
 
-      {/* <MoneyTransferModal
+      <MoneyTransferModal
         visible={modalVisible}
         onClose={() => setModalVisible(false)} // Function to close the modal
         onContinue={() => {
@@ -80,7 +85,7 @@ const PaimentEnvoi = () => {
       <ConfirmationModal
         visible={confirmPaymentConfirmationModalVisible}
         onClose={() => setconfirmPaymentConfirmationModalVisible(false)} // Function to close the modal
-      /> */}
+      />
 
       <OptionCard
         // icon={<PersonnesIcon width={16} height={16} fill={colors.silverGray} />}
