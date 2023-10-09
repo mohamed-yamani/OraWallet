@@ -146,7 +146,7 @@ const CreateWalletScreen = () => {
         <Button
           label={'continue'}
           // onPress={() => setModalVisible(true)}
-          onPress={() => navigation.navigate('MainApp')}
+          onPress={() => navigation.navigate('MainApp' as never)}
           style={{backgroundColor: Colors.primary}}
           leftIcon={
             // <MaterialIcons
