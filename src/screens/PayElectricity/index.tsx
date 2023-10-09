@@ -1,13 +1,6 @@
 import React from 'react';
-import {
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 // import { MaterialIcons, Ionicons } from '@expo/vector-icons';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 
 // import AntDesign from '@expo/vector-icons/AntDesign';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -16,18 +9,20 @@ import {getResponsivePaddingHorizontal} from '../../utils/responsiveDesign';
 import {IconTextEnhancedInput} from '../../components/common/IconTextEnhancedInput';
 import Button from '../../components/common/button';
 import Colors from '../../constants/Colors';
+import {useTranslation} from 'react-i18next';
 
 const PayElectricity = () => {
   const isRTL = false;
+  const {t} = useTranslation();
 
   return (
     <View style={styles.container}>
-      <Text>{'electricityAccountNumber'}</Text>
+      <Text>{t('electricityAccountNumber')}</Text>
       <IconTextEnhancedInput placeholder={'0000-0000-0000'} />
 
       {/* <Spacer height={40} /> */}
       <View style={{height: 40}} />
-      <Text>{'electricityBillAmount'}</Text>
+      <Text>{t('electricityBillAmount')}</Text>
       <IconTextEnhancedInput
         placeholder="400.00"
         rightText={isRTL ? '' : 'DH'}
@@ -36,12 +31,12 @@ const PayElectricity = () => {
 
       {/* <Spacer height={40} /> */}
       <View style={{height: 40}} />
-      <Text>{'paymentMethod'}</Text>
-      <IconTextEnhancedInput placeholder={'creditCard'} />
+      <Text>{t('paymentMethod')}</Text>
+      <IconTextEnhancedInput placeholder={t('creditCard')} />
 
       <View style={{flex: 1}} />
       <Button
-        label={'initiateElectricityPayment'}
+        label={t('initiateElectricityPayment')}
         onPress={() => {}}
         style={styles.buttonStyle}
         textStyle={styles.buttonTextStyle}

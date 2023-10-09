@@ -3,12 +3,10 @@ import {SafeAreaView, StyleSheet, View} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import SettingsScreen from '../screens/SettingsScreen';
 import MainTabbedScreen from '../screens/mainTabbedScreen';
 import CreateWalletScreen from '../screens/createWalletScreen';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import CustomHeader from './NavigableHeader';
-import WalletDashboard from '../screens/walletDashboard';
 import {PayWalletStackGroup} from './PayWalletStackNavigation';
 
 const Drawer = createDrawerNavigator();
@@ -55,7 +53,7 @@ function MyDrawer() {
           ),
         })}
       />
-      <Drawer.Screen
+      {/* <Drawer.Screen
         name="Settings"
         component={SettingsScreen}
         options={({navigation}) => ({
@@ -68,7 +66,7 @@ function MyDrawer() {
             />
           ),
         })}
-      />
+      /> */}
       <Drawer.Screen
         name="Pay Wallet"
         component={PayWalletStackGroup}

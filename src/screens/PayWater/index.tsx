@@ -18,18 +18,20 @@ import {getResponsivePaddingHorizontal} from '../../utils/responsiveDesign';
 import {IconTextEnhancedInput} from '../../components/common/IconTextEnhancedInput';
 import Button from '../../components/common/button';
 import Colors from '../../constants/Colors';
+import {useTranslation} from 'react-i18next';
 
 const PayWater = () => {
   const isRTL = false;
+  const {t} = useTranslation();
 
   return (
     <View style={styles.container}>
-      <Text>{'waterAccountNumber'}</Text>
+      <Text>{t('waterAccountNumber')}</Text>
       <IconTextEnhancedInput placeholder={'0000-0000-0000'} />
 
       {/* <Spacer height={40} /> */}
       <View style={{height: 40}} />
-      <Text>{'waterBillAmount'}</Text>
+      <Text>{t('waterBillAmount')}</Text>
       <IconTextEnhancedInput
         placeholder="250.00"
         rightText={isRTL ? '' : 'DH'}
@@ -38,12 +40,12 @@ const PayWater = () => {
 
       {/* <Spacer height={40} /> */}
       <View style={{height: 40}} />
-      <Text>{'paymentMethod'}</Text>
-      <IconTextEnhancedInput placeholder={'creditCard'} />
+      <Text>{t('paymentMethod')}</Text>
+      <IconTextEnhancedInput placeholder={t('creditCard')} />
 
       <View style={{flex: 1}} />
       <Button
-        label={'initiateWaterPayment'}
+        label={t('initiateWaterPayment')}
         onPress={() => {}}
         style={styles.buttonStyle}
         textStyle={styles.buttonTextStyle}

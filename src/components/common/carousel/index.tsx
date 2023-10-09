@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Colors from '../../../constants/Colors';
+import {useTranslation} from 'react-i18next';
 // import {BlurView} from 'expo-blur';
 
 const {width: SCREEN_WIDTH} = Dimensions.get('window');
@@ -33,6 +34,7 @@ const Carousel: React.FC<CarouselProps> = ({data}) => {
   const scrollX = useRef(new Animated.Value(0)).current;
   const [isAmountVisible, setIsAmountVisible] = useState(true);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const {t} = useTranslation();
   // const { isRTL } = useLayout();
 
   const renderItem = ({item, index}: {item: CardData; index: number}) => {
@@ -82,14 +84,14 @@ const Carousel: React.FC<CarouselProps> = ({data}) => {
                 currentIndex === index ? 1 : Platform.OS === 'ios' ? 0.5 : 0.15,
             },
           ]}>
-          <Text style={styles.amountTitleText}>{'account'}</Text>
+          <Text style={styles.amountTitleText}>{t('account')}</Text>
           <Text style={styles.accountNumberText}>
             {isAmountVisible
               ? formatAccountNumber(item.accountNumber)
               : '**** **** **** ****'}
           </Text>
           <View style={{height: 15}} />
-          <Text style={styles.currencyText}>{'oraBalance'}</Text>
+          <Text style={styles.currencyText}>{t('oraBalance')}</Text>
           <View
             style={{
               flexDirection: 'row',

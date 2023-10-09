@@ -5,6 +5,7 @@ import {useNavigation} from '@react-navigation/native';
 import {ROUTE_NAMES} from '../../navigation/routeNames';
 import React from 'react';
 import Colors from '../../constants/Colors';
+import {useTranslation} from 'react-i18next';
 
 const TransactionItem = ({
   image,
@@ -27,6 +28,7 @@ const TransactionItem = ({
 }) => {
   const isRTL = false;
   const navigation = useNavigation();
+  const {t} = useTranslation();
 
   return (
     <TouchableOpacity
@@ -52,7 +54,7 @@ const TransactionItem = ({
       </View>
       <View style={styles.spacer} />
       <View style={styles.endView}>
-        <Text style={styles.sendText}>{'send'}</Text>
+        <Text style={styles.sendText}>{t('send')}</Text>
         <View style={styles.endInnerView}>
           <Feather name={arrowType} size={18} color={arrowColor} />
           <Text style={styles.amountText}>{amount}</Text>

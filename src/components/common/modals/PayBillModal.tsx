@@ -12,6 +12,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import {IconTextEnhancedInput} from '../IconTextEnhancedInput';
 import Button from '../button';
 import Colors from '../../../constants/Colors';
+import {useTranslation} from 'react-i18next';
 
 export default function PayBillModal({
   visible,
@@ -23,6 +24,7 @@ export default function PayBillModal({
   onContinue: () => void;
 }) {
   const isRTL = false;
+  const {t} = useTranslation();
 
   return (
     <Modal visible={visible} transparent={true} animationType="fade">
@@ -35,16 +37,16 @@ export default function PayBillModal({
           <TouchableOpacity style={styles.closeIconContainer} onPress={onClose}>
             <AntDesign name="close" size={24} color="black" />
           </TouchableOpacity>
-          <Text style={styles.titleText}>{'payBill'}</Text>
-          <Text style={styles.subtitleText}>{'enterBillDetails'}</Text>
-          <SectionTitle title={'billNumber'} />
-          <IconTextEnhancedInput placeholder={'enterBillNumber'} />
-          <SectionTitle title={'amount'} />
-          <IconTextEnhancedInput placeholder={'enterAmount'} />
-          <SectionTitle title={'reason'} />
-          <IconTextEnhancedInput placeholder={'enterReason'} />
+          <Text style={styles.titleText}>{t('payBill')}</Text>
+          <Text style={styles.subtitleText}>{t('enterBillDetails')}</Text>
+          <SectionTitle title={t('billNumber')} />
+          <IconTextEnhancedInput placeholder={t('enterBillNumber')} />
+          <SectionTitle title={t('amount')} />
+          <IconTextEnhancedInput placeholder={t('enterAmount')} />
+          <SectionTitle title={t('reason')} />
+          <IconTextEnhancedInput placeholder={t('enterReason')} />
           <Button
-            label={'continue'}
+            label={t('continue')}
             onPress={onContinue}
             style={{backgroundColor: Colors.primary, marginTop: 20}}
             leftIcon={

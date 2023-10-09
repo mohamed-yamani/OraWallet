@@ -12,12 +12,14 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import CountdownTimer from '../../../components/CountdownTimer';
 import Colors from '../../../constants/Colors';
 import Button from '../button';
+import {useTranslation} from 'react-i18next';
 
 export default function ConfirmationCodeInputModal(props: {
   visible: boolean;
   onClose: () => void;
   onContinue?: () => void;
 }) {
+  const {t} = useTranslation();
   const [code, setCode] = useState(['', '', '', '']);
   const input1 = useRef<TextInput | null>(null);
   const input2 = useRef<TextInput | null>(null);
@@ -95,7 +97,7 @@ export default function ConfirmationCodeInputModal(props: {
             <AntDesign name="close" size={24} color={Colors.midnightGray} />
           </TouchableOpacity>
 
-          <Text style={styles.title}>{'enterCode'}</Text>
+          <Text style={styles.title}>{t('enterCode')}</Text>
 
           <View style={styles.codeInputContainer}>
             <TextInput
@@ -153,12 +155,12 @@ export default function ConfirmationCodeInputModal(props: {
           </View>
 
           <Text style={styles.resendCode}>
-            {'resendSMSCode'} {'  '}
+            {t('resendSMSCode')} {'  '}
             <CountdownTimer />
           </Text>
 
           <Button
-            label={'continue'}
+            label={t('continue')}
             onPress={props.onContinue || props.onClose}
             style={{backgroundColor: Colors.primary, marginTop: 20}}
           />

@@ -5,8 +5,8 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import Colors from '../../../constants/Colors';
 import Button from '../button';
 
-// import {useLayout} from '../../src/contexts/LayoutContext';
-import SuccessIcon from '../../assets/images/svgs/success-icon_g.svg';
+import SuccessIcon from '../../../assets/images/svgs/success-icon_g.svg';
+import {useTranslation} from 'react-i18next';
 // import {useTranslation} from 'react-i18next';
 
 export default function ConfirmationModal(props: {
@@ -14,6 +14,7 @@ export default function ConfirmationModal(props: {
   onClose: () => void;
 }) {
   const isRTL = false;
+  const {t} = useTranslation();
 
   return (
     <Modal visible={props.visible} transparent={true} animationType="fade">
@@ -23,15 +24,15 @@ export default function ConfirmationModal(props: {
             <AntDesign name="close" size={24} color={Colors.midnightGray} />
           </TouchableOpacity>
           <View style={styles.iconContainer}>
-            {/* <SuccessIcon width={100} height={100} /> */}
+            <SuccessIcon width={100} height={100} />
           </View>
 
-          <Text style={styles.title}>{'success'}</Text>
+          <Text style={styles.title}>{t('success')}</Text>
 
-          <Text style={styles.description}>{'successfulPayment'}</Text>
+          <Text style={styles.description}>{t('successfulPayment')}</Text>
 
           <Button
-            label={'confirm'}
+            label={t('confirm')}
             onPress={props.onClose}
             style={{backgroundColor: Colors.primary, marginTop: 20}}
             leftIcon={

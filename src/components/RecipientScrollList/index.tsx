@@ -5,6 +5,7 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 import {useNavigation} from '@react-navigation/native';
 import {ROUTE_NAMES} from '../../navigation/routeNames';
 import Colors from '../../constants/Colors';
+import {useTranslation} from 'react-i18next';
 
 const data = [
   {
@@ -33,6 +34,9 @@ const data = [
 ];
 
 const RecipientScrollList = () => {
+  const isRTL = false;
+  const {t} = useTranslation();
+
   const {navigate} = useNavigation();
   return (
     <View>
@@ -49,13 +53,13 @@ const RecipientScrollList = () => {
             fontSize: 16,
             fontFamily: 'Nunito-Medium',
           }}>
-          {'destinataires'}
+          {t('destinataires')}
         </Text>
         <TouchableOpacity
           onPress={() => {
             navigate(ROUTE_NAMES.REFIL_STACK.DESTINATAIRES as never);
           }}>
-          <Text style={{color: Colors.primary}}>{'seeAll'}</Text>
+          <Text style={{color: Colors.primary}}>{t('seeAll')}</Text>
         </TouchableOpacity>
       </View>
       <View

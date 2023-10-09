@@ -24,13 +24,14 @@ import TransactionItem from './TransactionItem';
 import {ROUTE_NAMES} from '../../navigation/routeNames';
 import Colors from '../../constants/Colors';
 import {IconWithLabel} from '../../components/common/IconWithLabel';
+import {useTranslation} from 'react-i18next';
 
 const {width: SCREEN_WIDTH, height: SCREEN_HEIGHT} = Dimensions.get('window');
 const CARD_HEIGHT = SCREEN_WIDTH < 768 ? 151 : 250;
 
 const WalletDashboard = () => {
   const navigation = useNavigation();
-  // const {t} = useTranslation();
+  const {t} = useTranslation();
   const isRTL = false;
 
   return (
@@ -52,7 +53,7 @@ const WalletDashboard = () => {
               color={Colors.midnightGray}
             />
           }
-          label={'withdraw'}
+          label={t('withdraw')}
         />
         {/* Transfer */}
 
@@ -67,7 +68,7 @@ const WalletDashboard = () => {
               color={Colors.midnightGray}
             />
           }
-          label={'transfer'}
+          label={t('transfer')}
         />
         {/* Pay/Send */}
 
@@ -80,7 +81,7 @@ const WalletDashboard = () => {
           iconComponent={
             <FontAwesome name="paper-plane" size={24} color={Colors.white} />
           }
-          label={'paySend'}
+          label={t('paySend')}
           iconContainerStyle={{
             backgroundColor: Colors.midnightGray,
           }}
@@ -97,7 +98,7 @@ const WalletDashboard = () => {
           iconComponent={
             <Entypo name="wallet" size={24} color={Colors.white} />
           }
-          label={'refil'}
+          label={t('refil')}
           iconContainerStyle={{
             backgroundColor: Colors.primary,
           }}
@@ -115,7 +116,7 @@ const WalletDashboard = () => {
             navigation.navigate(ROUTE_NAMES.PAY_WALLET_STACK.TELEPHONE as never)
           }
           iconComponent={<FontAwesome name="mobile" size={37} color="black" />}
-          label={'telephone'}
+          label={t('telephone')}
         />
 
         {/* Eau */}
@@ -126,7 +127,7 @@ const WalletDashboard = () => {
           iconComponent={
             <MaterialCommunityIcons name="water-pump" size={24} color="black" />
           }
-          label={'eau'}
+          label={t('eau')}
         />
 
         {/* Electricite */}
@@ -137,7 +138,7 @@ const WalletDashboard = () => {
             )
           }
           iconComponent={<FontAwesome name="bolt" size={24} color="black" />}
-          label={'electricite'}
+          label={t('electricite')}
         />
 
         {/* Internet */}
@@ -150,7 +151,7 @@ const WalletDashboard = () => {
           iconComponent={
             <MaterialCommunityIcons name="wifi" size={24} color="black" />
           }
-          label={'internet'}
+          label={t('internet')}
         />
       </View>
       {/* <Historique /> */}
@@ -162,7 +163,7 @@ const WalletDashboard = () => {
             flexDirection: isRTL ? 'row-reverse' : 'row',
           },
         ]}>
-        <Text style={styles.historiqueTitleText}>{'historique'}</Text>
+        <Text style={styles.historiqueTitleText}>{t('historique')}</Text>
         <TouchableOpacity
           onPress={() =>
             navigation.navigate(
@@ -175,7 +176,7 @@ const WalletDashboard = () => {
               fontSize: 12,
               fontFamily: 'Nunito-Bold',
             }}>
-            {'seeAll'}
+            {t('seeAll')}
           </Text>
         </TouchableOpacity>
       </View>
