@@ -8,6 +8,10 @@ import PaimentEnvoi from '../screens/PaiementEvoi';
 import Retrait from '../screens/Retrait';
 import TransfertScreen from '../screens/transfertScreen';
 import {RefilStackGroup} from './RefilStackNavigation';
+import PayTelephone from '../screens/PayTelephone';
+import PayWater from '../screens/PayWater';
+import PayElectricity from '../screens/PayElectricity';
+import PayInternet from '../screens/PayInternet';
 
 // Stack Navigation for PayWallet
 const PayWalletStack = createNativeStackNavigator();
@@ -123,7 +127,7 @@ export function PayWalletStackGroup() {
           })}
         />
 
-        {/* <PayWalletStack.Screen
+        <PayWalletStack.Screen
           name={ROUTE_NAMES.PAY_WALLET_STACK.TELEPHONE}
           component={PayTelephone}
           options={({navigation}) => ({
@@ -138,10 +142,10 @@ export function PayWalletStackGroup() {
               />
             ),
           })}
-        /> */}
+        />
 
         {/* PayWater */}
-        {/* <PayWalletStack.Screen
+        <PayWalletStack.Screen
           name={ROUTE_NAMES.PAY_WALLET_STACK.PAY_WATER}
           component={PayWater}
           options={({navigation}) => ({
@@ -155,10 +159,10 @@ export function PayWalletStackGroup() {
               />
             ),
           })}
-        /> */}
+        />
 
         {/* PayElectricity */}
-        {/* <PayWalletStack.Screen
+        <PayWalletStack.Screen
           name={ROUTE_NAMES.PAY_WALLET_STACK.PAY_ELECTRICITY}
           component={PayElectricity}
           options={({navigation}) => ({
@@ -172,10 +176,10 @@ export function PayWalletStackGroup() {
               />
             ),
           })}
-        /> */}
+        />
 
         {/* PayInternet */}
-        {/* <PayWalletStack.Screen
+        <PayWalletStack.Screen
           name={ROUTE_NAMES.PAY_WALLET_STACK.PAY_INTERNET}
           component={PayInternet}
           options={({navigation}) => ({
@@ -189,7 +193,7 @@ export function PayWalletStackGroup() {
               />
             ),
           })}
-        /> */}
+        />
       </PayWalletStack.Navigator>
     </>
   );
