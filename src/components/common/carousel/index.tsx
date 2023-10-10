@@ -11,7 +11,7 @@ import {
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Colors from '../../../constants/Colors';
 import {useTranslation} from 'react-i18next';
-// import {BlurView} from 'expo-blur';
+import {BlurView} from '@react-native-community/blur';
 
 const {width: SCREEN_WIDTH} = Dimensions.get('window');
 
@@ -53,26 +53,26 @@ const Carousel: React.FC<CarouselProps> = ({data}) => {
               : 0,
         }}>
         {/* Blur Layer */}
-        {/* <BlurView
-          intensity={
-            currentIndex === index ? 0 : Platform.OS === 'ios' ? 22 : 15
-          }
-          style={{
-            position: 'absolute',
-            width: CARD_WIDTH + SPACING * 2,
-            height: CARD_HEIGHT + 60,
-            justifyContent: 'center',
-            alignItems: 'flex-start',
-            padding: 20,
-            borderRadius: RADIUS,
-            shadowColor: '#000',
-            zIndex: 1000,
-            left: index === 0 ? -10 : 2,
-            // marginBottom: 30,
-            // marginTop: 30,
-          }}
-          tint="light"
-        /> */}
+
+        {currentIndex !== index && Platform.OS === 'ios' && (
+          <BlurView
+            blurType="light"
+            blurAmount={currentIndex === index ? 0 : 5}
+            style={{
+              position: 'absolute',
+              width: CARD_WIDTH + SPACING * 2,
+              height: CARD_HEIGHT + 20,
+              justifyContent: 'center',
+              alignItems: 'flex-start',
+              padding: 20,
+              borderRadius: RADIUS,
+              shadowColor: '#000',
+              zIndex: 1000,
+              left: index === 0 ? -10 : 2,
+            }}
+            reducedTransparencyFallbackColor="white"
+          />
+        )}
 
         {/* Original Animated Content */}
         <Animated.View
@@ -81,7 +81,17 @@ const Carousel: React.FC<CarouselProps> = ({data}) => {
             {
               marginLeft: index === 0 ? -10 : SPACING,
               opacity:
-                currentIndex === index ? 1 : Platform.OS === 'ios' ? 0.5 : 0.15,
+                currentIndex === index ? 1 : Platform.OS === 'ios' ? 0.5 : 0.2,
+              shadowColor:
+                currentIndex !== index && Platform.OS === 'ios'
+                  ? 'transparent'
+                  : Colors.primary,
+              shadowOpacity:
+                currentIndex !== index && Platform.OS === 'ios' ? 0 : 0.16,
+              shadowRadius:
+                currentIndex !== index && Platform.OS === 'ios' ? 0 : 3.84,
+              elevation:
+                currentIndex !== index && Platform.OS === 'ios' ? 0 : 3,
             },
           ]}>
           <Text style={styles.amountTitleText}>{t('account')}</Text>
