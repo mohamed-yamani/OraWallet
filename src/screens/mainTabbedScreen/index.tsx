@@ -5,7 +5,7 @@ import {UserCartInvoiceTabNavigator} from './userCartInvoiceTabNavigator';
 
 const MainTabbedScreen = () => {
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: Colors.white}}>
+    <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
       <UserCartInvoiceTabNavigator />
     </SafeAreaView>
   );

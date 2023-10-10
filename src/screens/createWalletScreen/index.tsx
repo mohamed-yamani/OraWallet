@@ -2,7 +2,7 @@ import {StyleSheet, Text, View, TextInput, Dimensions} from 'react-native';
 // import { MaterialIcons, Ionicons } from '@expo/vector-icons';
 import React, {useState} from 'react';
 import Colors from '../../constants/Colors';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 // import CountryPicker from 'react-native-country-picker-modal';
 import {useTranslation} from 'react-i18next';
 // import {useLayout} from '../../contexts/LayoutContext';
@@ -122,7 +122,7 @@ const CreateWalletScreen = () => {
           icon="lock"
           placeholder={t('password')}
           secureTextEntry={!showPassword}
-          rightIcon={showPassword ? 'eye-off' : 'eye'}
+          rightIcon={showPassword ? 'visibility-off' : 'visibility'}
           onRightIconPress={() => setShowPassword(!showPassword)}
         />
 
@@ -131,7 +131,7 @@ const CreateWalletScreen = () => {
           icon="lock"
           placeholder={t('confirmPassword')}
           secureTextEntry={!showConfirmPassword}
-          rightIcon={showConfirmPassword ? 'eye-off' : 'eye'}
+          rightIcon={showConfirmPassword ? 'visibility-off' : 'visibility'}
           onRightIconPress={() => setShowConfirmPassword(!showConfirmPassword)}
         />
 
@@ -155,7 +155,7 @@ const CreateWalletScreen = () => {
             //   size={18}
             //   color="white"
             // />
-            <Icon
+            <MaterialIcons
               name={isRTL ? 'arrow-back-ios' : 'arrow-forward-ios'}
               size={18}
               color="white"
