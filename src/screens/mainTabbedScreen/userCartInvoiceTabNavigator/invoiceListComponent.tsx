@@ -1,16 +1,29 @@
-import {View, Text, Image} from 'react-native';
+import {View, Text, Image, Dimensions} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import styles from './styles';
 import React from 'react';
 import Colors from '../../../constants/Colors';
 import {useTranslation} from 'react-i18next';
+import {ScrollView} from 'react-native-gesture-handler';
+
+const {width: SCREEN_WIDTH, height: SCREEN_HEIGHT} = Dimensions.get('window');
+
+const CARD_WIDTH = SCREEN_WIDTH < 768 ? 300 : SCREEN_WIDTH - 200;
+const CARD_HEIGHT = SCREEN_WIDTH < 768 ? 151 : 250;
 
 function InvoiceListComponent() {
   const isRTL = false;
   const {t} = useTranslation();
 
   return (
-    <View style={styles.facturesScreenContainer}>
+    <View
+      style={[
+        styles.facturesScreenContainer,
+        {
+          height: SCREEN_HEIGHT - CARD_HEIGHT - 200,
+          width: SCREEN_WIDTH,
+        },
+      ]}>
       <View style={styles.spacer} />
       <Text
         style={[
@@ -24,26 +37,26 @@ function InvoiceListComponent() {
         {t('chooseInvoice')}
       </Text>
       <View style={{height: 2}} />
+      <ScrollView style={{flex: 1, width: SCREEN_WIDTH}}>
+        <InvoiceItem
+          imageSource={require('../../../assets/images/burger_king.png')}
+          title="Burger King"
+          description="Lorem ipsum"
+          itemCount={5}
+          priceWhole={172}
+          priceDecimal="00"
+        />
 
-      <InvoiceItem
-        imageSource={require('../../../assets/images/burger_king.png')}
-        title="Burger King"
-        description="Lorem ipsum"
-        itemCount={5}
-        priceWhole={172}
-        priceDecimal="00"
-      />
+        <InvoiceItem
+          imageSource={require('../../../assets/images/virgin.png')}
+          title="Virgin"
+          description="Lorem ipsum"
+          itemCount={4}
+          priceWhole={299}
+          priceDecimal="00"
+        />
 
-      <InvoiceItem
-        imageSource={require('../../../assets/images/virgin.png')}
-        title="Virgin"
-        description="Lorem ipsum"
-        itemCount={4}
-        priceWhole={299}
-        priceDecimal="00"
-      />
-
-      {/* <InvoiceItem
+        {/* <InvoiceItem
         imageSource={require('../../../assets/images/img1.jpg')}
         title="Burger King"
         description="Lorem ipsum"
@@ -53,25 +66,26 @@ function InvoiceListComponent() {
         isProfilePicture={true}
       /> */}
 
-      <InvoiceItem
-        imageSource={require('../../../assets/images/img5.jpg')}
-        title="Jon Doe"
-        description="Lorem ipsum"
-        itemCount={4}
-        priceWhole={299}
-        priceDecimal="00"
-        isProfilePicture={true}
-      />
+        <InvoiceItem
+          imageSource={require('../../../assets/images/img5.jpg')}
+          title="Jon Doe"
+          description="Lorem ipsum"
+          itemCount={4}
+          priceWhole={299}
+          priceDecimal="00"
+          isProfilePicture={true}
+        />
 
-      <InvoiceItem
-        imageSource={require('../../../assets/images/img4.jpg')}
-        title="Burger King"
-        description="Lorem ipsum"
-        itemCount={5}
-        priceWhole={172}
-        priceDecimal="00"
-        isProfilePicture={true}
-      />
+        <InvoiceItem
+          imageSource={require('../../../assets/images/img4.jpg')}
+          title="Burger King"
+          description="Lorem ipsum"
+          itemCount={5}
+          priceWhole={172}
+          priceDecimal="00"
+          isProfilePicture={true}
+        />
+      </ScrollView>
     </View>
   );
 }

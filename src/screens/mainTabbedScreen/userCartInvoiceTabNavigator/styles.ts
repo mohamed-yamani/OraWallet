@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
     },
 
     mainContainer: {
-        flex: 1,
+        // flex: 1,
         justifyContent: 'flex-start',
         alignItems: 'center',
         backgroundColor: 'white'
@@ -34,7 +34,6 @@ const styles = StyleSheet.create({
     descriptionText: {
         color: Colors.midnightGray,
         fontSize: 16,
-        fontWeight: '100',
         fontFamily: 'Nunito-Regular',
         marginTop: 10,
         marginBottom: 10,
@@ -77,7 +76,7 @@ const styles = StyleSheet.create({
     },
 
     facturesScreenContainer: {
-        flex: 1, justifyContent: 'flex-start', alignItems: 'center', backgroundColor: 'white'
+        justifyContent: 'flex-start', alignItems: 'center', backgroundColor: 'white', height: '100%'
     },
 
     title: {

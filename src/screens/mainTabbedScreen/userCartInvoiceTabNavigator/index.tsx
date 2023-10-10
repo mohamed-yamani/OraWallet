@@ -58,7 +58,6 @@ export function UserCartInvoiceTabNavigator() {
             marginLeft: '1%',
             marginRight: '1%',
           },
-
           tabBarItemStyle: {
             marginLeft: 15, // margin at the start of each tab
             marginRight: 15, // margin at the end of each tab

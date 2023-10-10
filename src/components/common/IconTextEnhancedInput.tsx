@@ -5,7 +5,7 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Colors from '../../constants/Colors';
 import React from 'react';
 
@@ -31,19 +31,35 @@ export const IconTextEnhancedInput = ({
   return (
     <View style={styles.inputContainer}>
       {/* <MaterialIcons name={icon as any} size={24} color={Colors.primary} /> */}
-      <Icon name={icon as any} size={24} color={Colors.primary} />
+      <MaterialIcons name={icon as any} size={24} color={Colors.primary} />
+
+      {icon && <HorizontalLine />}
 
       {leftText && <Text style={styles.rightText}>{leftText}</Text>}
 
-      <TextInput style={styles.textInput} {...props} />
+      <TextInput
+        style={styles.textInput}
+        {...props}
+        placeholderTextColor={Colors.silverGray}
+      />
       {rightIcon && (
         <TouchableOpacity onPress={onRightIconPress}>
           {/* <Ionicons name={rightIcon as any} size={24} color="gray" /> */}
-          <Icon name={rightIcon as any} size={24} color="gray" />
+          <MaterialIcons name={rightIcon as any} size={24} color="gray" />
         </TouchableOpacity>
       )}
       {rightText && <Text style={styles.rightText}>{rightText}</Text>}
     </View>
+  );
+};
+
+const HorizontalLine = () => {
+  return (
+    <>
+      <View style={{width: 12}} />
+      <View style={{width: 0.5, height: 16, backgroundColor: 'grey'}} />
+      <View style={{width: 12}} />
+    </>
   );
 };
 
@@ -65,7 +81,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#D1D1D6',
     borderRadius: 8,
-    paddingVertical: 10,
     paddingHorizontal: 24,
     height: 50,
     marginTop: 10,
