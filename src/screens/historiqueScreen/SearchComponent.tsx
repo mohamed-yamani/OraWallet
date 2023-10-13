@@ -48,10 +48,16 @@ const SearchComponent = ({
             setTransactionsData(
               transactionsData.filter(
                 transaction =>
-                  transaction.firstName.includes(text) ||
-                  transaction.lastName.includes(text) ||
-                  transaction.libelle.includes(text) ||
-                  transaction.type.includes(text),
+                  transaction.firstName
+                    .toLowerCase()
+                    .includes(text.toLocaleLowerCase()) ||
+                  transaction.lastName
+                    .toLowerCase()
+                    .includes(text.toLowerCase()) ||
+                  transaction.libelle
+                    .toLowerCase()
+                    .includes(text.toLowerCase()) ||
+                  transaction.type.toLowerCase().includes(text.toLowerCase()),
               ),
             );
           }}
@@ -88,12 +94,8 @@ const SearchComponent = ({
             {label: 'Received', value: 'C'},
           ]}
           setOpen={setOpen}
-          setValue={value => {
-            console.log('value --- cccccccc --- >', value);
-          }}
-          setItems={value => {
-            console.log('value --- bbbbbbbb --- >', value);
-          }}
+          setValue={value => {}}
+          setItems={value => {}}
           onSelectItem={value => {
             console.log('value --- aaaaaaaaa --- >', value.value);
             if (value.value === 'all') {
