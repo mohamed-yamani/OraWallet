@@ -1,7 +1,13 @@
 import React, {useState} from 'react';
 import {useTranslation} from 'react-i18next';
-import {View, TextInput, StyleSheet, TouchableOpacity} from 'react-native';
-// import { Feather, FontAwesome } from '@expo/vector-icons';
+import {
+  View,
+  TextInput,
+  StyleSheet,
+  TouchableOpacity,
+  Pressable,
+} from 'react-native';
+import DropDownPicker from 'react-native-dropdown-picker';
 import Feather from 'react-native-vector-icons/Feather';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
@@ -10,54 +16,111 @@ import {Transaction} from '../../types/wallet';
 interface SearchComponentProps {
   setTransactionsData: React.Dispatch<React.SetStateAction<Transaction[]>>;
   transactionsData: Transaction[];
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  open: boolean;
 }
 
 const SearchComponent = ({
   setTransactionsData,
   transactionsData,
+  setOpen,
+  open,
 }: SearchComponentProps) => {
   const [searchText, setSearchText] = useState('');
+
   const isRTL = false;
   const {t} = useTranslation();
 
   return (
-    <View style={styles.search_container}>
-      <Feather
-        name="search"
-        size={20}
-        color={Colors.grayDark}
-        style={styles.search_icon}
-      />
-      <TextInput
-        style={[styles.search_input, {textAlign: isRTL ? 'right' : 'left'}]}
-        onChangeText={text => {
-          console.log('text --- fff', text);
-          setSearchText(text);
-          setTransactionsData(
-            transactionsData.filter(
-              transaction =>
-                transaction.firstName.includes(text) ||
-                transaction.lastName.includes(text) ||
-                transaction.libelle.includes(text) ||
-                transaction.type.includes(text),
-            ),
-          );
-        }}
-        value={searchText}
-        placeholder={t('search') + '...'}
-      />
-      <TouchableOpacity
-        onPress={() => {
-          /* handle filter action here */
-        }}>
-        <FontAwesome
-          name="sliders"
+    <>
+      <Pressable style={styles.search_container} onPress={() => setOpen(false)}>
+        <Feather
+          name="search"
           size={20}
           color={Colors.grayDark}
           style={styles.search_icon}
         />
-      </TouchableOpacity>
-    </View>
+        <TextInput
+          style={[styles.search_input, {textAlign: isRTL ? 'right' : 'left'}]}
+          onChangeText={text => {
+            console.log('text --- fff', text);
+            setSearchText(text);
+            setTransactionsData(
+              transactionsData.filter(
+                transaction =>
+                  transaction.firstName.includes(text) ||
+                  transaction.lastName.includes(text) ||
+                  transaction.libelle.includes(text) ||
+                  transaction.type.includes(text),
+              ),
+            );
+          }}
+          value={searchText}
+          placeholder={t('search') + '...'}
+        />
+        <TouchableOpacity
+          onPress={() => {
+            setOpen(!open);
+          }}>
+          <FontAwesome
+            name="sliders"
+            size={20}
+            color={Colors.grayDark}
+            style={styles.search_icon}
+          />
+        </TouchableOpacity>
+      </Pressable>
+      {open && (
+        <DropDownPicker
+          containerStyle={{paddingHorizontal: 20, left: 20, top: 5}}
+          style={{
+            zIndex: 1000,
+            position: 'absolute',
+          }}
+          open={open}
+          value={null}
+          modalProps={{
+            animationType: 'fade',
+          }}
+          items={[
+            {label: 'All', value: 'all'},
+            {label: 'Sent', value: 'D'},
+            {label: 'Received', value: 'C'},
+          ]}
+          setOpen={setOpen}
+          setValue={value => {
+            console.log('value --- cccccccc --- >', value);
+          }}
+          setItems={value => {
+            console.log('value --- bbbbbbbb --- >', value);
+          }}
+          onSelectItem={value => {
+            console.log('value --- aaaaaaaaa --- >', value.value);
+            if (value.value === 'all') {
+              setTransactionsData(transactionsData);
+            } else {
+              setTransactionsData(
+                transactionsData.filter(
+                  transaction => transaction.transSign === value.value,
+                ),
+              );
+            }
+          }}
+          // onChangeValue={value => {
+          //   console.log('value --- ddddddd --- >', value);
+          //   if (value === 'all') {
+          //     setTransactionsData(transactionsData);
+          //   } else {
+          //     setTransactionsData(
+          //       transactionsData.filter(
+          //         transaction => transaction.transSign === value,
+          //       ),
+          //     );
+          //   }
+          // }}
+        />
+      )}
+    </>
   );
 };
 
