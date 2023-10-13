@@ -1,4 +1,11 @@
-import {StyleSheet, Text, View, Image, ImageProps} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  ImageProps,
+  Pressable,
+} from 'react-native';
 
 import Feather from 'react-native-vector-icons/Feather';
 
@@ -104,6 +111,7 @@ interface Props {
 const HistoriqueScreen = ({isScreen = true}: Props = {isScreen: true}) => {
   const [walletData, setWalletData] = useState<TransactionsData | null>(null);
   const [transactionsData, setTransactionsData] = useState<Transaction[]>([]);
+  const [open, setOpen] = useState(false);
 
   const walletId = '0606060606';
   const dataToSend = {
@@ -134,11 +142,13 @@ const HistoriqueScreen = ({isScreen = true}: Props = {isScreen: true}) => {
   }
 
   return (
-    <View style={styles.mainContainer}>
+    <Pressable style={styles.mainContainer} onPress={() => setOpen(false)}>
       {isScreen && (
         <SearchComponent
           setTransactionsData={setTransactionsData}
           transactionsData={walletData.transactions}
+          setOpen={setOpen}
+          open={open}
         />
       )}
       <View style={styles.spacer}></View>
@@ -164,7 +174,7 @@ const HistoriqueScreen = ({isScreen = true}: Props = {isScreen: true}) => {
           );
         })}
       </ScrollView>
-    </View>
+    </Pressable>
   );
 };
 
