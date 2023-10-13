@@ -5,23 +5,44 @@ import {View, TextInput, StyleSheet, TouchableOpacity} from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
+import {Transaction} from '../../types/wallet';
 
-const SearchComponent = () => {
+interface SearchComponentProps {
+  setTransactionsData: React.Dispatch<React.SetStateAction<Transaction[]>>;
+  transactionsData: Transaction[];
+}
+
+const SearchComponent = ({
+  setTransactionsData,
+  transactionsData,
+}: SearchComponentProps) => {
   const [searchText, setSearchText] = useState('');
   const isRTL = false;
   const {t} = useTranslation();
 
   return (
-    <View style={styles.container}>
+    <View style={styles.search_container}>
       <Feather
         name="search"
         size={20}
         color={Colors.grayDark}
-        style={styles.icon}
+        style={styles.search_icon}
       />
       <TextInput
-        style={[styles.input, {textAlign: isRTL ? 'right' : 'left'}]}
-        onChangeText={text => setSearchText(text)}
+        style={[styles.search_input, {textAlign: isRTL ? 'right' : 'left'}]}
+        onChangeText={text => {
+          console.log('text --- fff', text);
+          setSearchText(text);
+          setTransactionsData(
+            transactionsData.filter(
+              transaction =>
+                transaction.firstName.includes(text) ||
+                transaction.lastName.includes(text) ||
+                transaction.libelle.includes(text) ||
+                transaction.type.includes(text),
+            ),
+          );
+        }}
         value={searchText}
         placeholder={t('search') + '...'}
       />
@@ -33,7 +54,7 @@ const SearchComponent = () => {
           name="sliders"
           size={20}
           color={Colors.grayDark}
-          style={styles.icon}
+          style={styles.search_icon}
         />
       </TouchableOpacity>
     </View>
@@ -41,7 +62,7 @@ const SearchComponent = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {
+  search_container: {
     flexDirection: 'row',
     alignItems: 'center',
     borderColor: Colors.grayDark,
@@ -51,10 +72,10 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
     height: 50,
   },
-  input: {
+  search_input: {
     flex: 1,
   },
-  icon: {
+  search_icon: {
     marginHorizontal: 5,
   },
 });

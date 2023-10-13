@@ -25,6 +25,7 @@ import {ROUTE_NAMES} from '../../navigation/routeNames';
 import Colors from '../../constants/Colors';
 import {IconWithLabel} from '../../components/common/IconWithLabel';
 import {useTranslation} from 'react-i18next';
+import HistoriqueScreen from '../historiqueScreen';
 
 const {width: SCREEN_WIDTH, height: SCREEN_HEIGHT} = Dimensions.get('window');
 const CARD_HEIGHT = SCREEN_WIDTH < 768 ? 151 : 250;
@@ -189,7 +190,8 @@ const WalletDashboard = () => {
           height: SCREEN_HEIGHT - (CARD_HEIGHT + 380),
         }}
         showsVerticalScrollIndicator={false}>
-        <TransactionItem
+        <HistoriqueScreen isScreen={false} />
+        {/* <TransactionItem
           image={require('../../assets/images/img5.jpg')}
           name="Virgin"
           username="@jonedoe42"
@@ -308,7 +310,7 @@ const WalletDashboard = () => {
           arrowColor="red"
           amount={'299'}
           date="18 Août 2023"
-        />
+        /> */}
         <View style={{height: 60}}></View>
       </ScrollView>
     </View>
