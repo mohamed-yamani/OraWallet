@@ -12,6 +12,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import Colors from '../../../constants/Colors';
 import {useTranslation} from 'react-i18next';
 import {BlurView} from '@react-native-community/blur';
+import {Account} from '../../../types/wallet';
 
 const {width: SCREEN_WIDTH} = Dimensions.get('window');
 
@@ -20,24 +21,19 @@ const CARD_HEIGHT = SCREEN_WIDTH < 768 ? 151 : 250;
 const RADIUS = 24;
 const SPACING = 12;
 
-interface CardData {
-  amount: string;
-  currency: string;
-  accountNumber: string;
-}
-
 interface CarouselProps {
-  data: CardData[];
+  data: Account[];
+  walletBalance: String;
 }
 
-const Carousel: React.FC<CarouselProps> = ({data}) => {
+const Carousel: React.FC<CarouselProps> = ({data, walletBalance}) => {
   const scrollX = useRef(new Animated.Value(0)).current;
   const [isAmountVisible, setIsAmountVisible] = useState(true);
   const [currentIndex, setCurrentIndex] = useState(0);
   const {t} = useTranslation();
   // const { isRTL } = useLayout();
 
-  const renderItem = ({item, index}: {item: CardData; index: number}) => {
+  const renderItem = ({item, index}: {item: Account; index: number}) => {
     return (
       <View
         style={{
@@ -111,7 +107,8 @@ const Carousel: React.FC<CarouselProps> = ({data}) => {
             }}>
             <View style={{flexDirection: 'row', alignItems: 'flex-start'}}>
               <Text style={styles.amountText}>
-                {isAmountVisible ? item.amount : '*****'}
+                {/* {isAmountVisible ? item.amount : '*****'} */}
+                {isAmountVisible ? walletBalance : '*****'}
               </Text>
               {isAmountVisible && <Text style={styles.dhText}>.00 DH</Text>}
             </View>
@@ -160,7 +157,7 @@ const Carousel: React.FC<CarouselProps> = ({data}) => {
 
   return (
     <View style={styles.carouselContainer}>
-      <Animated.FlatList<CardData>
+      <Animated.FlatList<Account>
         horizontal
         data={data}
         keyExtractor={item => item.accountNumber}

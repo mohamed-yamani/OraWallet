@@ -7,9 +7,11 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 // import {data} from '../../screens/HomeScreen';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import Colors from '../../constants/Colors';
 import Carousel from '../../components/common/carousel';
+import {postToWallet} from '../../api/api';
+import {Account, Wallet} from '../../types/wallet';
 
 const CustomHeader: React.FC<{
   title: string;
@@ -74,37 +76,36 @@ const {width: SCREEN_WIDTH} = Dimensions.get('window');
 const CARD_HEIGHT = SCREEN_WIDTH < 768 ? 151 : 250;
 
 const CarouselWithHeader: React.FC = () => {
+  const [walletData, setWalletData] = useState<Wallet | null>(null);
+
+  const walletId = '0606060606';
+  const dataToSend = {
+    // ... your data to send
+  };
+
+  const fetchWalletData = async () => {
+    try {
+      const responseData = await postToWallet(walletId, dataToSend);
+      setWalletData(responseData.wallet as Wallet);
+    } catch (error) {
+      console.error('Failed to fetch wallet data:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchWalletData();
+  }, []);
+
+  if (!walletData) {
+    return <Text>Loading...</Text>;
+  }
+
   return (
     <View style={{height: CARD_HEIGHT + 60}}>
-      <Carousel data={data} />
+      <Carousel
+        data={walletData.accounts || []}
+        walletBalance={walletData.walletBalance || '0'}
+      />
     </View>
   );
 };
-
-export const data = [
-  {
-    amount: '3,565',
-    currency: 'USD',
-    accountNumber: '2234 5678 9012 3456',
-  },
-  {
-    amount: '2,565',
-    currency: 'EUR',
-    accountNumber: '3234 5678 9012 3456',
-  },
-  {
-    amount: '5,565',
-    currency: 'GBP',
-    accountNumber: '4234 5678 9012 3451',
-  },
-  {
-    amount: '8,565',
-    currency: 'USD',
-    accountNumber: '2234 5678 9012 3452',
-  },
-  {
-    amount: '10,637',
-    currency: 'EUR',
-    accountNumber: '3234 5678 9012 3453',
-  },
-];
