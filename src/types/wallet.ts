@@ -1,3 +1,5 @@
+// Carousel data
+
 type UpgradeApplication = {
     applicationId: string;
     reason: string;
@@ -22,6 +24,29 @@ export type Wallet = {
     switchDefault: string;
     upgradeApplication: UpgradeApplication;
     walletBalance: string;
+};
+
+
+// history of transactions
+
+export type Transaction = {
+    reference: string;
+    amount: string; // If the amount can be a number, then change to 'number'
+    phonenum: string;
+    accountNumber: string;
+    status: string;
+    statusdate: string; // If you're sure it'll always be in this format, then string is fine.
+    statusYear: string;
+    type: string;
+    transSign: string;
+    lastName: string;
+    firstName: string;
+    libelle: string;
+};
+
+export type TransactionsData = {
+    transactions: Transaction[];
+    balance: number;
 };
 
 

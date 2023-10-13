@@ -7,9 +7,10 @@ interface PostData {
     // Example: name: string;
 }
 
-export const postToWallet = async (walletId: string, data: PostData) => {
+export const postToWallet = async (walletId: string, data: PostData, endpointurl: String) => {
     // const endpoint = `${BASE_ENDPOINT}/wallet/${walletId}`;
-    const endpoint = 'http://10.31.3.100:4000/api/v1/wallet/0606060606';
+    // const endpoint = 'http://10.31.3.100:4000/api/v1/wallet/0606060606';
+    const endpoint = `http://10.31.3.100:4000/api/v1/${endpointurl}`
 
     const response = await fetch(endpoint, {
         method: 'POST',

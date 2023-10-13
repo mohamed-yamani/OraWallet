@@ -85,7 +85,11 @@ const CarouselWithHeader: React.FC = () => {
 
   const fetchWalletData = async () => {
     try {
-      const responseData = await postToWallet(walletId, dataToSend);
+      const responseData = await postToWallet(
+        walletId,
+        dataToSend,
+        'wallet/0606060606',
+      );
       setWalletData(responseData.wallet as Wallet);
     } catch (error) {
       console.error('Failed to fetch wallet data:', error);
