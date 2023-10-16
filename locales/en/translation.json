@@ -103,5 +103,8 @@
   "internetBillAmount": "Internet Bill Amount",
   "initiateInternetPayment": "Initiate Internet Payment",
   "payTelephone": "Pay Telephone",
+  "firstName": "First Name",
+  "lastName": "Last Name",
+  "walletPin": "Wallet Pin",
   "chooseRecipient": "Choose the person you want to pay"
 }

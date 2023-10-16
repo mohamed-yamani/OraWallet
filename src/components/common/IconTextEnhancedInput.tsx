@@ -53,7 +53,7 @@ export const IconTextEnhancedInput = ({
   );
 };
 
-const HorizontalLine = () => {
+export const HorizontalLine = () => {
   return (
     <>
       <View style={{width: 12}} />

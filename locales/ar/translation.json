@@ -102,5 +102,8 @@
   "internetBillAmount": "مبلغ فاتورة الإنترنت",
   "initiateInternetPayment": "بدء دفع الإنترنت",
   "payTelephone": "ادفع الهاتف",
+  "firstName": "الاسم الأول",
+  "lastName": "الاسم الأخير",
+  "walletPin": "رقم التعريف الشخصي للمحفظة",
   "chooseRecipient": "اختر المستلم"
 }
