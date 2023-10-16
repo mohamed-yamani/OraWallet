@@ -1,29 +1,25 @@
 import {StyleSheet, Text, View, TextInput, Dimensions} from 'react-native';
-// import { MaterialIcons, Ionicons } from '@expo/vector-icons';
 import React, {useState} from 'react';
 import Colors from '../../constants/Colors';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-// import CountryPicker from 'react-native-country-picker-modal';
 import {useTranslation} from 'react-i18next';
-// import {useLayout} from '../../contexts/LayoutContext';
 import {getResponsivePaddingHorizontal} from '../../utils/responsiveDesign';
-// import ErrorModal from '../../../components/modals/ErrorModal';
 import {useNavigation} from '@react-navigation/native';
 import Button from '../../components/common/button';
-import {IconTextEnhancedInput} from '../../components/common/IconTextEnhancedInput';
+import {
+  HorizontalLine,
+  IconTextEnhancedInput,
+} from '../../components/common/IconTextEnhancedInput';
 import CountryCodePicker from '../../components/CountryCodePicker';
-// import {IconTextEnhancedInput} from '../../components/common/IconTextEnhancedInput';
-// import {ROUTE_NAMES} from '../../navigation/routeNames';
-// import {CountryCode} from '../../types';
+import GenderSelector from '../../components/common/GenderSelector';
 
 const screenWith = Dimensions.get('window').width;
 
 const CreateWalletScreen = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [countryCode, setCountryCode] = useState('MA');
   const [phone, setPhone] = useState('');
-  const [modalVisible, setModalVisible] = useState(false);
+  const [selectGender, setSelectGender] = useState('female');
   const isRTL = false;
   const navigation = useNavigation();
   const {t} = useTranslation();
@@ -32,7 +28,7 @@ const CreateWalletScreen = () => {
     <View
       style={[
         styles.container,
-        {paddingTop: 65, alignItems: isRTL ? 'flex-end' : 'flex-start'},
+        {paddingTop: 45, alignItems: isRTL ? 'flex-end' : 'flex-start'},
       ]}>
       {/* <ConfirmationModal 
                 visible={modalVisible} 
@@ -71,8 +67,26 @@ const CreateWalletScreen = () => {
           styles.formInputWrapper,
           {paddingHorizontal: getResponsivePaddingHorizontal()},
         ]}>
-        {/* Nom complet */}
-        <IconTextEnhancedInput icon="person" placeholder={t('fullName')} />
+        {/* First name */}
+        <IconTextEnhancedInput icon="person" placeholder={t('firstName')} />
+
+        {/* Last name */}
+        <IconTextEnhancedInput icon="person" placeholder={t('lastName')} />
+
+        {/* Wallet PIN */}
+        <IconTextEnhancedInput
+          icon="lock"
+          placeholder={t('walletPin')}
+          secureTextEntry={!showPassword}
+          rightIcon={showPassword ? 'visibility-off' : 'visibility'}
+          onRightIconPress={() => setShowPassword(!showPassword)}
+        />
+
+        {/* Gender */}
+        <GenderSelector
+          selectedGender={selectGender}
+          onGenderChange={setSelectGender}
+        />
 
         {/* Adresse email */}
         <IconTextEnhancedInput
@@ -88,21 +102,7 @@ const CreateWalletScreen = () => {
             {width: screenWith - getResponsivePaddingHorizontal() * 2},
           ]}>
           <MaterialIcons name="phone" size={24} color={Colors.primary} />
-          <View style={styles.divider} />
-
-          {/* <CountryPicker
-            countryCode={countryCode as CountryCode}
-            withFlag
-            withFilter
-            withFlagButton
-            withCountryNameButton={true}
-            withCallingCodeButton={false}
-            onSelect={country => {
-              setCountryCode(country.cca2);
-              setCountryCallingCode(country.callingCode[0]);
-            }}
-            containerButtonStyle={styles.flagContainer}
-          /> */}
+          <HorizontalLine />
 
           <View style={{width: 60, height: 20}}>
             <CountryCodePicker />
@@ -152,7 +152,7 @@ const CreateWalletScreen = () => {
           label={t('continue')}
           // onPress={() => setModalVisible(true)}
           onPress={() => navigation.navigate('MainApp' as never)}
-          style={{backgroundColor: Colors.primary}}
+          style={{backgroundColor: Colors.primary, marginTop: 20}}
           leftIcon={
             // <MaterialIcons
             //   name={isRTL ? 'arrow-back-ios' : 'arrow-forward-ios'}
@@ -199,7 +199,7 @@ const styles = StyleSheet.create({
     borderColor: '#D1D1D6',
     borderRadius: 8,
     paddingVertical: 10,
-    paddingHorizontal: 15,
+    paddingHorizontal: 22,
     height: 50,
     marginTop: 10,
     backgroundColor: Colors.white,
@@ -225,7 +225,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontFamily: 'Nunito-Regular',
     color: Colors.midnightGray,
-    marginTop: 73,
+    marginTop: 35,
     marginBottom: 20,
     marginHorizontal: 20,
   },

@@ -101,5 +101,8 @@
   "internetBillAmount": "Montant de la facture Internet",
   "initiateInternetPayment": "Initier le paiement Internet",
   "payTelephone": "Payez le téléphone",
+  "firstName": "Prénom",
+  "lastName": "Nom",
+  "walletPin": "Code PIN du portefeuille",
   "loremText": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
 }
