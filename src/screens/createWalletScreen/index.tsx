@@ -38,7 +38,6 @@ const CreateWalletScreen = () => {
   const [CountryCode, setCountryCode] = useState('+212');
   const [password, setPassword] = useState('');
   const [transactionId, setTransactionId] = useState('');
-  // const [otp, setOtp] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [selectGender, setSelectGender] = useState('MME');
 
