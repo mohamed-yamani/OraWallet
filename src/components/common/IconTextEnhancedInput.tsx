@@ -15,6 +15,7 @@ export const IconTextEnhancedInput = ({
   rightText,
   leftText,
   onRightIconPress,
+  onChange,
 
   ...props
 }: {
@@ -27,6 +28,7 @@ export const IconTextEnhancedInput = ({
   inputType?: string;
   keyboardType?: any;
   secureTextEntry?: boolean;
+  onChange?: (text: string) => void;
 }) => {
   return (
     <View style={styles.inputContainer}>
@@ -41,6 +43,7 @@ export const IconTextEnhancedInput = ({
         style={styles.textInput}
         {...props}
         placeholderTextColor={Colors.silverGray}
+        onChangeText={onChange}
       />
       {rightIcon && (
         <TouchableOpacity onPress={onRightIconPress}>

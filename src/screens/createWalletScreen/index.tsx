@@ -1,5 +1,5 @@
 import {StyleSheet, Text, View, TextInput, Dimensions} from 'react-native';
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import Colors from '../../constants/Colors';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {useTranslation} from 'react-i18next';
@@ -12,17 +12,103 @@ import {
 } from '../../components/common/IconTextEnhancedInput';
 import CountryCodePicker from '../../components/CountryCodePicker';
 import GenderSelector from '../../components/common/GenderSelector';
+import ConfirmationModal from '../../components/common/modals/ConfirmationModal';
+import ConfirmationCodeInputModal from '../../components/common/modals/confirmationCodeInputModal';
+import {postToWallet} from '../../api/api';
+import {CreateWalletType} from '../../types/wallet';
+import WalletContext from '../../contexts/WalletContext';
 
 const screenWith = Dimensions.get('window').width;
 
 const CreateWalletScreen = () => {
-  const [showPassword, setShowPassword] = useState(false);
+  const context = React.useContext(WalletContext);
+  if (!context) {
+    throw new Error('WalletContext must be used within a WalletProvider');
+  }
+
+  // const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const [phone, setPhone] = useState('');
-  const [selectGender, setSelectGender] = useState('female');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [walletPin, setWalletPin] = useState('');
+  const [emailAddress, setEmailAddress] = useState('');
+  const [CountryCode, setCountryCode] = useState('+212');
+  const [password, setPassword] = useState('');
+  const [transactionId, setTransactionId] = useState('');
+  // const [otp, setOtp] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [selectGender, setSelectGender] = useState('MME');
+
+  const {createWalletDataToSend} = context;
+
   const isRTL = false;
   const navigation = useNavigation();
+
   const {t} = useTranslation();
+
+  // const walletId = '0606060606';
+  const createWalletDataBody = {
+    emailAddress: emailAddress,
+    firstName: firstName,
+    lastName: lastName,
+    password: password,
+    phone: CountryCode + phone,
+    pin: walletPin,
+    titlePrefix: selectGender,
+  };
+
+  const creatWallet = async () => {
+    try {
+      const responseData = await postToWallet(
+        createWalletDataToSend.walletId,
+        createWalletDataBody,
+        'auth/login',
+      );
+
+      console.log('create wallet data ... ', responseData);
+
+      if (responseData && responseData.transactioId) {
+        setTransactionId(responseData.transactioId);
+        console.log(`transactionId is : ${responseData.transactioId}`);
+      }
+    } catch (error) {
+      console.error('Failed to fetch wallet data:', error);
+    }
+  };
+
+  const confirmationDataToSend = {
+    emailAddress: emailAddress,
+    firstName: firstName,
+    lastName: lastName,
+    password: password,
+    phone: CountryCode + phone,
+    pin: walletPin,
+    titlePrefix: selectGender,
+    otp: createWalletDataToSend.otp,
+    transactionId: transactionId,
+  };
+
+  const confirmWallet = async () => {
+    console.log(
+      'confirmation data to send ... ... ... ...',
+      confirmationDataToSend,
+    );
+
+    try {
+      const responseData = await postToWallet(
+        createWalletDataToSend.walletId,
+        confirmationDataToSend,
+        'auth/login/validate',
+      );
+      console.log('confirm wallet data ... ', responseData);
+      setTransactionId(responseData.transactionId);
+    } catch (error) {
+      console.error('Failed to fetch wallet data:', error);
+    }
+  };
 
   return (
     <View
@@ -30,10 +116,21 @@ const CreateWalletScreen = () => {
         styles.container,
         {paddingTop: 45, alignItems: isRTL ? 'flex-end' : 'flex-start'},
       ]}>
-      {/* <ConfirmationModal 
-                visible={modalVisible} 
-                onClose={() => setModalVisible(false)} // Function to close the modal
-            /> */}
+      {/* <ConfirmationModal
+        visible={modalVisible}
+        onClose={() => setModalVisible(false)} // Function to close the modal
+      /> */}
+
+      <ConfirmationCodeInputModal
+        onClose={() => setModalVisible(false)}
+        visible={modalVisible}
+        onContinue={() => {
+          confirmWallet();
+          console.log(`otp is ----> : ${createWalletDataToSend.otp}`);
+          setModalVisible(false);
+          navigation.navigate('MainApp' as never);
+        }}
+      />
 
       {/* <PaymentConfirmationModal 
         visible={modalVisible} 
@@ -68,10 +165,18 @@ const CreateWalletScreen = () => {
           {paddingHorizontal: getResponsivePaddingHorizontal()},
         ]}>
         {/* First name */}
-        <IconTextEnhancedInput icon="person" placeholder={t('firstName')} />
+        <IconTextEnhancedInput
+          icon="person"
+          placeholder={t('firstName')}
+          onChange={setFirstName}
+        />
 
         {/* Last name */}
-        <IconTextEnhancedInput icon="person" placeholder={t('lastName')} />
+        <IconTextEnhancedInput
+          icon="person"
+          placeholder={t('lastName')}
+          onChange={setLastName}
+        />
 
         {/* Wallet PIN */}
         <IconTextEnhancedInput
@@ -80,6 +185,7 @@ const CreateWalletScreen = () => {
           secureTextEntry={!showPassword}
           rightIcon={showPassword ? 'visibility-off' : 'visibility'}
           onRightIconPress={() => setShowPassword(!showPassword)}
+          onChange={setWalletPin}
         />
 
         {/* Gender */}
@@ -93,6 +199,7 @@ const CreateWalletScreen = () => {
           icon="email"
           placeholder={t('emailAddress')}
           keyboardType="email-address"
+          onChange={setEmailAddress}
         />
 
         {/* phone number */}
@@ -105,7 +212,7 @@ const CreateWalletScreen = () => {
           <HorizontalLine />
 
           <View style={{width: 60, height: 20}}>
-            <CountryCodePicker />
+            <CountryCodePicker setCountryCode={setCountryCode} />
           </View>
 
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
@@ -128,6 +235,7 @@ const CreateWalletScreen = () => {
           secureTextEntry={!showPassword}
           rightIcon={showPassword ? 'visibility-off' : 'visibility'}
           onRightIconPress={() => setShowPassword(!showPassword)}
+          onChange={setPassword}
         />
 
         {/* Confirmer mot de passe */}
@@ -137,6 +245,7 @@ const CreateWalletScreen = () => {
           secureTextEntry={!showConfirmPassword}
           rightIcon={showConfirmPassword ? 'visibility-off' : 'visibility'}
           onRightIconPress={() => setShowConfirmPassword(!showConfirmPassword)}
+          onChange={setConfirmPassword}
         />
 
         <View
@@ -151,7 +260,17 @@ const CreateWalletScreen = () => {
         <Button
           label={t('continue')}
           // onPress={() => setModalVisible(true)}
-          onPress={() => navigation.navigate('MainApp' as never)}
+          onPress={() => {
+            setModalVisible(true);
+            creatWallet();
+
+            console.log(
+              `data is : firstName : ${firstName} : lastName : ${lastName} : walletPin : ${walletPin} : emailAddress : ${emailAddress} : phoneNumber : ${
+                CountryCode + phone
+              } : password : ${password} : confirmPassword : ${confirmPassword} gender : ${selectGender}`,
+            );
+            // navigation.navigate('MainApp' as never);
+          }}
           style={{backgroundColor: Colors.primary, marginTop: 20}}
           leftIcon={
             // <MaterialIcons

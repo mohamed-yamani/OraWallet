@@ -1,18 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import {
   FlatList,
-  ScrollView,
   TouchableWithoutFeedback,
   Modal,
-  TextInput,
   View,
   Text,
   Image,
   Dimensions,
   TouchableOpacity,
 } from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import Icon from 'react-native-vector-icons/Ionicons';
 
 interface Country {
   code: string;
@@ -21,7 +17,7 @@ interface Country {
   flag: string;
 }
 
-const CountryCodePicker: React.FC = () => {
+const CountryCodePicker = ({setCountryCode}: {setCountryCode: any}) => {
   const [areas, setAreas] = useState<Country[]>([]);
   const [selectedArea, setSelectedArea] = useState<Country | null>(null);
   const [modalVisible, setModalVisible] = useState(false);
@@ -44,7 +40,6 @@ const CountryCodePicker: React.FC = () => {
           }),
         );
 
-        console.log('areaData', areaData);
         setAreas(areaData);
 
         const defaultData = areaData.find(a => a.code === 'MA');
@@ -58,6 +53,7 @@ const CountryCodePicker: React.FC = () => {
       onPress={() => {
         setSelectedArea(item);
         setModalVisible(false);
+        setCountryCode(item.callingCode);
       }}>
       <Image
         source={{uri: item.flag}}

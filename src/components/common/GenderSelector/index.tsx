@@ -17,18 +17,18 @@ const GenderSelector = ({
       <HorizontalLine />
       <TouchableOpacity
         style={styles.radioContainer}
-        onPress={() => onGenderChange('male')}>
+        onPress={() => onGenderChange('M')}>
         <View
-          style={[styles.radio, selectedGender === 'male' && styles.selected]}
+          style={[styles.radio, selectedGender === 'M' && styles.selected]}
         />
         <Text style={styles.radioLabel}>Male</Text>
       </TouchableOpacity>
       <View style={{width: 20}} />
       <TouchableOpacity
         style={styles.radioContainer}
-        onPress={() => onGenderChange('female')}>
+        onPress={() => onGenderChange('MME')}>
         <View
-          style={[styles.radio, selectedGender === 'female' && styles.selected]}
+          style={[styles.radio, selectedGender === 'MME' && styles.selected]}
         />
         <Text style={styles.radioLabel}>Female</Text>
       </TouchableOpacity>

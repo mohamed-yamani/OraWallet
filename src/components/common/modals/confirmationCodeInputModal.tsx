@@ -13,12 +13,18 @@ import CountdownTimer from '../../../components/CountdownTimer';
 import Colors from '../../../constants/Colors';
 import Button from '../button';
 import {useTranslation} from 'react-i18next';
+import WalletContext from '../../../contexts/WalletContext';
 
 export default function ConfirmationCodeInputModal(props: {
   visible: boolean;
   onClose: () => void;
   onContinue?: () => void;
 }) {
+  const context = React.useContext(WalletContext);
+  if (!context) {
+    throw new Error('WalletContext must be used within a WalletProvider');
+  }
+  const {createWalletDataToSend} = context;
   const {t} = useTranslation();
   const [code, setCode] = useState(['', '', '', '']);
   const input1 = useRef<TextInput | null>(null);
@@ -31,6 +37,7 @@ export default function ConfirmationCodeInputModal(props: {
     newCode[index] = text;
 
     setCode(newCode);
+    createWalletDataToSend.setOtp(newCode.join(''));
 
     if (text.length > 0) {
       switch (index) {

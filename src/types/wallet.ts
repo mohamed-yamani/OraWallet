@@ -49,4 +49,11 @@ export type TransactionsData = {
     balance: number;
 };
 
+// auth step 00 - login
+// {"step": "01", "transactioId": "XXXX-XXXX-XXXX-XXXX"}
+export type CreateWalletType = {
+    step: string;
+    transactionId: string;
+};
+
 
