@@ -11,6 +11,7 @@ import {getResponsivePaddingHorizontal} from '../../utils/responsiveDesign';
 import {useNavigation} from '@react-navigation/native';
 import Button from '../../components/common/button';
 import {IconTextEnhancedInput} from '../../components/common/IconTextEnhancedInput';
+import CountryCodePicker from '../../components/CountryCodePicker';
 // import {IconTextEnhancedInput} from '../../components/common/IconTextEnhancedInput';
 // import {ROUTE_NAMES} from '../../navigation/routeNames';
 // import {CountryCode} from '../../types';
@@ -21,7 +22,6 @@ const CreateWalletScreen = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [countryCode, setCountryCode] = useState('MA');
-  const [countryCallingCode, setCountryCallingCode] = useState('212'); // Morocco [MA]
   const [phone, setPhone] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
   const isRTL = false;
@@ -82,30 +82,34 @@ const CreateWalletScreen = () => {
         />
 
         {/* phone number */}
-        {/* <View
+        <View
           style={[
             styles.inputContainer,
             {width: screenWith - getResponsivePaddingHorizontal() * 2},
           ]}>
           <MaterialIcons name="phone" size={24} color={Colors.primary} />
           <View style={styles.divider} />
-          <CountryPicker
+
+          {/* <CountryPicker
             countryCode={countryCode as CountryCode}
             withFlag
             withFilter
             withFlagButton
-            withCountryNameButton={false}
+            withCountryNameButton={true}
             withCallingCodeButton={false}
             onSelect={country => {
               setCountryCode(country.cca2);
               setCountryCallingCode(country.callingCode[0]);
             }}
             containerButtonStyle={styles.flagContainer}
-          />
+          /> */}
+
+          <View style={{width: 60, height: 20}}>
+            <CountryCodePicker />
+          </View>
+
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <Text style={{fontSize: 16, marginHorizontal: 2}}>
-              {` +${countryCallingCode}`}
-            </Text>
+            <Text style={{fontSize: 16, marginHorizontal: 2}}>{` `}</Text>
             <View style={{height: '100%', backgroundColor: 'gray'}} />
             <TextInput
               placeholder="0 00 00 00 00"
@@ -115,7 +119,7 @@ const CreateWalletScreen = () => {
               style={styles.input}
             />
           </View>
-        </View> */}
+        </View>
 
         {/* Mot de passe */}
         <IconTextEnhancedInput
