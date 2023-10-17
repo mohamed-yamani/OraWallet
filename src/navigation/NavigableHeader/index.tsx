@@ -5,7 +5,8 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import Entypo from 'react-native-vector-icons/Entypo';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 // import {data} from '../../screens/HomeScreen';
 import React, {useEffect, useState} from 'react';
 import Colors from '../../constants/Colors';
@@ -41,13 +42,14 @@ const CustomHeader: React.FC<{
             color="black"
             // style={{ position: 'absolute', left: 10 }}
           /> */}
-          <Icon name={'menu' as any} size={24} color="black" />
+          <Entypo name={'menu' as any} size={24} color="black" />
         </TouchableOpacity>
         <Text
           style={{
-            fontSize: 20,
-            color: 'black',
+            fontSize: 22,
+            color: Colors.midnightGray,
             fontFamily: 'Nunito-Bold',
+            fontWeight: '700',
           }}>
           {title}
         </Text>
@@ -61,7 +63,7 @@ const CustomHeader: React.FC<{
               color="black"
               // style={{ position: 'absolute', left: 10 }}
             /> */}
-            <Icon name={'close' as any} size={24} color="black" />
+            <Ionicons name={'close' as any} size={24} color="black" />
           </TouchableOpacity>
         )}
       </View>

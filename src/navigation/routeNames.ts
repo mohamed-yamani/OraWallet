@@ -24,4 +24,10 @@ export const ROUTE_NAMES = {
         SETTINGS: "Settings",
         PAY_WALLET_STACK_GROUP: "PayWalletStackGroup",
     },
+
+    CHAT_STACK: {
+        CHAT: "Chat",
+        CONTACTS: "Contacts",
+    },
+
 };

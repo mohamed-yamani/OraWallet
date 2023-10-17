@@ -59,32 +59,35 @@ const QuerySubscriptionFeeScreen: React.FC = () => {
         keyExtractor={item => item.id}
         renderItem={({item}) => (
           <View style={styles.detailsItem}>
-            <View style={styles.rowContainer}>
-              <SimpleLineIcons
-                name="calendar"
-                size={16}
-                color="#777"
-                style={{marginRight: 10}}
-              />
-              <Text style={styles.dateText}>{item.date}</Text>
+            <View
+              style={[styles.rowContainer, {justifyContent: 'space-between'}]}>
+              <View style={styles.rowContainer}>
+                <SimpleLineIcons
+                  name="calendar"
+                  size={16}
+                  color={Colors.midnightGray}
+                  style={{marginRight: 10}}
+                />
+                <Text style={styles.dateText}>{item.date}</Text>
+              </View>
+              <View style={styles.rowContainer}>
+                {/* <SimpleLineIcons
+                  name="wallet"
+                  size={16}
+                  color={Colors.midnightGray}
+                  style={{marginRight: 10}}
+                /> */}
+                <Text style={styles.amountText}>-{item.amount}</Text>
+              </View>
             </View>
             <View style={styles.rowContainer}>
               <SimpleLineIcons
                 name="note"
                 size={16}
-                color="#555"
+                color={Colors.midnightGray}
                 style={{marginRight: 10}}
               />
               <Text style={styles.descriptionText}>{item.description}</Text>
-            </View>
-            <View style={styles.rowContainer}>
-              <SimpleLineIcons
-                name="wallet"
-                size={16}
-                color="#444"
-                style={{marginRight: 10}}
-              />
-              <Text style={styles.amountText}>-{item.amount}</Text>
             </View>
           </View>
         )}
@@ -132,19 +135,22 @@ const styles = StyleSheet.create({
     borderBottomColor: '#E9E9E9',
   },
   dateText: {
-    fontSize: 16,
-    color: '#777',
+    fontSize: 14,
+    color: Colors.midnightGray,
     marginBottom: 5,
+    fontFamily: 'Nunito-Regular',
   },
   descriptionText: {
-    fontSize: 14,
-    color: '#555',
+    fontSize: 12,
+    color: '#777',
     marginBottom: 5,
+    fontFamily: 'Nunito-Regular',
   },
   amountText: {
-    fontSize: 16,
-    fontWeight: '500',
+    fontSize: 14,
+    fontWeight: '700',
     color: 'red',
+    fontFamily: 'Nunito-Bold',
   },
 });
 
