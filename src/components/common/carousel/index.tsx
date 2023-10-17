@@ -264,6 +264,7 @@ const styles = StyleSheet.create({
   amountTitleText: {
     fontSize: 16,
     color: 'white',
+    fontFamily: 'Nunito-SemiBold',
   },
 
   amountText: {
@@ -276,19 +277,21 @@ const styles = StyleSheet.create({
   currencyText: {
     fontSize: 16,
     color: 'white',
+    fontFamily: 'Nunito-SemiBold',
   },
 
   accountNumberText: {
     fontSize: 14,
     color: 'white',
     fontWeight: 'bold',
+    fontFamily: 'Nunito-SemiBold',
   },
 
   dhText: {
     fontSize: 16,
     color: 'white',
     fontWeight: 'bold',
-    paddingTop: 3,
+    paddingTop: 6,
     fontFamily: 'Nunito-SemiBold',
   },
 

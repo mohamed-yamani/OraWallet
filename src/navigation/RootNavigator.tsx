@@ -10,6 +10,8 @@ import CustomHeader from './NavigableHeader';
 import {PayWalletStackGroup} from './PayWalletStackNavigation';
 import SubscriptionFeeScreen from '../screens/SubscriptionFeeScreen';
 import ChatScreen from '../screens/ChatScreen';
+import UserListScreen from '../screens/UserListScreen';
+import {ChatStackGroup} from './ChatStackNavigation';
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
@@ -93,17 +95,10 @@ function MyDrawer() {
       />
 
       <Drawer.Screen
-        name="ChatScreen"
-        component={ChatScreen}
-        options={({navigation}) => ({
-          header: () => (
-            <CustomHeader
-              title={'Chat'}
-              navigation={navigation}
-              showCarousel={false}
-              showCloseButton={false}
-            />
-          ),
+        name="ChatStackGroup"
+        component={ChatStackGroup}
+        options={() => ({
+          headerShown: false,
         })}
       />
     </Drawer.Navigator>

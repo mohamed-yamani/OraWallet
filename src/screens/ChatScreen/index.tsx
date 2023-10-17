@@ -15,7 +15,10 @@ import Colors from '../../constants/Colors';
 import Entypo from 'react-native-vector-icons/Entypo';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
-const ChatScreen: React.FC = () => {
+const ChatScreen: React.FC<{route: any}> = ({route}) => {
+  const userId = route.params?.userId;
+  const userName = route.params?.userName;
+  const userImageUrl = route.params?.userImageUrl;
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([
     {id: '1', text: 'Hello there!', sender: 'other'},
@@ -37,6 +40,9 @@ const ChatScreen: React.FC = () => {
 
   return (
     <View style={styles.container}>
+      {/* <Text style={{fontSize: 20, fontWeight: 'bold', color: '#333'}}>
+        {userName}
+      </Text> */}
       <FlatList
         data={messages}
         renderItem={({item}) => (
@@ -141,6 +147,7 @@ const ChatScreen: React.FC = () => {
               marginLeft: 5,
               fontWeight: 'bold',
               fontSize: 16,
+              fontFamily: 'Nunito-Bold',
             }}>
             Deal !
           </Text>
@@ -172,6 +179,7 @@ const styles = StyleSheet.create({
   messageText: {
     fontSize: 16,
     color: '#333',
+    fontFamily: 'Nunito-Regular',
   },
   inputContainer: {
     flexDirection: 'row',
