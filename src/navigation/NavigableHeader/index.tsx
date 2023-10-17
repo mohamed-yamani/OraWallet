@@ -41,7 +41,7 @@ const CustomHeader: React.FC<{
             color="black"
             // style={{ position: 'absolute', left: 10 }}
           /> */}
-          <Icon name={'menu' as any} size={24} color="gray" />
+          <Icon name={'menu' as any} size={24} color="black" />
         </TouchableOpacity>
         <Text
           style={{
@@ -61,7 +61,7 @@ const CustomHeader: React.FC<{
               color="black"
               // style={{ position: 'absolute', left: 10 }}
             /> */}
-            <Icon name={'close' as any} size={24} color="gray" />
+            <Icon name={'close' as any} size={24} color="black" />
           </TouchableOpacity>
         )}
       </View>

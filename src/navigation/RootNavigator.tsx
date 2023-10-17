@@ -8,6 +8,7 @@ import CreateWalletScreen from '../screens/createWalletScreen';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import CustomHeader from './NavigableHeader';
 import {PayWalletStackGroup} from './PayWalletStackNavigation';
+import SubscriptionFeeScreen from '../screens/SubscriptionFeeScreen';
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
@@ -72,6 +73,21 @@ function MyDrawer() {
         component={PayWalletStackGroup}
         options={() => ({
           headerShown: false,
+        })}
+      />
+
+      <Drawer.Screen
+        name="Subscription Fee"
+        component={SubscriptionFeeScreen}
+        options={({navigation}) => ({
+          header: () => (
+            <CustomHeader
+              title={'Subscription Fee'}
+              navigation={navigation}
+              showCarousel={false}
+              showCloseButton={false}
+            />
+          ),
         })}
       />
     </Drawer.Navigator>

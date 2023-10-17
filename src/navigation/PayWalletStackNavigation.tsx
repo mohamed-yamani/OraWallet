@@ -45,7 +45,7 @@ export function PayWalletStackGroup() {
 
         <PayWalletStack.Screen
           name={ROUTE_NAMES.PAY_WALLET_STACK.HISTORIQUE}
-          component={HistoriqueScreen}
+          component={HistoriqueScreen as any}
           options={({navigation}) => ({
             animation: 'fade',
 
