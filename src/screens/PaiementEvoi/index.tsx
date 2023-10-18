@@ -190,8 +190,8 @@ const styles = StyleSheet.create({
 
   descriptionText: {
     color: Colors.midnightGray,
-    fontSize: 12,
-    fontWeight: '100',
+    fontSize: 16,
+    fontWeight: '400',
     fontFamily: 'Nunito-Regular',
     marginTop: 10,
     marginBottom: 10,
@@ -203,7 +203,7 @@ const styles = StyleSheet.create({
   optionContainer: {
     alignItems: 'center',
     backgroundColor: '#FAFAFA',
-    height: 50,
+    // height: 50,
     marginHorizontal: 15,
     borderRadius: 8,
     marginTop: 10,
@@ -225,8 +225,8 @@ const styles = StyleSheet.create({
 
   optionText: {
     color: Colors.midnightGray,
-    fontSize: 12,
-    fontWeight: '100',
+    fontSize: 13,
+    fontWeight: '700',
     fontFamily: 'Nunito-Black',
   },
 
