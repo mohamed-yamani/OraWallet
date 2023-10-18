@@ -6,6 +6,8 @@ import {
   StyleSheet,
   TouchableOpacity,
   Text,
+  Platform,
+  Keyboard,
 } from 'react-native';
 // import { AntDesign } from '@expo/vector-icons'; // Assuming you're using Expo
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -26,11 +28,14 @@ export default function ConfirmationCodeInputModal(props: {
   }
   const {createWalletDataToSend} = context;
   const {t} = useTranslation();
+  const [keyboardOpen, setKeyboardOpen] = useState(false);
   const [code, setCode] = useState(['', '', '', '']);
   const input1 = useRef<TextInput | null>(null);
   const input2 = useRef<TextInput | null>(null);
   const input3 = useRef<TextInput | null>(null);
   const input4 = useRef<TextInput | null>(null);
+  const input5 = useRef<TextInput | null>(null);
+  const input6 = useRef<TextInput | null>(null);
 
   const handleTextChange = (text: string, index: number) => {
     const newCode = [...code];
@@ -54,6 +59,16 @@ export default function ConfirmationCodeInputModal(props: {
         case 2:
           if (input4.current) {
             input4.current.focus();
+          }
+          break;
+        case 3:
+          if (input5.current) {
+            input5.current.focus();
+          }
+          break;
+        case 4:
+          if (input6.current) {
+            input6.current.focus();
           }
           break;
         default:
@@ -94,12 +109,38 @@ export default function ConfirmationCodeInputModal(props: {
         }
       }, 100);
     }
+
+    if (Platform.OS === 'ios') {
+      const keyboardWillShowListener = Keyboard.addListener(
+        'keyboardWillShow',
+        () => {
+          setKeyboardOpen(true);
+        },
+      );
+      const keyboardWillHideListener = Keyboard.addListener(
+        'keyboardWillHide',
+        () => {
+          setKeyboardOpen(false);
+        },
+      );
+
+      return () => {
+        keyboardWillShowListener.remove();
+        keyboardWillHideListener.remove();
+      };
+    }
   }, [props.visible]);
 
   return (
     <Modal visible={props.visible} transparent={true} animationType="fade">
       <View style={styles.modalContainer}>
-        <View style={styles.dialog}>
+        <View
+          style={[
+            styles.dialog,
+            {
+              top: keyboardOpen ? -60 : 0,
+            },
+          ]}>
           <TouchableOpacity style={styles.closeButton} onPress={props.onClose}>
             <AntDesign name="close" size={24} color={Colors.midnightGray} />
           </TouchableOpacity>
@@ -156,6 +197,32 @@ export default function ConfirmationCodeInputModal(props: {
               onChangeText={text => handleTextChange(text, 3)}
               onKeyPress={({nativeEvent}) => {
                 if (nativeEvent.key === 'Backspace') handleBackspace(3);
+              }}
+              keyboardType="number-pad"
+            />
+            <TextInput
+              ref={input5}
+              style={styles.input}
+              value={code[4]}
+              maxLength={1}
+              placeholder="_"
+              placeholderTextColor={Colors.gray}
+              onChangeText={text => handleTextChange(text, 4)}
+              onKeyPress={({nativeEvent}) => {
+                if (nativeEvent.key === 'Backspace') handleBackspace(4);
+              }}
+              keyboardType="number-pad"
+            />
+            <TextInput
+              ref={input6}
+              style={styles.input}
+              value={code[5]}
+              maxLength={1}
+              placeholder="_"
+              placeholderTextColor={Colors.gray}
+              onChangeText={text => handleTextChange(text, 5)}
+              onKeyPress={({nativeEvent}) => {
+                if (nativeEvent.key === 'Backspace') handleBackspace(5);
               }}
               keyboardType="number-pad"
             />
@@ -230,8 +297,8 @@ const styles = StyleSheet.create({
   },
 
   input: {
-    width: 60,
-    height: 80,
+    width: 40,
+    height: 60,
     margin: 5,
     fontSize: 24,
     textAlign: 'center',

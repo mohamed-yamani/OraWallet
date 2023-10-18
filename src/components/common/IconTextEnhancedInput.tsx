@@ -84,8 +84,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#D1D1D6',
     borderRadius: 8,
-    paddingHorizontal: 24,
-    height: 50,
+    paddingHorizontal: 20,
+    height: 48,
     marginTop: 10,
   },
 });

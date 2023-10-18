@@ -48,6 +48,7 @@ const CustomHeader: React.FC<{
           style={{
             fontSize: 22,
             color: Colors.midnightGray,
+
             fontFamily: 'Nunito-Bold',
             fontWeight: '700',
           }}>

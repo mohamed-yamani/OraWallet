@@ -1,4 +1,11 @@
-import {StyleSheet, Text, View, TextInput, Dimensions} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  Dimensions,
+  ScrollView,
+} from 'react-native';
 import React, {useContext, useState} from 'react';
 import Colors from '../../constants/Colors';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -30,6 +37,7 @@ const CreateWalletScreen = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [showPin, setShowPin] = useState(false);
   const [phone, setPhone] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -113,13 +121,11 @@ const CreateWalletScreen = () => {
     <View
       style={[
         styles.container,
-        {paddingTop: 45, alignItems: isRTL ? 'flex-end' : 'flex-start'},
+        {
+          paddingTop: 30,
+          alignItems: isRTL ? 'flex-end' : 'flex-start',
+        },
       ]}>
-      {/* <ConfirmationModal
-        visible={modalVisible}
-        onClose={() => setModalVisible(false)} // Function to close the modal
-      /> */}
-
       <ConfirmationCodeInputModal
         onClose={() => setModalVisible(false)}
         visible={modalVisible}
@@ -131,171 +137,159 @@ const CreateWalletScreen = () => {
         }}
       />
 
-      {/* <PaymentConfirmationModal 
-        visible={modalVisible} 
-        onClose={() => setModalVisible(false)} // Function to close the modal
-      /> */}
+      <ScrollView style={{width: '100%'}} showsVerticalScrollIndicator={false}>
+        <Text
+          style={[
+            styles.title,
+            {textAlign: isRTL ? 'right' : 'left', marginTop: 0},
+          ]}>
+          {t('createWallet')}
+        </Text>
 
-      {/* <ErrorModal
-        visible={modalVisible}
-        onClose={() => setModalVisible(false)} // Function to close the modal
-      /> */}
+        <Text
+          style={[styles.headerText, {textAlign: isRTL ? 'right' : 'left'}]}>
+          {t('createWalletSubtitle')}
+        </Text>
 
-      {/* <SuccessPurchaseModal
-        visible={modalVisible}
-        onClose={() => setModalVisible(false)} // Function to close the modal
-      /> */}
-
-      <Text
-        style={[
-          styles.title,
-          {textAlign: isRTL ? 'right' : 'left', marginTop: 0},
-        ]}>
-        {t('createWallet')}
-      </Text>
-
-      <Text style={[styles.headerText, {textAlign: isRTL ? 'right' : 'left'}]}>
-        {t('createWalletSubtitle')}
-      </Text>
-
-      <View
-        style={[
-          styles.formInputWrapper,
-          {paddingHorizontal: getResponsivePaddingHorizontal()},
-        ]}>
-        {/* First name */}
-        <IconTextEnhancedInput
-          icon="person"
-          placeholder={t('firstName')}
-          onChange={setFirstName}
-        />
-
-        {/* Last name */}
-        <IconTextEnhancedInput
-          icon="person"
-          placeholder={t('lastName')}
-          onChange={setLastName}
-        />
-
-        {/* Wallet PIN */}
-        <IconTextEnhancedInput
-          icon="lock"
-          placeholder={t('walletPin')}
-          secureTextEntry={!showPassword}
-          rightIcon={showPassword ? 'visibility-off' : 'visibility'}
-          onRightIconPress={() => setShowPassword(!showPassword)}
-          onChange={setWalletPin}
-        />
-
-        {/* Gender */}
-        <GenderSelector
-          selectedGender={selectGender}
-          onGenderChange={setSelectGender}
-        />
-
-        {/* Adresse email */}
-        <IconTextEnhancedInput
-          icon="email"
-          placeholder={t('emailAddress')}
-          keyboardType="email-address"
-          onChange={setEmailAddress}
-        />
-
-        {/* phone number */}
         <View
           style={[
-            styles.inputContainer,
-            {width: screenWith - getResponsivePaddingHorizontal() * 2},
+            styles.formInputWrapper,
+            // {paddingHorizontal: getResponsivePaddingHorizontal()},
           ]}>
-          <MaterialIcons name="phone" size={24} color={Colors.primary} />
-          <HorizontalLine />
+          {/* First name */}
+          <IconTextEnhancedInput
+            icon="person"
+            placeholder={t('firstName')}
+            onChange={setFirstName}
+          />
 
-          <View style={{width: 60, height: 20}}>
-            <CountryCodePicker setCountryCode={setCountryCode} />
+          {/* Last name */}
+          <IconTextEnhancedInput
+            icon="person"
+            placeholder={t('lastName')}
+            onChange={setLastName}
+          />
+
+          {/* Wallet PIN */}
+          <IconTextEnhancedInput
+            icon="lock"
+            placeholder={t('walletPin')}
+            secureTextEntry={!showPin}
+            rightIcon={showPin ? 'visibility-off' : 'visibility'}
+            onRightIconPress={() => setShowPin(!showPin)}
+            onChange={setWalletPin}
+          />
+
+          {/* Gender */}
+          <GenderSelector
+            selectedGender={selectGender}
+            onGenderChange={setSelectGender}
+          />
+
+          {/* Adresse email */}
+          <IconTextEnhancedInput
+            icon="email"
+            placeholder={t('emailAddress')}
+            keyboardType="email-address"
+            onChange={setEmailAddress}
+          />
+
+          {/* phone number */}
+          <View
+            style={[
+              styles.inputContainer,
+              // {width: screenWith - getResponsivePaddingHorizontal() * 2},
+              {width: screenWith - 40},
+            ]}>
+            <MaterialIcons name="phone" size={24} color={Colors.primary} />
+            <HorizontalLine />
+
+            <View style={{width: 60, height: 20}}>
+              <CountryCodePicker setCountryCode={setCountryCode} />
+            </View>
+
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+              <Text style={{fontSize: 16, marginHorizontal: 2}}>{` `}</Text>
+              <View style={{height: '100%', backgroundColor: 'gray'}} />
+              <TextInput
+                placeholder="0 00 00 00 00"
+                keyboardType="number-pad"
+                value={phone}
+                onChangeText={setPhone}
+                style={styles.input}
+              />
+            </View>
           </View>
 
-          <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <Text style={{fontSize: 16, marginHorizontal: 2}}>{` `}</Text>
-            <View style={{height: '100%', backgroundColor: 'gray'}} />
-            <TextInput
-              placeholder="0 00 00 00 00"
-              keyboardType="number-pad"
-              value={phone}
-              onChangeText={setPhone}
-              style={styles.input}
-            />
-          </View>
+          {/* Mot de passe */}
+          <IconTextEnhancedInput
+            icon="lock"
+            placeholder={t('password')}
+            secureTextEntry={!showPassword}
+            rightIcon={showPassword ? 'visibility-off' : 'visibility'}
+            onRightIconPress={() => setShowPassword(!showPassword)}
+            onChange={setPassword}
+          />
+
+          {/* Confirmer mot de passe */}
+          <IconTextEnhancedInput
+            icon="lock"
+            placeholder={t('confirmPassword')}
+            secureTextEntry={!showConfirmPassword}
+            rightIcon={showConfirmPassword ? 'visibility-off' : 'visibility'}
+            onRightIconPress={() =>
+              setShowConfirmPassword(!showConfirmPassword)
+            }
+            onChange={setConfirmPassword}
+          />
+
+          <View
+            style={{
+              flexDirection: 'column',
+              width: '100%',
+
+              flex: 1,
+            }}
+          />
+
+          <View style={{height: getResponsivePaddingHorizontal() * 3}}></View>
+
+          <Button
+            label={t('continue')}
+            // onPress={() => setModalVisible(true)}
+            onPress={() => {
+              setModalVisible(true);
+              creatWallet();
+
+              console.log(
+                `data is : firstName : ${firstName} : lastName : ${lastName} : walletPin : ${walletPin} : emailAddress : ${emailAddress} : phoneNumber : ${
+                  CountryCode + phone
+                } : password : ${password} : confirmPassword : ${confirmPassword} gender : ${selectGender}`,
+              );
+              // navigation.navigate('MainApp' as never);
+            }}
+            style={{backgroundColor: Colors.primary, marginTop: 20}}
+            leftIcon={
+              <MaterialIcons
+                name={isRTL ? 'arrow-back-ios' : 'arrow-forward-ios'}
+                size={18}
+                color="white"
+              />
+            }
+          />
+
+          {/* <View style={{height: getResponsivePaddingHorizontal()}}></View> */}
+
+          {/* <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              width: '100%',
+              height: 20,
+            }}
+          /> */}
         </View>
-
-        {/* Mot de passe */}
-        <IconTextEnhancedInput
-          icon="lock"
-          placeholder={t('password')}
-          secureTextEntry={!showPassword}
-          rightIcon={showPassword ? 'visibility-off' : 'visibility'}
-          onRightIconPress={() => setShowPassword(!showPassword)}
-          onChange={setPassword}
-        />
-
-        {/* Confirmer mot de passe */}
-        <IconTextEnhancedInput
-          icon="lock"
-          placeholder={t('confirmPassword')}
-          secureTextEntry={!showConfirmPassword}
-          rightIcon={showConfirmPassword ? 'visibility-off' : 'visibility'}
-          onRightIconPress={() => setShowConfirmPassword(!showConfirmPassword)}
-          onChange={setConfirmPassword}
-        />
-
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            width: '100%',
-            flex: 1,
-          }}
-        />
-
-        <Button
-          label={t('continue')}
-          // onPress={() => setModalVisible(true)}
-          onPress={() => {
-            setModalVisible(true);
-            creatWallet();
-
-            console.log(
-              `data is : firstName : ${firstName} : lastName : ${lastName} : walletPin : ${walletPin} : emailAddress : ${emailAddress} : phoneNumber : ${
-                CountryCode + phone
-              } : password : ${password} : confirmPassword : ${confirmPassword} gender : ${selectGender}`,
-            );
-            // navigation.navigate('MainApp' as never);
-          }}
-          style={{backgroundColor: Colors.primary, marginTop: 20}}
-          leftIcon={
-            // <MaterialIcons
-            //   name={isRTL ? 'arrow-back-ios' : 'arrow-forward-ios'}
-            //   size={18}
-            //   color="white"
-            // />
-            <MaterialIcons
-              name={isRTL ? 'arrow-back-ios' : 'arrow-forward-ios'}
-              size={18}
-              color="white"
-            />
-          }
-        />
-
-        <View style={{height: getResponsivePaddingHorizontal()}}></View>
-
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            width: '100%',
-            height: 20,
-          }}
-        />
-      </View>
+      </ScrollView>
     </View>
   );
 };
@@ -318,7 +312,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     paddingVertical: 10,
     paddingHorizontal: 22,
-    height: 50,
+    height: 48,
     marginTop: 10,
     backgroundColor: Colors.white,
   },
