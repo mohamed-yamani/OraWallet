@@ -1,399 +1,284 @@
+import React, {useState, useContext} from 'react';
 import {
-  StyleSheet,
   Text,
   View,
   TextInput,
   Dimensions,
+  Alert,
+  KeyboardAvoidingView,
   ScrollView,
+  Platform,
 } from 'react-native';
-import React, {useContext, useState} from 'react';
-import Colors from '../../constants/Colors';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {useTranslation} from 'react-i18next';
-import {getResponsivePaddingHorizontal} from '../../utils/responsiveDesign';
 import {useNavigation} from '@react-navigation/native';
+
+import Colors from '../../constants/Colors';
 import Button from '../../components/common/button';
+import CountryCodePicker from '../../components/CountryCodePicker';
+import GenderSelector from '../../components/common/GenderSelector';
+import ConfirmationCodeInputModal from '../../components/common/modals/confirmationCodeInputModal';
+import {postToWallet} from '../../api/api';
+import WalletContext from '../../contexts/WalletContext';
+import {styles} from './styles';
 import {
   HorizontalLine,
   IconTextEnhancedInput,
 } from '../../components/common/IconTextEnhancedInput';
-import CountryCodePicker from '../../components/CountryCodePicker';
-import GenderSelector from '../../components/common/GenderSelector';
-import ConfirmationModal from '../../components/common/modals/ConfirmationModal';
-import ConfirmationCodeInputModal from '../../components/common/modals/confirmationCodeInputModal';
-import {postToWallet} from '../../api/api';
-import {CreateWalletType} from '../../types/wallet';
-import WalletContext from '../../contexts/WalletContext';
 
-const screenWith = Dimensions.get('window').width;
+const {width: screenWidth, height: screenHeight} = Dimensions.get('window');
 
-const CreateWalletScreen = () => {
-  const context = React.useContext(WalletContext);
+const CreateWalletScreen: React.FC = () => {
+  const context = useContext(WalletContext);
+
   if (!context) {
     throw new Error('WalletContext must be used within a WalletProvider');
   }
 
-  // const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [modalVisible, setModalVisible] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
-  const [showPin, setShowPin] = useState(false);
-  const [phone, setPhone] = useState('');
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [walletPin, setWalletPin] = useState('');
-  const [emailAddress, setEmailAddress] = useState('');
-  const [CountryCode, setCountryCode] = useState('+212');
-  const [password, setPassword] = useState('');
-  const [transactionId, setTransactionId] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [selectGender, setSelectGender] = useState('MME');
-
   const {createWalletDataToSend} = context;
-
-  const isRTL = false;
+  const {t} = useTranslation();
   const navigation = useNavigation();
 
-  const {t} = useTranslation();
+  if (!createWalletDataToSend) {
+    throw new Error('WalletContext must be used within a WalletProvider');
+  }
 
-  // const walletId = '0606060606';
-  const createWalletDataBody = {
-    emailAddress: emailAddress,
-    firstName: firstName,
-    lastName: lastName,
-    password: password,
-    phone: CountryCode + phone,
-    pin: walletPin,
-    titlePrefix: selectGender,
-  };
+  const [state, setState] = useState({
+    showConfirmPassword: false,
+    modalVisible: false,
+    showPassword: false,
+    showPin: false,
+    phone: '',
+    firstName: '',
+    lastName: '',
+    walletPin: '',
+    emailAddress: '',
+    countryCode: '+212',
+    password: '',
+    transactionId: '',
+    confirmPassword: '',
+    selectGender: 'MME',
+  });
 
-  const creatWallet = async () => {
-    try {
-      const responseData = await postToWallet(
-        createWalletDataToSend.walletId,
-        createWalletDataBody,
-        'auth/login',
-      );
-
-      console.log('create wallet data ... ', responseData);
-
-      if (responseData && responseData.transactioId) {
-        setTransactionId(responseData.transactioId);
-        console.log(`transactionId is : ${responseData.transactioId}`);
-      }
-    } catch (error) {
-      console.error('Failed to fetch wallet data:', error);
-    }
-  };
-
-  const confirmationDataToSend = {
-    emailAddress: emailAddress,
-    firstName: firstName,
-    lastName: lastName,
-    password: password,
-    phone: CountryCode + phone,
-    pin: walletPin,
-    titlePrefix: selectGender,
-    otp: createWalletDataToSend.otp,
-    transactionId: transactionId,
-  };
-
-  const confirmWallet = async () => {
-    console.log(
-      'confirmation data to send ... ... ... ...',
-      confirmationDataToSend,
+  const areRequiredFieldsCompleted = () => {
+    return (
+      state.firstName &&
+      state.lastName &&
+      state.walletPin &&
+      state.emailAddress &&
+      state.phone &&
+      state.password &&
+      state.confirmPassword &&
+      state.password === state.confirmPassword
     );
+  };
 
+  const updateState = (updates: Partial<typeof state>) =>
+    setState(prev => ({...prev, ...updates}));
+
+  const createWalletDataBody = {
+    emailAddress: state.emailAddress,
+    firstName: state.firstName,
+    lastName: state.lastName,
+    password: state.password,
+    phone: `${state.countryCode}${state.phone}`,
+    pin: state.walletPin,
+    titlePrefix: state.selectGender,
+  };
+
+  const makePostRequest = async (endpoint: string, body: any) => {
     try {
       const responseData = await postToWallet(
         createWalletDataToSend.walletId,
-        confirmationDataToSend,
-        'auth/login/validate',
+        body,
+        endpoint,
       );
-      console.log('confirm wallet data ... ', responseData);
-      setTransactionId(responseData.transactionId);
+      if (responseData?.transactionId) {
+        updateState({transactionId: responseData.transactionId});
+      }
+      console.log('responseData', responseData);
     } catch (error) {
       console.error('Failed to fetch wallet data:', error);
     }
   };
+
+  const creatWallet = () => makePostRequest('auth/login', createWalletDataBody);
+  const confirmWallet = () =>
+    makePostRequest('auth/login/validate', {
+      ...createWalletDataBody,
+      otp: createWalletDataToSend.otp,
+      transactionId: state.transactionId,
+    });
+
+  const isRTL = false;
 
   return (
-    <View
-      style={[
-        styles.container,
-        {
-          paddingTop: 30,
-          alignItems: isRTL ? 'flex-end' : 'flex-start',
-        },
-      ]}>
-      <ConfirmationCodeInputModal
-        onClose={() => setModalVisible(false)}
-        visible={modalVisible}
-        onContinue={() => {
-          confirmWallet();
-          console.log(`otp is ----> : ${createWalletDataToSend.otp}`);
-          setModalVisible(false);
-          navigation.navigate('MainApp' as never);
-        }}
-      />
-
-      <ScrollView style={{width: '100%'}} showsVerticalScrollIndicator={false}>
-        <Text
-          style={[
-            styles.title,
-            {textAlign: isRTL ? 'right' : 'left', marginTop: 0},
-          ]}>
-          {t('createWallet')}
-        </Text>
-
-        <Text
-          style={[styles.headerText, {textAlign: isRTL ? 'right' : 'left'}]}>
-          {t('createWalletSubtitle')}
-        </Text>
-
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      style={styles.container}>
+      <ScrollView style={{flex: 1}} showsVerticalScrollIndicator={false}>
         <View
           style={[
-            styles.formInputWrapper,
-            // {paddingHorizontal: getResponsivePaddingHorizontal()},
+            styles.container,
+            {
+              paddingTop: 30,
+              alignItems: isRTL ? 'flex-end' : 'flex-start',
+              height: screenHeight - 18,
+            },
           ]}>
-          {/* First name */}
-          <IconTextEnhancedInput
-            icon="person"
-            placeholder={t('firstName')}
-            onChange={setFirstName}
+          <ConfirmationCodeInputModal
+            onClose={() => updateState({modalVisible: false})}
+            visible={state.modalVisible}
+            onContinue={() => {
+              confirmWallet();
+              updateState({modalVisible: false});
+              navigation.navigate('MainApp' as never);
+            }}
           />
 
-          {/* Last name */}
-          <IconTextEnhancedInput
-            icon="person"
-            placeholder={t('lastName')}
-            onChange={setLastName}
-          />
+          <View style={{height: screenHeight - 120, width: '100%'}}>
+            <Text
+              style={[
+                styles.title,
+                {textAlign: isRTL ? 'right' : 'left', marginTop: 0},
+              ]}>
+              {t('createWallet')}
+            </Text>
 
-          {/* Wallet PIN */}
-          <IconTextEnhancedInput
-            icon="lock"
-            placeholder={t('walletPin')}
-            secureTextEntry={!showPin}
-            rightIcon={showPin ? 'visibility-off' : 'visibility'}
-            onRightIconPress={() => setShowPin(!showPin)}
-            onChange={setWalletPin}
-          />
+            <Text
+              style={[
+                styles.headerText,
+                {textAlign: isRTL ? 'right' : 'left'},
+              ]}>
+              {t('createWalletSubtitle')}
+            </Text>
 
-          {/* Gender */}
-          <GenderSelector
-            selectedGender={selectGender}
-            onGenderChange={setSelectGender}
-          />
+            <View style={styles.formInputWrapper}>
+              <IconTextEnhancedInput
+                icon="person"
+                placeholder={t('firstName')}
+                onChange={value => updateState({firstName: value})}
+              />
 
-          {/* Adresse email */}
-          <IconTextEnhancedInput
-            icon="email"
-            placeholder={t('emailAddress')}
-            keyboardType="email-address"
-            onChange={setEmailAddress}
-          />
+              <IconTextEnhancedInput
+                icon="person"
+                placeholder={t('lastName')}
+                onChange={value => updateState({lastName: value})}
+              />
 
-          {/* phone number */}
-          <View
-            style={[
-              styles.inputContainer,
-              // {width: screenWith - getResponsivePaddingHorizontal() * 2},
-              {width: screenWith - 40},
-            ]}>
-            <MaterialIcons name="phone" size={24} color={Colors.primary} />
-            <HorizontalLine />
+              <IconTextEnhancedInput
+                icon="vpn-key"
+                placeholder={t('walletPin')}
+                secureTextEntry={!state.showPin}
+                rightIcon={state.showPin ? 'visibility-off' : 'visibility'}
+                onRightIconPress={() => updateState({showPin: !state.showPin})}
+                onChange={value => updateState({walletPin: value})}
+              />
 
-            <View style={{width: 60, height: 20}}>
-              <CountryCodePicker setCountryCode={setCountryCode} />
-            </View>
+              <GenderSelector
+                selectedGender={state.selectGender}
+                onGenderChange={value => updateState({selectGender: value})}
+              />
 
-            <View style={{flexDirection: 'row', alignItems: 'center'}}>
-              <Text style={{fontSize: 16, marginHorizontal: 2}}>{` `}</Text>
-              <View style={{height: '100%', backgroundColor: 'gray'}} />
-              <TextInput
-                placeholder="0 00 00 00 00"
-                keyboardType="number-pad"
-                value={phone}
-                onChangeText={setPhone}
-                style={styles.input}
+              <IconTextEnhancedInput
+                icon="email"
+                placeholder={t('emailAddress')}
+                keyboardType="email-address"
+                onChange={value => updateState({emailAddress: value})}
+              />
+
+              <View style={[styles.inputContainer, {width: screenWidth - 40}]}>
+                <MaterialIcons name="phone" size={24} color={Colors.primary} />
+                <HorizontalLine />
+                <View style={{width: 60, height: 20}}>
+                  <CountryCodePicker
+                    setCountryCode={(value: string) =>
+                      updateState({countryCode: value})
+                    }
+                  />
+                </View>
+                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                  <Text style={{fontSize: 16}}>{`   `}</Text>
+                  <View style={{height: '100%', backgroundColor: 'gray'}} />
+                  <TextInput
+                    placeholder="0 00 00 00 00"
+                    keyboardType="number-pad"
+                    value={state.phone}
+                    onChangeText={value => updateState({phone: value})}
+                    style={styles.input}
+                  />
+                </View>
+              </View>
+
+              <IconTextEnhancedInput
+                icon="lock"
+                placeholder={t('password')}
+                secureTextEntry={!state.showPassword}
+                rightIcon={state.showPassword ? 'visibility-off' : 'visibility'}
+                onRightIconPress={() =>
+                  updateState({showPassword: !state.showPassword})
+                }
+                onChange={value => updateState({password: value})}
+              />
+
+              <IconTextEnhancedInput
+                icon="lock"
+                placeholder={t('confirmPassword')}
+                secureTextEntry={!state.showConfirmPassword}
+                rightIcon={
+                  state.showConfirmPassword ? 'visibility-off' : 'visibility'
+                }
+                onRightIconPress={() =>
+                  updateState({showConfirmPassword: !state.showConfirmPassword})
+                }
+                onChange={value => updateState({confirmPassword: value})}
+              />
+
+              <View style={{flex: 1}}></View>
+
+              <Button
+                label={t('continue')}
+                onPress={() => {
+                  if (areRequiredFieldsCompleted()) {
+                    updateState({modalVisible: true});
+                    creatWallet();
+                  } else {
+                    Alert.alert(
+                      t('Incomplete Information'),
+                      t(
+                        'Please fill out all required fields and ensure the passwords match.',
+                      ),
+                      [
+                        {
+                          text: t('OK'),
+                          onPress: () => console.log('OK Pressed'),
+                        },
+                      ],
+                      {cancelable: true},
+                    );
+                  }
+                }}
+                style={{
+                  backgroundColor: areRequiredFieldsCompleted()
+                    ? Colors.primary
+                    : '#d3d3d3',
+                  marginBottom: 5,
+                  marginTop: 20,
+                }}
+                leftIcon={
+                  <MaterialIcons
+                    name={isRTL ? 'arrow-back-ios' : 'arrow-forward-ios'}
+                    size={18}
+                    color="white"
+                  />
+                }
               />
             </View>
           </View>
-
-          {/* Mot de passe */}
-          <IconTextEnhancedInput
-            icon="lock"
-            placeholder={t('password')}
-            secureTextEntry={!showPassword}
-            rightIcon={showPassword ? 'visibility-off' : 'visibility'}
-            onRightIconPress={() => setShowPassword(!showPassword)}
-            onChange={setPassword}
-          />
-
-          {/* Confirmer mot de passe */}
-          <IconTextEnhancedInput
-            icon="lock"
-            placeholder={t('confirmPassword')}
-            secureTextEntry={!showConfirmPassword}
-            rightIcon={showConfirmPassword ? 'visibility-off' : 'visibility'}
-            onRightIconPress={() =>
-              setShowConfirmPassword(!showConfirmPassword)
-            }
-            onChange={setConfirmPassword}
-          />
-
-          <View
-            style={{
-              flexDirection: 'column',
-              width: '100%',
-
-              flex: 1,
-            }}
-          />
-
-          <View style={{height: getResponsivePaddingHorizontal() * 3}}></View>
-
-          <Button
-            label={t('continue')}
-            // onPress={() => setModalVisible(true)}
-            onPress={() => {
-              setModalVisible(true);
-              creatWallet();
-
-              console.log(
-                `data is : firstName : ${firstName} : lastName : ${lastName} : walletPin : ${walletPin} : emailAddress : ${emailAddress} : phoneNumber : ${
-                  CountryCode + phone
-                } : password : ${password} : confirmPassword : ${confirmPassword} gender : ${selectGender}`,
-              );
-              // navigation.navigate('MainApp' as never);
-            }}
-            style={{backgroundColor: Colors.primary, marginTop: 20}}
-            leftIcon={
-              <MaterialIcons
-                name={isRTL ? 'arrow-back-ios' : 'arrow-forward-ios'}
-                size={18}
-                color="white"
-              />
-            }
-          />
-
-          {/* <View style={{height: getResponsivePaddingHorizontal()}}></View> */}
-
-          {/* <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              width: '100%',
-              height: 20,
-            }}
-          /> */}
         </View>
       </ScrollView>
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 
 export default CreateWalletScreen;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: Colors.white,
-    alignItems: 'flex-start',
-    justifyContent: 'flex-start',
-  },
-
-  inputContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderWidth: 1,
-    borderColor: '#D1D1D6',
-    borderRadius: 8,
-    paddingVertical: 10,
-    paddingHorizontal: 22,
-    height: 48,
-    marginTop: 10,
-    backgroundColor: Colors.white,
-  },
-
-  formInputWrapper: {
-    flex: 1,
-    width: '100%',
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-    paddingHorizontal: 20,
-    backgroundColor: Colors.white,
-  },
-
-  title: {
-    color: Colors.midnightGray,
-    fontSize: 22,
-    fontFamily: 'Nunito-Bold',
-    marginHorizontal: 20,
-  },
-
-  headerText: {
-    fontSize: 16,
-    fontFamily: 'Nunito-Regular',
-    color: Colors.midnightGray,
-    marginTop: 35,
-    marginBottom: 20,
-    marginHorizontal: 20,
-  },
-
-  input: {
-    // flex: 1,
-    marginLeft: 10,
-    height: 40,
-  },
-
-  textInput: {
-    flex: 1,
-    marginLeft: 10,
-  },
-
-  divider: {
-    height: '100%',
-    width: 1,
-    backgroundColor: 'gray',
-    marginHorizontal: 10,
-  },
-
-  flagContainer: {
-    height: 30,
-    width: 30,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 4,
-  },
-
-  flagStyle: {
-    height: 25,
-    width: 40,
-    borderRadius: 5,
-  },
-
-  scrollView: {
-    paddingVertical: 10,
-    paddingRight: 10,
-    height: 100,
-    width: '100%',
-  },
-
-  iconContainer: {
-    width: 64,
-    height: 64,
-    borderRadius: 12,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginLeft: 20,
-    backgroundColor: '#d2e7df',
-  },
-  initials: {
-    fontSize: 30,
-    fontWeight: 'bold',
-    color: Colors.primary,
-    fontFamily: 'Nunito-Black',
-  },
-});

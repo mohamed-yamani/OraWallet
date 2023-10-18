@@ -80,18 +80,18 @@ const UserListComponent = () => {
           </View>
 
           <RecipientItem
-            name="Peer name"
-            imageSource={require('../../../assets/images/img1.jpg')}
+            name="Rania Chaabane"
+            imageSource={require('../../../assets/images/hiba.jpg')}
             description="Lorem ipsum"
           />
           <RecipientItem
-            name="Driver name"
-            imageSource={require('../../../assets/images/img2.jpg')}
+            name="Adnan Khaled"
+            imageSource={require('../../../assets/images/adnan.jpg')}
             description="Lorem ipsum"
           />
           <RecipientItem
-            name="Delivery guy"
-            imageSource={require('../../../assets/images/img3.jpg')}
+            name="Najlaa Lassoued"
+            imageSource={require('../../../assets/images/najlaa.jpg')}
             description="Lorem ipsum"
           />
         </View>
