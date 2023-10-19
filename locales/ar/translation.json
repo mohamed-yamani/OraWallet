@@ -104,6 +104,15 @@
   "payTelephone": "ادفع الهاتف",
   "firstName": "الاسم الأول",
   "lastName": "الاسم الأخير",
+  "enterRecipientPhone": "أدخل هاتف المستلم",
   "walletPin": "رقم التعريف الشخصي للمحفظة",
+  "enterRecipientDetails": "أدخل تفاصيل المستلم",
+  "recipientName": "اسم المستلم",
+  "enterRecipientName": "أدخل اسم المستلم",
+  "recipientPhone": "هاتف المستلم",
+  "recipientAddress": "عنوان المستلم",
+  "enterRecipientAddress": "أدخل عنوان المستلم",
+  "recipientAccountNumber": "رقم حساب المستلم",
+  "enterRecipientAccountNumber": "أدخل رقم حساب المستلم",
   "chooseRecipient": "اختر المستلم"
 }

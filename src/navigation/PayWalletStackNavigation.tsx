@@ -68,7 +68,7 @@ export function PayWalletStackGroup() {
 
             header: () => (
               <CustomHeader
-                title={t('paimentEnvoi')}
+                title={t('pay')}
                 navigation={navigation}
                 showCarousel={true}
                 showCloseButton={true}
