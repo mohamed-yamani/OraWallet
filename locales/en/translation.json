@@ -115,5 +115,10 @@
   "enterRecipientAddress": "Enter Recipient Address",
   "recipientAccountNumber": "Recipient Account Number",
   "enterRecipientAccountNumber": "Enter Recipient Account Number",
+  "mail": "Mail",
+  "phone": "Phone",
+  "address": "Address",
+  "account_number": "Account Number",
+  "sendMessage": "Send Message",
   "chooseRecipient": "Choose the person you want to pay"
 }

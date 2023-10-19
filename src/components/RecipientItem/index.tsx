@@ -3,56 +3,6 @@ import React from 'react';
 
 import DirectionalChevron from '../DirectionalChevron';
 import Colors from '../../constants/Colors';
-// import {useLayout} from '../contexts/LayoutContext';
-
-// const Destinataires = () => {
-//   const { t } = useTranslation();
-//   return (
-//     <View style={styles.container}>
-//       <View style={styles.factureContainer}>
-//         <View
-//           style={{
-//             height: 48,
-//             width: 48,
-//             borderRadius: 8,
-//             justifyContent: 'center',
-//             alignItems: 'center',
-//             backgroundColor: '#daf0e8',
-//             overflow: 'hidden',
-//           }}
-//         >
-//           <Ionicons name="add" size={24} color={colors.primary} />
-//         </View>
-//         <Text
-//           style={{
-//             color: colors.primary,
-//             fontSize: 16,
-//             fontFamily: 'Nunito-Bold',
-//           }}
-//         >
-//           {t('addRecipient')}
-//         </Text>
-//       </View>
-
-//       <Text style={styles.lastDestinatairesTitle}>{t('recentRecipients')}</Text>
-//       <RecipientItem
-//         name="Peer name"
-//         imageSource={require('../../../assets/images/img1.jpg')}
-//         description="Lorem ipsum"
-//       />
-//       <RecipientItem
-//         name="Driver name"
-//         imageSource={require('../../../assets/images/img2.jpg')}
-//         description="Lorem ipsum"
-//       />
-//       <RecipientItem
-//         name="Delivery guy"
-//         imageSource={require('../../../assets/images/img3.jpg')}
-//         description="Lorem ipsum"
-//       />
-//     </View>
-//   );
-// };
 
 const RecipientItem = ({
   name,
