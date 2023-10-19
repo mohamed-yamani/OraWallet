@@ -12,6 +12,10 @@ import {
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {useTranslation} from 'react-i18next';
 import {useNavigation} from '@react-navigation/native';
+import PersonIcon from '../../assets/images/svgs/person.svg';
+import KeySvg from '../../assets/images/svgs/key.svg';
+import AtSvg from '../../assets/images/svgs/at.svg';
+import PhoneSvg from '../../assets/images/svgs/phoneIcon.svg';
 
 import Colors from '../../constants/Colors';
 import Button from '../../components/common/button';
@@ -155,18 +159,21 @@ const CreateWalletScreen: React.FC = () => {
 
             <View style={styles.formInputWrapper}>
               <IconTextEnhancedInput
+                svgComponent={<PersonIcon width={14} height={16} />}
                 icon="person"
                 placeholder={t('firstName')}
                 onChange={value => updateState({firstName: value})}
               />
 
               <IconTextEnhancedInput
+                svgComponent={<PersonIcon width={14} height={16} />}
                 icon="person"
                 placeholder={t('lastName')}
                 onChange={value => updateState({lastName: value})}
               />
 
               <IconTextEnhancedInput
+                svgComponent={<KeySvg width={14} height={16} />}
                 icon="vpn-key"
                 placeholder={t('walletPin')}
                 secureTextEntry={!state.showPin}
@@ -181,6 +188,7 @@ const CreateWalletScreen: React.FC = () => {
               />
 
               <IconTextEnhancedInput
+                svgComponent={<AtSvg width={16} height={16} />}
                 icon="email"
                 placeholder={t('emailAddress')}
                 keyboardType="email-address"
@@ -188,7 +196,8 @@ const CreateWalletScreen: React.FC = () => {
               />
 
               <View style={[styles.inputContainer, {width: screenWidth - 40}]}>
-                <MaterialIcons name="phone" size={24} color={Colors.primary} />
+                {/* <MaterialIcons name="phone" size={24} color={Colors.primary} /> */}
+                <PhoneSvg width={16} height={16} />
                 <HorizontalLine />
                 <View style={{width: 60, height: 20}}>
                   <CountryCodePicker
@@ -211,6 +220,7 @@ const CreateWalletScreen: React.FC = () => {
               </View>
 
               <IconTextEnhancedInput
+                svgComponent={<KeySvg width={14} height={16} />}
                 icon="lock"
                 placeholder={t('password')}
                 secureTextEntry={!state.showPassword}
@@ -222,6 +232,7 @@ const CreateWalletScreen: React.FC = () => {
               />
 
               <IconTextEnhancedInput
+                svgComponent={<KeySvg width={14} height={16} />}
                 icon="lock"
                 placeholder={t('confirmPassword')}
                 secureTextEntry={!state.showConfirmPassword}

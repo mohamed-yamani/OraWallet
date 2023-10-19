@@ -106,5 +106,14 @@
   "firstName": "First Name",
   "lastName": "Last Name",
   "walletPin": "Wallet Pin",
+  "enterRecipientDetails": "Enter Recipient Details",
+  "recipientName": "Recipient Name",
+  "enterRecipientName": "Enter Recipient Name",
+  "recipientPhone": "Recipient Phone",
+  "enterRecipientPhone": "Enter Recipient Phone",
+  "recipientAddress": "Recipient Address",
+  "enterRecipientAddress": "Enter Recipient Address",
+  "recipientAccountNumber": "Recipient Account Number",
+  "enterRecipientAccountNumber": "Enter Recipient Account Number",
   "chooseRecipient": "Choose the person you want to pay"
 }

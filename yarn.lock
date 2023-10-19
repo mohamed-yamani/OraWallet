@@ -6030,6 +6030,11 @@ react-native-gesture-handler@^2.13.1, "react-native-gesture-handler@>= 1.0.0":
     lodash "^4.17.21"
     prop-types "^15.7.2"
 
+react-native-image-picker@^7.0.1:
+  version "7.0.1"
+  resolved "https://registry.npmjs.org/react-native-image-picker/-/react-native-image-picker-7.0.1.tgz"
+  integrity sha512-WACwhGCGlHvRzwFS4OjVKbkVMLx95f6g3ouaZ1IQM1LO7zq4Ytn1iBkOja8KkutV10E9B+IitgoWL3VUpuRl7Q==
+
 react-native-pager-view@*, react-native-pager-view@^6.2.1, "react-native-pager-view@>= 4.0.0":
   version "6.2.1"
   resolved "https://registry.npmjs.org/react-native-pager-view/-/react-native-pager-view-6.2.1.tgz"

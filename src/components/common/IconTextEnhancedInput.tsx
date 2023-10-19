@@ -16,6 +16,7 @@ export const IconTextEnhancedInput = ({
   leftText,
   onRightIconPress,
   onChange,
+  svgComponent,
 
   ...props
 }: {
@@ -29,11 +30,15 @@ export const IconTextEnhancedInput = ({
   keyboardType?: any;
   secureTextEntry?: boolean;
   onChange?: (text: string) => void;
+  svgComponent?: any;
 }) => {
   return (
     <View style={styles.inputContainer}>
-      {/* <MaterialIcons name={icon as any} size={24} color={Colors.primary} /> */}
-      <MaterialIcons name={icon as any} size={24} color={Colors.primary} />
+      {svgComponent ? (
+        svgComponent
+      ) : (
+        <MaterialIcons name={icon as any} size={24} color={Colors.primary} />
+      )}
 
       {icon && <HorizontalLine />}
 
@@ -47,7 +52,6 @@ export const IconTextEnhancedInput = ({
       />
       {rightIcon && (
         <TouchableOpacity onPress={onRightIconPress}>
-          {/* <Ionicons name={rightIcon as any} size={24} color="gray" /> */}
           <MaterialIcons name={rightIcon as any} size={24} color="gray" />
         </TouchableOpacity>
       )}

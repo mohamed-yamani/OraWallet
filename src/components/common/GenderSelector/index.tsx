@@ -3,6 +3,7 @@ import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import {HorizontalLine} from '../IconTextEnhancedInput';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Colors from '../../../constants/Colors';
+import PersonIcon from '../../../assets/images/svgs/person.svg';
 
 const GenderSelector = ({
   selectedGender,
@@ -13,7 +14,8 @@ const GenderSelector = ({
 }) => {
   return (
     <View style={styles.container}>
-      <MaterialIcons name="wc" size={24} color={Colors.primary} />
+      {/* <MaterialIcons name="wc" size={24} color={Colors.primary} /> */}
+      <PersonIcon width={14} height={16} />
       <HorizontalLine />
       <TouchableOpacity
         style={styles.radioContainer}
@@ -44,7 +46,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#D1D1D6',
     borderRadius: 8,
-    paddingHorizontal: 23,
+    paddingHorizontal: 20,
     height: 50,
     marginTop: 10,
   },

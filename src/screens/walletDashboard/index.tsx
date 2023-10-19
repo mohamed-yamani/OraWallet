@@ -82,7 +82,7 @@ const WalletDashboard = () => {
           iconComponent={
             <FontAwesome name="paper-plane" size={24} color={Colors.white} />
           }
-          label={t('paySend')}
+          label={t('pay')}
           iconContainerStyle={{
             backgroundColor: Colors.midnightGray,
           }}

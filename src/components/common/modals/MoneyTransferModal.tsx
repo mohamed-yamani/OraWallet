@@ -213,7 +213,7 @@ const SectionTitle = ({title}: {title: string}) => {
         height: 30,
         width: width - 80,
       }}>
-      <Text style={styles.sectionTitleStyle}>{t('title')}</Text>
+      <Text style={styles.sectionTitleStyle}>{title}</Text>
     </View>
   );
 };

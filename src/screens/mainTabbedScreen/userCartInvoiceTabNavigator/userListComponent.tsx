@@ -1,12 +1,14 @@
-import {View, Text, Dimensions} from 'react-native';
+import {View, Text, Dimensions, TouchableOpacity} from 'react-native';
 import styles from './styles';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import RecipientItem from '../../../components/RecipientItem';
-import React from 'react';
+import React, {useState} from 'react';
 import Colors from '../../../constants/Colors';
 import {useTranslation} from 'react-i18next';
 import {ScrollView} from 'react-native-gesture-handler';
+import PayBillModal from '../../../components/common/modals/PayBillModal';
+import AddRecipientModal from '../../../components/common/modals/AddRecipientModal';
 
 const {width: SCREEN_WIDTH, height: SCREEN_HEIGHT} = Dimensions.get('window');
 
@@ -16,6 +18,8 @@ const CARD_HEIGHT = SCREEN_WIDTH < 768 ? 151 : 250;
 const UserListComponent = () => {
   const {t} = useTranslation();
   const isRTL = false;
+  const [isAddRecipientModalVisible, setAddRecipientModalVisible] =
+    useState(false);
 
   return (
     <View
@@ -23,6 +27,15 @@ const UserListComponent = () => {
         styles.mainContainer,
         {height: SCREEN_HEIGHT - CARD_HEIGHT - 180},
       ]}>
+      <AddRecipientModal
+        visible={isAddRecipientModalVisible}
+        onClose={() => setAddRecipientModalVisible(false)}
+        onContinue={() => {
+          console.log('onContinue pressed');
+          setAddRecipientModalVisible(false);
+        }}
+      />
+
       <View style={styles.spacer} />
       <Text
         style={[
@@ -50,34 +63,40 @@ const UserListComponent = () => {
           style={{
             width: SCREEN_WIDTH,
           }}>
-          <View
-            style={[
-              styles.factureContainer,
-              {
-                justifyContent: isRTL ? 'space-between' : 'flex-start',
-              },
-            ]}>
+          <TouchableOpacity
+            onPress={() => {
+              setAddRecipientModalVisible(true);
+            }} // Function to close the modal
+          >
             <View
-              style={{
-                height: 48,
-                width: 48,
-                borderRadius: 8,
-                justifyContent: 'center',
-                alignItems: 'center',
-                backgroundColor: '#daf0e8',
-                overflow: 'hidden',
-              }}>
-              <Ionicons name="add" size={24} color={Colors.primary} />
+              style={[
+                styles.factureContainer,
+                {
+                  justifyContent: isRTL ? 'space-between' : 'flex-start',
+                },
+              ]}>
+              <View
+                style={{
+                  height: 48,
+                  width: 48,
+                  borderRadius: 8,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  backgroundColor: '#daf0e8',
+                  overflow: 'hidden',
+                }}>
+                <Ionicons name="add" size={24} color={Colors.primary} />
+              </View>
+              <Text
+                style={{
+                  color: Colors.primary,
+                  fontSize: 16,
+                  fontFamily: 'Nunito-Bold',
+                }}>
+                {t('addRecipient')}
+              </Text>
             </View>
-            <Text
-              style={{
-                color: Colors.primary,
-                fontSize: 16,
-                fontFamily: 'Nunito-Bold',
-              }}>
-              {t('addRecipient')}
-            </Text>
-          </View>
+          </TouchableOpacity>
 
           <RecipientItem
             name="Rania Chaabane"
