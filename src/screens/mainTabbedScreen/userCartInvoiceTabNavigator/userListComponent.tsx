@@ -11,10 +11,32 @@ import PayBillModal from '../../../components/common/modals/PayBillModal';
 import AddRecipientModal from '../../../components/common/modals/AddRecipientModal';
 import UserDetailsModal from '../../../components/common/modals/UserDetailsModal';
 
+// Constants
 const {width: SCREEN_WIDTH, height: SCREEN_HEIGHT} = Dimensions.get('window');
-
-const CARD_WIDTH = SCREEN_WIDTH < 768 ? 300 : SCREEN_WIDTH - 200;
 const CARD_HEIGHT = SCREEN_WIDTH < 768 ? 151 : 250;
+
+const recipients = [
+  {
+    name: 'Rania Chaabane',
+    imageSource: require('../../../assets/images/hiba.jpg'),
+    description: 'Lorem ipsum',
+  },
+  {
+    name: 'Adnan Khaled',
+    imageSource: require('../../../assets/images/adnan.jpg'),
+    description: 'Lorem ipsum',
+  },
+  {
+    name: 'Hiba Ben Ammar',
+    imageSource: require('../../../assets/images/cat.jpg'),
+    description: 'Lorem ipsum',
+  },
+  {
+    name: 'Najlaa Lassoued',
+    imageSource: require('../../../assets/images/najlaa.jpg'),
+    description: 'Lorem ipsum',
+  },
+];
 
 const UserListComponent = () => {
   const {t} = useTranslation();
@@ -113,68 +135,21 @@ const UserListComponent = () => {
               </Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => {
-              setUserDetailsModalVisible(true);
-              setSelectedRecipient({
-                name: 'Rania Chaabane',
-                imageSource: require('../../../assets/images/hiba.jpg'),
-                description: 'Lorem ipsum',
-              } as any);
-            }}>
-            <RecipientItem
-              name="Rania Chaabane"
-              imageSource={require('../../../assets/images/hiba.jpg')}
-              description="Lorem ipsum"
-            />
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => {
-              setUserDetailsModalVisible(true);
-              setSelectedRecipient({
-                name: 'Adnan Khaled',
-                imageSource: require('../../../assets/images/adnan.jpg'),
-                description: 'Lorem ipsum',
-              } as any);
-            }}>
-            <RecipientItem
-              name="Adnan Khaled"
-              imageSource={require('../../../assets/images/adnan.jpg')}
-              description="Lorem ipsum"
-            />
-          </TouchableOpacity>
 
-          <TouchableOpacity
-            onPress={() => {
-              setUserDetailsModalVisible(true);
-              setSelectedRecipient({
-                name: 'Hiba Ben Ammar',
-                imageSource: require('../../../assets/images/cat.jpg'),
-                description: 'Lorem ipsum',
-              } as any);
-            }}>
-            <RecipientItem
-              name="Hiba Ben Ammar"
-              imageSource={require('../../../assets/images/cat.jpg')}
-              description="Lorem ipsum"
-            />
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            onPress={() => {
-              setUserDetailsModalVisible(true);
-              setSelectedRecipient({
-                name: 'Najlaa Lassoued',
-                imageSource: require('../../../assets/images/najlaa.jpg'),
-                description: 'Lorem ipsum',
-              } as any);
-            }}>
-            <RecipientItem
-              name="Najlaa Lassoued"
-              imageSource={require('../../../assets/images/najlaa.jpg')}
-              description="Lorem ipsum"
-            />
-          </TouchableOpacity>
+          {recipients.map((recipients, index) => (
+            <TouchableOpacity
+              key={index}
+              onPress={() => {
+                setUserDetailsModalVisible(true);
+                setSelectedRecipient(recipients);
+              }}>
+              <RecipientItem
+                name={recipients.name}
+                imageSource={recipients.imageSource}
+                description={recipients.description}
+              />
+            </TouchableOpacity>
+          ))}
           <View style={{height: 100}} />
         </View>
       </ScrollView>
