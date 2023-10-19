@@ -1,19 +1,21 @@
-import {View, Text, Image, Dimensions} from 'react-native';
+import {View, Text, Image, Dimensions, TouchableOpacity} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import styles from './styles';
 import React from 'react';
 import Colors from '../../../constants/Colors';
 import {useTranslation} from 'react-i18next';
 import {ScrollView} from 'react-native-gesture-handler';
+import InvoiceModal from '../../../components/common/modals/InvoiceModal';
 
 const {width: SCREEN_WIDTH, height: SCREEN_HEIGHT} = Dimensions.get('window');
 
-const CARD_WIDTH = SCREEN_WIDTH < 768 ? 300 : SCREEN_WIDTH - 200;
 const CARD_HEIGHT = SCREEN_WIDTH < 768 ? 151 : 250;
 
 function InvoiceListComponent() {
   const isRTL = false;
   const {t} = useTranslation();
+
+  const [isInvoiceModalVisible, setInvoiceModalVisible] = React.useState(false);
 
   return (
     <View
@@ -24,6 +26,21 @@ function InvoiceListComponent() {
           width: SCREEN_WIDTH,
         },
       ]}>
+      <InvoiceModal
+        onClose={() => setInvoiceModalVisible(false)}
+        visible={isInvoiceModalVisible}
+        invoice={
+          {
+            title: 'Burger King',
+            description: 'Lorem ipsum',
+            itemCount: 5,
+            priceWhole: 172,
+            priceDecimal: '00',
+            imageSource: require('../../../assets/images/burger_king.png'),
+          } as any
+        }
+      />
+
       <View style={styles.spacer} />
       <Text
         style={[
@@ -38,33 +55,26 @@ function InvoiceListComponent() {
       </Text>
       <View style={{height: 2}} />
       <ScrollView style={{flex: 1, width: SCREEN_WIDTH}}>
-        <InvoiceItem
-          imageSource={require('../../../assets/images/burger_king.png')}
-          title="Burger King"
-          description="Lorem ipsum"
-          itemCount={5}
-          priceWhole={172}
-          priceDecimal="00"
-        />
-
-        <InvoiceItem
-          imageSource={require('../../../assets/images/virgin.png')}
-          title="Virgin"
-          description="Lorem ipsum"
-          itemCount={4}
-          priceWhole={299}
-          priceDecimal="00"
-        />
-
-        {/* <InvoiceItem
-        imageSource={require('../../../assets/images/img1.jpg')}
-        title="Burger King"
-        description="Lorem ipsum"
-        itemCount={5}
-        priceWhole={172}
-        priceDecimal="00"
-        isProfilePicture={true}
-      /> */}
+        <TouchableOpacity onPress={() => setInvoiceModalVisible(true)}>
+          <InvoiceItem
+            imageSource={require('../../../assets/images/burger_king.png')}
+            title="Burger King"
+            description="Lorem ipsum"
+            itemCount={5}
+            priceWhole={172}
+            priceDecimal="00"
+          />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => setInvoiceModalVisible(true)}>
+          <InvoiceItem
+            imageSource={require('../../../assets/images/virgin.png')}
+            title="Virgin"
+            description="Lorem ipsum"
+            itemCount={4}
+            priceWhole={299}
+            priceDecimal="00"
+          />
+        </TouchableOpacity>
 
         <InvoiceItem
           imageSource={require('../../../assets/images/img5.jpg')}

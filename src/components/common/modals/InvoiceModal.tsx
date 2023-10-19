@@ -6,29 +6,32 @@ import {
   TouchableOpacity,
   Text,
   Image,
-  ImageSourcePropType,
 } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Colors from '../../../constants/Colors';
 import {useTranslation} from 'react-i18next';
 import Button from '../button';
+import PriceDisplay from '../../PriceDisplay';
 
-export default function UserDetailsModal({
+export default function InvoiceDetailsModal({
   visible,
   onClose,
-  user,
+  invoice,
 }: {
   visible: boolean;
   onClose: () => void;
-  user: {
-    name: string;
+  invoice: {
+    title: string;
     description: string;
-    imageSource: ImageSourcePropType;
+    itemCount: number;
+    priceWhole: number;
+    priceDecimal: number;
+    imageSource: any;
   };
 }) {
   const {t} = useTranslation();
 
-  const renderDetailRow = (label: string, value: string) => (
+  const renderDetailRow = (label: string, value: string | number) => (
     <View style={styles.detailRow}>
       <Text style={styles.labelText}>{label + ' :'}</Text>
       <Text style={styles.valueText}>{value}</Text>
@@ -42,33 +45,35 @@ export default function UserDetailsModal({
           <TouchableOpacity style={styles.closeIconContainer} onPress={onClose}>
             <AntDesign name="close" size={24} color="black" />
           </TouchableOpacity>
+          {/* <Text style={styles.titleText}>{'test'}</Text> */}
           <View style={styles.header}>
             <View style={styles.imageContainer}>
-              <Image source={user.imageSource} style={styles.image} />
+              <Image source={invoice.imageSource} style={styles.image} />
             </View>
-            <Text style={styles.titleText}>{user.name}</Text>
+            <Text style={styles.titleText}>{invoice.title}</Text>
           </View>
-          {renderDetailRow(t('mail'), 'test@1337.ma')}
-          {renderDetailRow(t('phone'), '+212 6 66 66 66 66')}
-          {renderDetailRow(t('address'), 'Rabat, Maroc')}
-          {renderDetailRow(t('account_number'), '*********1234')}
-          <Text style={styles.subtitleText}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-            euismod, velit ut facilisis ultrices, nisl velit ultrices massa, ut
-            aliquet lectus nisi sed lorem.{' '}
-          </Text>
+          {renderDetailRow(t('Description'), invoice.description)}
+          {renderDetailRow(t('Item Count'), invoice.itemCount)}
+
+          <View style={styles.detailRow}>
+            <Text style={styles.labelText}>{t('Price') + ' :'}</Text>
+            <PriceDisplay
+              currency="DH"
+              decimalPart={invoice.priceDecimal}
+              wholePart={invoice.priceWhole}
+            />
+          </View>
+
           <Button
-            label={t('sendMessage')}
+            label={t('Close')}
             onPress={onClose}
             style={{backgroundColor: Colors.primary, marginTop: 20}}
-            leftIcon={<AntDesign name={'message1'} size={18} color="white" />}
           />
         </View>
       </View>
     </Modal>
   );
 }
-
 const styles = StyleSheet.create({
   overlay: {
     flex: 1,
@@ -83,7 +88,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     width: '90%',
-    maxHeight: '80%',
+    maxHeight: '120%',
   },
   closeIconContainer: {
     alignSelf: 'flex-end',
@@ -96,20 +101,21 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   header: {
-    height: 100,
     width: '100%',
-    flexDirection: 'row',
+    flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'space-evenly',
+    gap: 10,
+    marginBottom: 20,
   },
   image: {
-    height: 80,
-    width: 80,
+    height: 120,
+    width: 120,
   },
   titleText: {
     color: Colors.midnightGray,
     fontSize: 28,
-    fontWeight: '300',
+    fontWeight: '500',
     fontFamily: 'Nunito-Bold',
   },
   detailRow: {
@@ -118,6 +124,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+    fontFamily: 'Nunito-Regular',
     marginBottom: 10,
   },
   labelText: {
@@ -140,8 +147,8 @@ const styles = StyleSheet.create({
     fontFamily: 'Nunito-Regular',
   },
   imageContainer: {
-    height: 80,
-    width: 80,
+    height: 120,
+    width: 120,
     borderRadius: 8,
     justifyContent: 'center',
     alignItems: 'center',
