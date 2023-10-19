@@ -9,6 +9,7 @@ import {useTranslation} from 'react-i18next';
 import {ScrollView} from 'react-native-gesture-handler';
 import PayBillModal from '../../../components/common/modals/PayBillModal';
 import AddRecipientModal from '../../../components/common/modals/AddRecipientModal';
+import UserDetailsModal from '../../../components/common/modals/UserDetailsModal';
 
 const {width: SCREEN_WIDTH, height: SCREEN_HEIGHT} = Dimensions.get('window');
 
@@ -20,6 +21,9 @@ const UserListComponent = () => {
   const isRTL = false;
   const [isAddRecipientModalVisible, setAddRecipientModalVisible] =
     useState(false);
+  const [isUserDetailsModalVisible, setUserDetailsModalVisible] =
+    useState(false);
+  const [selctedRecipient, setSelectedRecipient] = useState({} as any);
 
   return (
     <View
@@ -34,6 +38,18 @@ const UserListComponent = () => {
           console.log('onContinue pressed');
           setAddRecipientModalVisible(false);
         }}
+      />
+
+      <UserDetailsModal
+        visible={isUserDetailsModalVisible}
+        onClose={() => setUserDetailsModalVisible(false)}
+        user={
+          {
+            name: selctedRecipient.name,
+            imageSource: selctedRecipient.imageSource,
+            description: 'Lorem ipsum',
+          } as any
+        }
       />
 
       <View style={styles.spacer} />
@@ -97,22 +113,69 @@ const UserListComponent = () => {
               </Text>
             </View>
           </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              setUserDetailsModalVisible(true);
+              setSelectedRecipient({
+                name: 'Rania Chaabane',
+                imageSource: require('../../../assets/images/hiba.jpg'),
+                description: 'Lorem ipsum',
+              } as any);
+            }}>
+            <RecipientItem
+              name="Rania Chaabane"
+              imageSource={require('../../../assets/images/hiba.jpg')}
+              description="Lorem ipsum"
+            />
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              setUserDetailsModalVisible(true);
+              setSelectedRecipient({
+                name: 'Adnan Khaled',
+                imageSource: require('../../../assets/images/adnan.jpg'),
+                description: 'Lorem ipsum',
+              } as any);
+            }}>
+            <RecipientItem
+              name="Adnan Khaled"
+              imageSource={require('../../../assets/images/adnan.jpg')}
+              description="Lorem ipsum"
+            />
+          </TouchableOpacity>
 
-          <RecipientItem
-            name="Rania Chaabane"
-            imageSource={require('../../../assets/images/hiba.jpg')}
-            description="Lorem ipsum"
-          />
-          <RecipientItem
-            name="Adnan Khaled"
-            imageSource={require('../../../assets/images/adnan.jpg')}
-            description="Lorem ipsum"
-          />
-          <RecipientItem
-            name="Najlaa Lassoued"
-            imageSource={require('../../../assets/images/najlaa.jpg')}
-            description="Lorem ipsum"
-          />
+          <TouchableOpacity
+            onPress={() => {
+              setUserDetailsModalVisible(true);
+              setSelectedRecipient({
+                name: 'Hiba Ben Ammar',
+                imageSource: require('../../../assets/images/cat.jpg'),
+                description: 'Lorem ipsum',
+              } as any);
+            }}>
+            <RecipientItem
+              name="Hiba Ben Ammar"
+              imageSource={require('../../../assets/images/cat.jpg')}
+              description="Lorem ipsum"
+            />
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            onPress={() => {
+              setUserDetailsModalVisible(true);
+              setSelectedRecipient({
+                name: 'Najlaa Lassoued',
+                imageSource: require('../../../assets/images/najlaa.jpg'),
+                description: 'Lorem ipsum',
+              } as any);
+            }}>
+            <RecipientItem
+              name="Najlaa Lassoued"
+              imageSource={require('../../../assets/images/najlaa.jpg')}
+              description="Lorem ipsum"
+            />
+          </TouchableOpacity>
+          <View style={{height: 100}} />
         </View>
       </ScrollView>
     </View>

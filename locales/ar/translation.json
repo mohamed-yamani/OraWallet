@@ -76,6 +76,10 @@
   "createWalletSubtitle": "أدير أموالك بأمان باستخدام عملية إنشاء المحفظة السهلة من ORA",
   "createWallet": "إنشاء محفظة",
   "payBasket": "ادفع سلة",
+  "mail": "البريد الإلكتروني",
+  "phone": "الهاتف",
+  "address": "العنوان",
+  "account_number": "رقم الحساب",
   "payOngoingBasket": "ادفع سلة جارية",
   "enterBillDetails": "أدخل تفاصيل الفاتورة",
   "billNumber": "رقم الفاتورة",
@@ -114,5 +118,6 @@
   "enterRecipientAddress": "أدخل عنوان المستلم",
   "recipientAccountNumber": "رقم حساب المستلم",
   "enterRecipientAccountNumber": "أدخل رقم حساب المستلم",
-  "chooseRecipient": "اختر المستلم"
+  "chooseRecipient": "اختر المستلم",
+  "sendMessage": "إرسال رسالة"
 }

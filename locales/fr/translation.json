@@ -113,5 +113,10 @@
   "enterRecipientAddress": "Entrez l'adresse du destinataire",
   "recipientAccountNumber": "Numéro de compte du destinataire",
   "enterRecipientAccountNumber": "Entrez le numéro de compte du destinataire",
+  "mail": "Mail",
+  "phone": "Téléphone",
+  "address": "Adresse",
+  "account_number": "Numéro de compte",
+  "sendMessage": "Envoyer un message",
   "loremText": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
 }
