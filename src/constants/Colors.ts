@@ -15,6 +15,8 @@ const Colors = {
     slateGray: '#48484A',
     red: '#FF0000',
     mutedBlueGray: '#F2F2F7',
+    orange: '#FFA500',
+    lightGray: '#D3D3D3',
 };
 
 export default Colors;
