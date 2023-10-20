@@ -78,13 +78,17 @@ const CountryCodePicker = ({setCountryCode}: {setCountryCode: any}) => {
             }}
             onPress={() => setModalVisible(true)}>
             <View style={{justifyContent: 'center', marginLeft: 5}}>
-              <Image
-                source={{
-                  uri: selectedArea ? selectedArea.flag : 'null',
-                }}
-                resizeMode="contain"
-                style={{width: 30, height: 20}}
-              />
+              {selectedArea && selectedArea?.flag !== '' ? (
+                <Image
+                  source={{
+                    uri: selectedArea ? selectedArea.flag : 'null',
+                  }}
+                  resizeMode="contain"
+                  style={{width: 30, height: 20}}
+                />
+              ) : (
+                <View />
+              )}
             </View>
             <View
               style={{justifyContent: 'center', marginLeft: 5, marginTop: 2}}>

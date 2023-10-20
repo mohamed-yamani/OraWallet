@@ -4,7 +4,7 @@ import Feather from 'react-native-vector-icons/Feather';
 import Colors from '../../constants/Colors';
 import {launchImageLibrary} from 'react-native-image-picker';
 const UploadButton = () => {
-  const [imageSource, setImageSource] = useState(null);
+  const [imageSource, setImageSource] = useState<any>(null);
 
   const openImagePicker = () => {
     const setSelectedImage = (imageUri: any) => {

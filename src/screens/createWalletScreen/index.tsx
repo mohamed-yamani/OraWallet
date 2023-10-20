@@ -29,6 +29,7 @@ import {
   HorizontalLine,
   IconTextEnhancedInput,
 } from '../../components/common/IconTextEnhancedInput';
+import GenderSelection from '../../components/GenderSelection';
 
 const {width: screenWidth, height: screenHeight} = Dimensions.get('window');
 
@@ -61,7 +62,7 @@ const CreateWalletScreen: React.FC = () => {
     password: '',
     transactionId: '',
     confirmPassword: '',
-    selectGender: 'MME',
+    selectGender: 'None',
   });
 
   const areRequiredFieldsCompleted = () => {
@@ -118,16 +119,31 @@ const CreateWalletScreen: React.FC = () => {
 
   return (
     <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      style={styles.container}>
-      <ScrollView style={{flex: 1}} showsVerticalScrollIndicator={false}>
+      style={{flex: 1}}
+      enabled={true}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'padding'}
+      keyboardVerticalOffset={Platform.OS === 'ios' ? 65 : -240}
+      accessibilityViewIsModal={true}
+      accessibilityLiveRegion="polite"
+      accessibilityRole="alert"
+      accessibilityLabel="alert"
+      accessibilityHint="alert"
+      accessibilityIgnoresInvertColors={false}
+      accessibilityState={{disabled: false}}
+      accessibilityElementsHidden={false}
+      importantForAccessibility="auto"
+      aria-expanded={true}>
+      <ScrollView
+        style={{flex: 1, backgroundColor: Colors.white}}
+        showsVerticalScrollIndicator={false}>
         <View
           style={[
             styles.container,
             {
               paddingTop: 30,
               alignItems: isRTL ? 'flex-end' : 'flex-start',
-              height: screenHeight - 18,
+              // height: screenHeight,
+              flex: 1,
             },
           ]}>
           <ConfirmationCodeInputModal
@@ -140,156 +156,179 @@ const CreateWalletScreen: React.FC = () => {
             }}
           />
 
-          <View style={{height: screenHeight - 120, width: '100%'}}>
-            <Text
-              style={[
-                styles.title,
-                {textAlign: isRTL ? 'right' : 'left', marginTop: 0},
-              ]}>
-              {t('createWallet')}
-            </Text>
+          <Text
+            style={[
+              styles.title,
+              {textAlign: isRTL ? 'right' : 'left', marginTop: 0},
+            ]}>
+            {t('createWallet')}
+          </Text>
 
-            <Text
-              style={[
-                styles.headerText,
-                {textAlign: isRTL ? 'right' : 'left'},
-              ]}>
-              {t('createWalletSubtitle')}
-            </Text>
+          <Text
+            style={[styles.headerText, {textAlign: isRTL ? 'right' : 'left'}]}>
+            {t('createWalletSubtitle')}
+          </Text>
 
-            <View style={styles.formInputWrapper}>
-              <IconTextEnhancedInput
-                svgComponent={<PersonIcon width={14} height={16} />}
-                icon="person"
-                placeholder={t('firstName')}
-                onChange={value => updateState({firstName: value})}
-              />
+          <View style={styles.formInputWrapper}>
+            <IconTextEnhancedInput
+              svgComponent={<PersonIcon width={14} height={16} />}
+              icon="person"
+              placeholder={t('firstName')}
+              onChange={value => updateState({firstName: value})}
+            />
 
-              <IconTextEnhancedInput
-                svgComponent={<PersonIcon width={14} height={16} />}
-                icon="person"
-                placeholder={t('lastName')}
-                onChange={value => updateState({lastName: value})}
-              />
+            <IconTextEnhancedInput
+              svgComponent={<PersonIcon width={14} height={16} />}
+              icon="person"
+              placeholder={t('lastName')}
+              onChange={value => updateState({lastName: value})}
+            />
 
-              <IconTextEnhancedInput
-                svgComponent={<KeySvg width={14} height={16} />}
-                icon="vpn-key"
-                placeholder={t('walletPin')}
-                secureTextEntry={!state.showPin}
-                rightIcon={state.showPin ? 'visibility-off' : 'visibility'}
-                onRightIconPress={() => updateState({showPin: !state.showPin})}
-                onChange={value => updateState({walletPin: value})}
-              />
+            <IconTextEnhancedInput
+              svgComponent={<KeySvg width={14} height={16} />}
+              icon="vpn-key"
+              placeholder={t('walletPin')}
+              secureTextEntry={!state.showPin}
+              rightIcon={state.showPin ? 'visibility-off' : 'visibility'}
+              onRightIconPress={() => updateState({showPin: !state.showPin})}
+              onChange={value => updateState({walletPin: value})}
+            />
 
-              <GenderSelector
-                selectedGender={state.selectGender}
-                onGenderChange={value => updateState({selectGender: value})}
-              />
+            {/* <GenderSelector
+              selectedGender={state.selectGender}
+              onGenderChange={value => updateState({selectGender: value})}
+            /> */}
+            <GenderSelection
+              selectedGender={state.selectGender}
+              onGenderChange={(value: string) =>
+                updateState({selectGender: value})
+              }
+            />
 
-              <IconTextEnhancedInput
-                svgComponent={<AtSvg width={16} height={16} />}
-                icon="email"
-                placeholder={t('emailAddress')}
-                keyboardType="email-address"
-                onChange={value => updateState({emailAddress: value})}
-              />
+            <IconTextEnhancedInput
+              svgComponent={<AtSvg width={16} height={16} />}
+              icon="email"
+              placeholder={t('emailAddress')}
+              keyboardType="email-address"
+              onChange={value => updateState({emailAddress: value})}
+            />
 
-              <View style={[styles.inputContainer, {width: screenWidth - 40}]}>
-                {/* <MaterialIcons name="phone" size={24} color={Colors.primary} /> */}
-                <PhoneSvg width={16} height={16} />
-                <HorizontalLine />
-                <View style={{width: 60, height: 20}}>
-                  <CountryCodePicker
-                    setCountryCode={(value: string) =>
-                      updateState({countryCode: value})
-                    }
-                  />
-                </View>
-                <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                  <Text style={{fontSize: 16}}>{`   `}</Text>
-                  <View style={{height: '100%', backgroundColor: 'gray'}} />
-                  <TextInput
-                    placeholder="0 00 00 00 00"
-                    keyboardType="number-pad"
-                    value={state.phone}
-                    onChangeText={value => updateState({phone: value})}
-                    style={styles.input}
-                  />
-                </View>
-              </View>
+            {/* Phone Number */}
+            {phoneInput()}
 
-              <IconTextEnhancedInput
-                svgComponent={<KeySvg width={14} height={16} />}
-                icon="lock"
-                placeholder={t('password')}
-                secureTextEntry={!state.showPassword}
-                rightIcon={state.showPassword ? 'visibility-off' : 'visibility'}
-                onRightIconPress={() =>
-                  updateState({showPassword: !state.showPassword})
-                }
-                onChange={value => updateState({password: value})}
-              />
+            {/* Password */}
+            <IconTextEnhancedInput
+              svgComponent={<KeySvg width={14} height={16} />}
+              icon="lock"
+              placeholder={t('password')}
+              secureTextEntry={!state.showPassword}
+              rightIcon={state.showPassword ? 'visibility-off' : 'visibility'}
+              onRightIconPress={() =>
+                updateState({showPassword: !state.showPassword})
+              }
+              onChange={value => updateState({password: value})}
+            />
 
-              <IconTextEnhancedInput
-                svgComponent={<KeySvg width={14} height={16} />}
-                icon="lock"
-                placeholder={t('confirmPassword')}
-                secureTextEntry={!state.showConfirmPassword}
-                rightIcon={
-                  state.showConfirmPassword ? 'visibility-off' : 'visibility'
-                }
-                onRightIconPress={() =>
-                  updateState({showConfirmPassword: !state.showConfirmPassword})
-                }
-                onChange={value => updateState({confirmPassword: value})}
-              />
+            {/* Confirm Password */}
+            <IconTextEnhancedInput
+              svgComponent={<KeySvg width={14} height={16} />}
+              icon="lock"
+              placeholder={t('confirmPassword')}
+              secureTextEntry={!state.showConfirmPassword}
+              rightIcon={
+                state.showConfirmPassword ? 'visibility-off' : 'visibility'
+              }
+              onRightIconPress={() =>
+                updateState({showConfirmPassword: !state.showConfirmPassword})
+              }
+              onChange={value => updateState({confirmPassword: value})}
+            />
 
-              <View style={{flex: 1}}></View>
-
-              <Button
-                label={t('continue')}
-                onPress={() => {
-                  if (areRequiredFieldsCompleted()) {
-                    updateState({modalVisible: true});
-                    creatWallet();
-                  } else {
-                    Alert.alert(
-                      t('Incomplete Information'),
-                      t(
-                        'Please fill out all required fields and ensure the passwords match.',
-                      ),
-                      [
-                        {
-                          text: t('OK'),
-                          onPress: () => console.log('OK Pressed'),
-                        },
-                      ],
-                      {cancelable: true},
-                    );
-                  }
-                }}
-                style={{
-                  backgroundColor: areRequiredFieldsCompleted()
-                    ? Colors.primary
-                    : '#d3d3d3',
-                  marginBottom: 5,
-                  marginTop: 20,
-                }}
-                leftIcon={
-                  <MaterialIcons
-                    name={isRTL ? 'arrow-back-ios' : 'arrow-forward-ios'}
-                    size={18}
-                    color="white"
-                  />
-                }
-              />
-            </View>
+            <View style={{height: 70}} />
           </View>
         </View>
       </ScrollView>
+      {submitButton()}
     </KeyboardAvoidingView>
   );
+
+  function phoneInput() {
+    return (
+      <View style={[styles.inputContainer, {width: screenWidth - 40}]}>
+        <PhoneSvg width={16} height={16} />
+        <HorizontalLine />
+        <View style={{width: 60, height: 20}}>
+          <CountryCodePicker
+            setCountryCode={(value: string) =>
+              updateState({countryCode: value})
+            }
+          />
+        </View>
+        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+          <Text style={{fontSize: 16}}>{`   `}</Text>
+          <View style={{height: '100%', backgroundColor: 'gray'}} />
+          <TextInput
+            placeholder="0 00 00 00 00"
+            keyboardType="number-pad"
+            value={state.phone}
+            onChangeText={value => updateState({phone: value})}
+            style={styles.input}
+          />
+        </View>
+      </View>
+    );
+  }
+
+  function submitButton() {
+    return (
+      <View
+        style={{
+          position: 'absolute' as 'absolute',
+          bottom: 0,
+          width: '100%',
+          paddingHorizontal: 20,
+          backgroundColor: Colors.white,
+        }}>
+        <Button
+          label={t('continue')}
+          onPress={() => {
+            if (areRequiredFieldsCompleted()) {
+              updateState({modalVisible: true});
+              creatWallet();
+            } else {
+              Alert.alert(
+                t('Incomplete Information'),
+                t(
+                  'Please fill out all required fields and ensure the passwords match.',
+                ),
+                [
+                  {
+                    text: t('OK'),
+                    onPress: () => console.log('OK Pressed'),
+                  },
+                ],
+                {cancelable: true},
+              );
+            }
+          }}
+          style={{
+            backgroundColor: areRequiredFieldsCompleted()
+              ? Colors.primary
+              : '#d3d3d3',
+            marginBottom: 5,
+            marginTop: 20,
+          }}
+          leftIcon={
+            <MaterialIcons
+              name={isRTL ? 'arrow-back-ios' : 'arrow-forward-ios'}
+              size={18}
+              color="white"
+            />
+          }
+        />
+      </View>
+    );
+  }
 };
 
 export default CreateWalletScreen;

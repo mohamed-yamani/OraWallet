@@ -25,7 +25,13 @@ type LayoutChangeEvent = {
   };
 };
 
-const telecomProviders = [
+type ServiceEntity = {
+  id: number;
+  name: string;
+  image: ImageSourcePropType;
+};
+
+const telecomProviders: ServiceEntity[] = [
   {
     id: 1,
     name: 'marocTelecom',
@@ -43,7 +49,7 @@ const telecomProviders = [
   },
 ];
 
-const utilityProviders = [
+const utilityProviders: ServiceEntity[] = [
   {
     id: 5,
     name: 'ONEE',
@@ -76,7 +82,7 @@ const utilityProviders = [
   },
 ];
 
-const taxAndAdministrationProviders = [
+const taxAndAdministrationProviders: ServiceEntity[] = [
   {
     id: 1,
     name: 'MunicipalTax',
@@ -98,12 +104,6 @@ const taxAndAdministrationProviders = [
     image: require('../../../assets/images/health-department.png'),
   },
 ];
-
-type ServiceEntity = {
-  id: number;
-  name: string;
-  image: ImageSourcePropType;
-};
 
 function ShoppingCartComponent() {
   const [isExpanded, setExpanded] = useState({});
@@ -161,7 +161,6 @@ function ShoppingCartComponent() {
         showsVerticalScrollIndicator={false}
         style={styles.scrollView}>
         {/* Téléphonie et Internet */}
-
         <CollapsibleItemBox
           buttonId="button1"
           title={t('telephonyAndInternet')}
@@ -174,9 +173,7 @@ function ShoppingCartComponent() {
         />
 
         {/* Eau et Electricité */}
-
         <View style={styles.divider} />
-
         <CollapsibleItemBox
           buttonId="button2"
           title={t('waterAndElectricity')}
@@ -190,7 +187,6 @@ function ShoppingCartComponent() {
 
         {/* Taxes et Administrations */}
         <View style={styles.divider} />
-
         <CollapsibleItemBox
           buttonId="button3"
           title={t('taxesAndAdministrations')}
@@ -224,7 +220,7 @@ function CollapsibleItemBox({
   serviceList: ServiceEntity[];
 }) {
   const animatedHeight = useRef(new Animated.Value(72)).current;
-  const rotateValue = useRef(new Animated.Value(0)).current; // For arrow rotation
+  const rotateValue = useRef(new Animated.Value(0)).current;
 
   const [isExpanded, setExpanded] = useState(false);
 
@@ -233,8 +229,6 @@ function CollapsibleItemBox({
     outputRange: ['0deg', '180deg'],
   });
   const {t} = useTranslation();
-
-  // const {isRTL} = useLayout();
   const isRTL = false;
 
   const toggleExpansion = (buttonId: string) => () => {
@@ -247,7 +241,7 @@ function CollapsibleItemBox({
       Animated.timing(rotateValue, {
         toValue: isExpanded ? 0 : 1,
         duration: 300,
-        useNativeDriver: true, // rotation uses native driver
+        useNativeDriver: true,
       }),
     ]).start(() => {
       setExpanded(!isExpanded);
@@ -319,7 +313,6 @@ function CollapsibleItemBox({
             style={{
               flexDirection: 'column',
               justifyContent: 'flex-start',
-              // alignItems: isRTL ? 'space-between' : 'flex-start',
               flex: 10,
             }}>
             <Text style={styles.factureTitle}>{title}</Text>
