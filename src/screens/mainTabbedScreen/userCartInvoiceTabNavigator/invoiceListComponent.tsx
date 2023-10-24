@@ -22,7 +22,7 @@ function InvoiceListComponent() {
       style={[
         styles.facturesScreenContainer,
         {
-          height: SCREEN_HEIGHT - CARD_HEIGHT - 200,
+          height: SCREEN_HEIGHT - CARD_HEIGHT - 165,
           width: SCREEN_WIDTH,
         },
       ]}>

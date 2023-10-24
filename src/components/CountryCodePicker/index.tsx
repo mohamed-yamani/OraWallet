@@ -8,6 +8,7 @@ import {
   Image,
   Dimensions,
   TouchableOpacity,
+  Platform,
 } from 'react-native';
 
 interface Country {
@@ -91,8 +92,16 @@ const CountryCodePicker = ({setCountryCode}: {setCountryCode: any}) => {
               )}
             </View>
             <View
-              style={{justifyContent: 'center', marginLeft: 5, marginTop: 2}}>
-              <Text style={{color: '#111', fontSize: 14}}>
+              style={{
+                justifyContent: 'center',
+                marginLeft: 5,
+                marginTop: Platform.OS === 'ios' ? 2 : 0,
+              }}>
+              <Text
+                style={{
+                  color: '#111',
+                  fontSize: 14,
+                }}>
                 {selectedArea?.callingCode}
               </Text>
             </View>

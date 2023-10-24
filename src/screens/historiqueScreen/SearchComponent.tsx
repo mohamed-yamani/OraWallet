@@ -13,6 +13,21 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {Transaction} from '../../types/wallet';
 
+// export type Transaction = {
+//   reference: string;
+//   amount: string; // If the amount can be a number, then change to 'number'
+//   phonenum: string;
+//   accountNumber: string;
+//   status: string;
+//   statusdate: string; // If you're sure it'll always be in this format, then string is fine.
+//   statusYear: string;
+//   type: string;
+//   transSign: string;
+//   lastName: string;
+//   firstName: string;
+//   libelle: string;
+// };
+
 interface SearchComponentProps {
   setTransactionsData: React.Dispatch<React.SetStateAction<Transaction[]>>;
   transactionsData: Transaction[];

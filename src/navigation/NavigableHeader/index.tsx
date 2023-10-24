@@ -13,6 +13,7 @@ import Colors from '../../constants/Colors';
 import Carousel from '../../components/common/carousel';
 import {postToWallet} from '../../api/api';
 import {Account, Wallet} from '../../types/wallet';
+import LoadingCircle from '../../components/LoadingCircle';
 
 const CustomHeader: React.FC<{
   title: string;
@@ -103,16 +104,20 @@ const CarouselWithHeader: React.FC = () => {
     fetchWalletData();
   }, []);
 
-  if (!walletData) {
-    return <Text>Loading...</Text>;
-  }
+  // if (!walletData) {
+  //   return <Text>Loading...</Text>;
+  // }
 
   return (
     <View style={{height: CARD_HEIGHT + 60}}>
-      <Carousel
-        data={walletData.accounts || []}
-        walletBalance={walletData.walletBalance || '0'}
-      />
+      {walletData ? (
+        <Carousel
+          data={walletData.accounts || []}
+          walletBalance={walletData.walletBalance || '0'}
+        />
+      ) : (
+        <LoadingCircle />
+      )}
     </View>
   );
 };

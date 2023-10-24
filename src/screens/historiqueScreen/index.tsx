@@ -16,6 +16,7 @@ import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {Transaction, TransactionsData, Wallet} from '../../types/wallet';
 import {postToWallet} from '../../api/api';
 import convertDate from '../../utils/dateUtils';
+import LoadingCircle from '../../components/LoadingCircle';
 
 interface ItemProps {
   title: string;
@@ -138,7 +139,18 @@ const HistoriqueScreen = ({isScreen = true}: Props = {isScreen: true}) => {
   }, []);
 
   if (!walletData) {
-    return <Text>Loading...</Text>;
+    return (
+      <View
+        style={{
+          flex: 1,
+          alignItems: 'center',
+          justifyContent: 'center',
+          backgroundColor: Colors.white,
+          paddingTop: isScreen ? 0 : 60,
+        }}>
+        <LoadingCircle />
+      </View>
+    );
   }
 
   return (

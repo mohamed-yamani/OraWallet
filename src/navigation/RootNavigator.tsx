@@ -9,9 +9,6 @@ import {Colors} from 'react-native/Libraries/NewAppScreen';
 import CustomHeader from './NavigableHeader';
 import {PayWalletStackGroup} from './PayWalletStackNavigation';
 import SubscriptionFeeScreen from '../screens/SubscriptionFeeScreen';
-import ChatScreen from '../screens/ChatScreen';
-import UserListScreen from '../screens/UserListScreen';
-import {ChatStackGroup} from './ChatStackNavigation';
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
@@ -39,8 +36,6 @@ function MyDrawer() {
         drawerLabelStyle: {
           fontWeight: 'bold',
         },
-
-        // headerLeft:  <HeaderLeft />,
       }}
       initialRouteName="Home">
       <Drawer.Screen
@@ -57,20 +52,7 @@ function MyDrawer() {
           ),
         })}
       />
-      {/* <Drawer.Screen
-        name="Settings"
-        component={SettingsScreen}
-        options={({navigation}) => ({
-          header: () => (
-            <CustomHeader
-              title={'Settings'}
-              navigation={navigation}
-              showCarousel={true}
-              showCloseButton={false}
-            />
-          ),
-        })}
-      /> */}
+
       <Drawer.Screen
         name="Pay Wallet"
         component={PayWalletStackGroup}
@@ -91,14 +73,6 @@ function MyDrawer() {
               showCloseButton={false}
             />
           ),
-        })}
-      />
-
-      <Drawer.Screen
-        name="ChatStackGroup"
-        component={ChatStackGroup}
-        options={() => ({
-          headerShown: false,
         })}
       />
     </Drawer.Navigator>
