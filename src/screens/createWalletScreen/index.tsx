@@ -119,22 +119,18 @@ const CreateWalletScreen: React.FC = () => {
 
   return (
     <KeyboardAvoidingView
-      style={{flex: 1}}
+      style={{flex: 1, backgroundColor: Colors.white}}
       enabled={true}
-      behavior={Platform.OS === 'ios' ? 'padding' : 'padding'}
-      keyboardVerticalOffset={Platform.OS === 'ios' ? 65 : -240}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      keyboardVerticalOffset={Platform.OS === 'ios' ? 65 : -15}
       accessibilityViewIsModal={true}
-      accessibilityLiveRegion="polite"
-      accessibilityRole="alert"
-      accessibilityLabel="alert"
-      accessibilityHint="alert"
       accessibilityIgnoresInvertColors={false}
       accessibilityState={{disabled: false}}
       accessibilityElementsHidden={false}
       importantForAccessibility="auto"
       aria-expanded={true}>
       <ScrollView
-        style={{flex: 1, backgroundColor: Colors.white}}
+        style={{flex: 1, backgroundColor: Colors.white, marginBottom: 30}}
         showsVerticalScrollIndicator={false}>
         <View
           style={[
@@ -184,6 +180,17 @@ const CreateWalletScreen: React.FC = () => {
               onChange={value => updateState({lastName: value})}
             />
 
+            {/* Phone Number */}
+            {phoneInput()}
+
+            <IconTextEnhancedInput
+              svgComponent={<AtSvg width={16} height={16} />}
+              icon="email"
+              placeholder={t('emailAddress')}
+              keyboardType="email-address"
+              onChange={value => updateState({emailAddress: value})}
+            />
+
             <IconTextEnhancedInput
               svgComponent={<KeySvg width={14} height={16} />}
               icon="vpn-key"
@@ -204,17 +211,6 @@ const CreateWalletScreen: React.FC = () => {
                 updateState({selectGender: value})
               }
             />
-
-            <IconTextEnhancedInput
-              svgComponent={<AtSvg width={16} height={16} />}
-              icon="email"
-              placeholder={t('emailAddress')}
-              keyboardType="email-address"
-              onChange={value => updateState({emailAddress: value})}
-            />
-
-            {/* Phone Number */}
-            {phoneInput()}
 
             {/* Password */}
             <IconTextEnhancedInput

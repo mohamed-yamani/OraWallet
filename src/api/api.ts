@@ -14,7 +14,7 @@ export const postToWallet = async (walletId: string, data: PostData, endpointurl
             .join('&');
     }
 
-    const endpoint = `http://10.31.3.100:4000/api/v1/${endpointurl}`
+    const endpoint = `http://10.31.3.104:4000/api/v1/${endpointurl}`
 
     const response = await fetch(endpoint, {
         method: 'POST',

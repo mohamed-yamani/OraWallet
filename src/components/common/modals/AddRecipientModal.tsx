@@ -13,6 +13,7 @@ import Colors from '../../../constants/Colors';
 import {useTranslation} from 'react-i18next';
 import React from 'react';
 import UploadButton from '../../UploadButton';
+import {ScrollView} from 'react-native-gesture-handler';
 
 export default function AddRecipientModal({
   visible,
@@ -34,37 +35,43 @@ export default function AddRecipientModal({
             styles.dialog,
             {height: Dimensions.get('window').height - 100},
           ]}>
-          <TouchableOpacity style={styles.closeIconContainer} onPress={onClose}>
-            <AntDesign name="close" size={24} color="black" />
-          </TouchableOpacity>
-          <Text style={styles.titleText}>{t('addRecipient')}</Text>
-          <Text style={styles.subtitleText}>{t('enterRecipientDetails')}</Text>
-          <SectionTitle title={t('recipientName')} />
-          <IconTextEnhancedInput placeholder={t('enterRecipientName')} />
+          <ScrollView>
+            <TouchableOpacity
+              style={styles.closeIconContainer}
+              onPress={onClose}>
+              <AntDesign name="close" size={24} color="black" />
+            </TouchableOpacity>
+            <Text style={styles.titleText}>{t('addRecipient')}</Text>
+            <Text style={styles.subtitleText}>
+              {t('enterRecipientDetails')}
+            </Text>
+            <SectionTitle title={t('recipientName')} />
+            <IconTextEnhancedInput placeholder={t('enterRecipientName')} />
 
-          <SectionTitle title={t('recipientAccountNumber')} />
-          <IconTextEnhancedInput
-            placeholder={t('enterRecipientAccountNumber')}
-          />
+            <SectionTitle title={t('recipientAccountNumber')} />
+            <IconTextEnhancedInput
+              placeholder={t('enterRecipientAccountNumber')}
+            />
 
-          <SectionTitle title={t('recipientPhone')} />
-          <IconTextEnhancedInput placeholder={t('enterRecipientPhone')} />
-          <SectionTitle title={t('recipientAddress')} />
-          <IconTextEnhancedInput placeholder={t('enterRecipientAddress')} />
-          <SectionTitle title={t('photo')} />
-          <UploadButton />
-          <Button
-            label={t('continue')}
-            onPress={onContinue}
-            style={{backgroundColor: Colors.primary, marginTop: 20}}
-            leftIcon={
-              <AntDesign
-                name={isRTL ? 'left' : 'right'}
-                size={18}
-                color="white"
-              />
-            }
-          />
+            <SectionTitle title={t('recipientPhone')} />
+            <IconTextEnhancedInput placeholder={t('enterRecipientPhone')} />
+            <SectionTitle title={t('recipientAddress')} />
+            <IconTextEnhancedInput placeholder={t('enterRecipientAddress')} />
+            <SectionTitle title={t('photo')} />
+            <UploadButton />
+            <Button
+              label={t('continue')}
+              onPress={onContinue}
+              style={{backgroundColor: Colors.primary, marginTop: 20}}
+              leftIcon={
+                <AntDesign
+                  name={isRTL ? 'left' : 'right'}
+                  size={18}
+                  color="white"
+                />
+              }
+            />
+          </ScrollView>
         </View>
       </View>
     </Modal>

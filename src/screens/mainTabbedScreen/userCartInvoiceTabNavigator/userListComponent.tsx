@@ -51,7 +51,7 @@ const UserListComponent = () => {
     <View
       style={[
         styles.mainContainer,
-        {height: SCREEN_HEIGHT - CARD_HEIGHT - 180},
+        {height: SCREEN_HEIGHT - CARD_HEIGHT - 165},
       ]}>
       <AddRecipientModal
         visible={isAddRecipientModalVisible}
